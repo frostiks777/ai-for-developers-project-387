@@ -60,10 +60,10 @@
 - Генерация повторяется одной командой, сгенерированное руками не правится.
 
 Статус: `[x] выполнено` (2026-09-24):
-- Карта решений [#10](https://github.com/frostiks777/ai-for-developers-project-386/issues/10) с тикетами #11–#18 (все закрыты).
+- Карта решений [#10](https://github.com/frostiks777/ai-for-developers-project-387/issues/10) с тикетами #11–#18 (все закрыты).
 - Спецификация: `docs/spec.md` (+ продублирована в трекере, #18).
-- TypeSpec-контракт: `api/main.tsp`, `api/tspconfig.yaml` ([#16](https://github.com/frostiks777/ai-for-developers-project-386/issues/16)).
-- Генерация одной командой: `npm run api:generate` (`scripts/api-generate.mjs`) → `docs/openapi/openapi.yaml`, клиентский SDK `src/api/generated/`, серверные типы `server/generated/api-types.ts` ([#17](https://github.com/frostiks777/ai-for-developers-project-386/issues/17)); повторная генерация детерминирована, сгенерированное не правится руками.
+- TypeSpec-контракт: `api/main.tsp`, `api/tspconfig.yaml` ([#16](https://github.com/frostiks777/ai-for-developers-project-387/issues/16)).
+- Генерация одной командой: `npm run api:generate` (`scripts/api-generate.mjs`) → `docs/openapi/openapi.yaml`, клиентский SDK `src/api/generated/`, серверные типы `server/generated/api-types.ts` ([#17](https://github.com/frostiks777/ai-for-developers-project-387/issues/17)); повторная генерация детерминирована, сгенерированное не правится руками.
 - Решения по домену/данным/тестам: [ADR-0011](adr/0011-event-types-status-and-availability-ranges.md), тикеты #11/#12/#14.
 - Проверки: `lint`/`typecheck`/`test` (109)/`build` — зелёные.
 
@@ -90,9 +90,9 @@
 
 Статус: `[x] выполнено` (2026-09-24):
 - Тикеты T1–T9 (#19–#27) закрыты: миграции (`server/db/migrate.ts`), `event_types`/`status`/`availability_ranges`, слоты по типу и дате, жизненный цикл брони, отмена/перенос по публичному UUID, страница владельца.
-- Фронт ходит в API через сгенерированный SDK: `src/api/sdk.ts` + `src/api/mappers.ts`, ручной `src/api/client.ts` удалён ([#25](https://github.com/frostiks777/ai-for-developers-project-386/issues/25)).
-- Тесты: API-интеграционные (`app.inject`) + RTL + контрактные (`server/contract.test.ts`, ajv по OpenAPI) + e2e Playwright (`e2e/`, гейт `npm run test:e2e`) ([#26](https://github.com/frostiks777/ai-for-developers-project-386/issues/26), [ADR-0012](adr/0012-contract-tests-and-e2e.md)).
-- Реализация сверена с контрактом: `UtcDateTime`, `Booking.timeZone`, конверт ошибок `{ error: ApiError }` ([#27](https://github.com/frostiks777/ai-for-developers-project-386/issues/27)).
+- Фронт ходит в API через сгенерированный SDK: `src/api/sdk.ts` + `src/api/mappers.ts`, ручной `src/api/client.ts` удалён ([#25](https://github.com/frostiks777/ai-for-developers-project-387/issues/25)).
+- Тесты: API-интеграционные (`app.inject`) + RTL + контрактные (`server/contract.test.ts`, ajv по OpenAPI) + e2e Playwright (`e2e/`, гейт `npm run test:e2e`) ([#26](https://github.com/frostiks777/ai-for-developers-project-387/issues/26), [ADR-0012](adr/0012-contract-tests-and-e2e.md)).
+- Реализация сверена с контрактом: `UtcDateTime`, `Booking.timeZone`, конверт ошибок `{ error: ApiError }` ([#27](https://github.com/frostiks777/ai-for-developers-project-387/issues/27)).
 - Проверки: `lint`/`typecheck`/`test` (141)/`build` + `test:e2e` (2) — зелёные.
 
 ---

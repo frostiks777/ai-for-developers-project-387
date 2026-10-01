@@ -6,7 +6,7 @@
 [`../spec.md`](../spec.md) и [`../adr/`](../adr/README.md); стек и правила — в [`../../AGENTS.md`](../../AGENTS.md).
 
 Перенос выполнен 2026-09-30, issue
-[#100](https://github.com/frostiks777/ai-for-developers-project-386/issues/100). Каноничная замена каждого
+[#100](https://github.com/frostiks777/ai-for-developers-project-387/issues/100). Каноничная замена каждого
 документа указана в таблице ниже.
 
 | Документ | Почему в архиве | Актуальная замена |

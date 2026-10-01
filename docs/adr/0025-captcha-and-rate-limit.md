@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-09-28. Закрывает [#46](https://github.com/frostiks777/ai-for-developers-project-386/issues/46).
+Accepted — 2026-09-28. Закрывает [#46](https://github.com/frostiks777/ai-for-developers-project-387/issues/46).
 
 ## Context
 

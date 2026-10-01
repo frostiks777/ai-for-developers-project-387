@@ -1,6 +1,6 @@
 # Настройка email-уведомлений: Brevo + Render + cron-job.org
 
-Пошаговая инструкция для продакшена ([ADR-0026](adr/0026-email-notifications.md), фича [#83](https://github.com/frostiks777/ai-for-developers-project-386/issues/83)).
+Пошаговая инструкция для продакшена ([ADR-0026](adr/0026-email-notifications.md), фича [#83](https://github.com/frostiks777/ai-for-developers-project-387/issues/83)).
 Провайдер — **Brevo HTTP API** (free: 300 писем/день, без карты, домен не обязателен). SMTP не
 используется: Render Free блокирует порты 25/465/587.
 
@@ -153,7 +153,7 @@ curl.exe -i -X POST https://calendar-slots-app.onrender.com/api/internal/reminde
 | Письма уходят только на свой адрес | Использован `onboarding@…`-подобный песочный отправитель — нужен свой подтверждённый sender |
 | `/api/internal/reminders` → `404` | `REMINDERS_SECRET` не задан в Render (endpoint выключен) |
 | `/api/internal/reminders` → `401` | В заголовке cron `X-Reminders-Secret` другое значение, чем в Render |
-| cron получает `415 Unsupported Media Type` | Старый деплой принимал только `json`/`text`. Обнови стенд (фикс [#86](https://github.com/frostiks777/ai-for-developers-project-386/issues/86)): endpoint теперь принимает любой `Content-Type` и пустое тело |
+| cron получает `415 Unsupported Media Type` | Старый деплой принимал только `json`/`text`. Обнови стенд (фикс [#86](https://github.com/frostiks777/ai-for-developers-project-387/issues/86)): endpoint теперь принимает любой `Content-Type` и пустое тело |
 | Письма в «Спаме» | Нет домена и SPF/DKIM/DMARC (см. шаг 2); попросите получателей отметить «Не спам» |
 | Превышение лимита | Free-план Brevo — 300 писем/день. Напоминания + подтверждения при демо-нагрузке укладываются |
 

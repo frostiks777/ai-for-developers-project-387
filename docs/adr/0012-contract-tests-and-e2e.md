@@ -6,7 +6,7 @@ Accepted — 2026-09-24.
 
 ## Context
 
-Спецификация (`docs/spec.md` §7) и решение тикета [#14](https://github.com/frostiks777/ai-for-developers-project-386/issues/14) требуют трёх уровней проверки: API-интеграционные (Vitest + `app.inject()`), UI (RTL + jsdom) и сквозной сценарий в браузере. Дополнительно нужно автоматически проверять, что реализация не разошлась с контрактом `api/main.tsp` → `docs/openapi/openapi.yaml`.
+Спецификация (`docs/spec.md` §7) и решение тикета [#14](https://github.com/frostiks777/ai-for-developers-project-387/issues/14) требуют трёх уровней проверки: API-интеграционные (Vitest + `app.inject()`), UI (RTL + jsdom) и сквозной сценарий в браузере. Дополнительно нужно автоматически проверять, что реализация не разошлась с контрактом `api/main.tsp` → `docs/openapi/openapi.yaml`.
 
 Контракт и реализация исторически разошлись: `/api/v1/hosts/:slug/settings` отдавал поле `timezone` (строчная) и `availability`, `Booking` не содержал обязательный по контракту `timeZone`, а optional-поля (`clientPhone`, `clientNotes`, `description`, `date`) в реальности приходили как `null`.
 

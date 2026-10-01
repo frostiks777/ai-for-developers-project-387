@@ -1,7 +1,7 @@
 # Календарь звонков
 
-[![hexlet-check](https://github.com/frostiks777/ai-for-developers-project-386/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/frostiks777/ai-for-developers-project-386/actions)
-[![CI](https://github.com/frostiks777/ai-for-developers-project-386/actions/workflows/ci.yml/badge.svg)](https://github.com/frostiks777/ai-for-developers-project-386/actions/workflows/ci.yml)
+[![hexlet-check](https://github.com/frostiks777/ai-for-developers-project-387/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/frostiks777/ai-for-developers-project-387/actions)
+[![CI](https://github.com/frostiks777/ai-for-developers-project-387/actions/workflows/ci.yml/badge.svg)](https://github.com/frostiks777/ai-for-developers-project-387/actions/workflows/ci.yml)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white) ![Fastify](https://img.shields.io/badge/Fastify-5-FFFFFF?logo=fastify&logoColor=black) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white) ![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white) ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
 
@@ -72,8 +72,8 @@ asciinema upload demo.cast
 Требуется Node.js 22 или 24 (LTS).
 
 ```bash
-git clone https://github.com/frostiks777/ai-for-developers-project-386.git
-cd ai-for-developers-project-386
+git clone https://github.com/frostiks777/ai-for-developers-project-387.git
+cd ai-for-developers-project-387
 npm ci
 ```
 

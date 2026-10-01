@@ -124,13 +124,13 @@ npm run api:generate
 
 - **Сетка слотов под длительность типа.** Слоты генерируются с шагом `slotDurationMin` (MVP 30 мин); длительность встречи берётся из выбранного типа. Отдельная сетка под 15/45/60 мин — бэклог.
 - **`status` в UI.** Дашборд показывает только `confirmed`; отменённые скрыты. Отмена/перенос — через `/api/v1` ([ADR-0011](adr/0011-event-types-status-and-availability-ranges.md)).
-- **Миграция на SDK.** Выполнена ([#25](https://github.com/frostiks777/ai-for-developers-project-386/issues/25), [ADR-0012](adr/0012-contract-tests-and-e2e.md)): ручной `src/api/client.ts` удалён.
+- **Миграция на SDK.** Выполнена ([#25](https://github.com/frostiks777/ai-for-developers-project-387/issues/25), [ADR-0012](adr/0012-contract-tests-and-e2e.md)): ручной `src/api/client.ts` удалён.
 - **Совместимость легаси `/api/*`.** Легаси-маршруты сохранены как есть; v1 — источник истины. Старые БД приводятся миграцией (`server/db/migrate.ts`, backfill `eventTypeId`/`status`).
 - **Состав e2e.** Сквозной сценарий гостя + конфликт слотов (в т.ч. другой тип) — `e2e/guest-booking.spec.ts`.
 
 ## 10. Ссылки
 
-- Тикет-карта: [#10](https://github.com/frostiks777/ai-for-developers-project-386/issues/10) и дочерние #11–#18.
+- Тикет-карта: [#10](https://github.com/frostiks777/ai-for-developers-project-387/issues/10) и дочерние #11–#18.
 - Контракт: `api/main.tsp`, `docs/openapi/openapi.yaml`.
 - Словарь: `CONTEXT.md`. ADR: `docs/adr/README.md`.
 - Research: `docs/research/typespec-toolchain.md`.

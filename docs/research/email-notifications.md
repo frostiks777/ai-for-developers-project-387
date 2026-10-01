@@ -170,5 +170,5 @@
 - [ ] Hard-bounce получатели — в suppression (не слать повторно); подключить вебхуки bounce/complaint провайдера. → **не сделано**, в бэклоге
 - [x] В каждом письме `text`+`html` версии, честные Subject/From, без спам-маркеров; опционально `List-Unsubscribe` заголовки. → `server/email-templates.ts`, тесты `email-templates.test.ts` (8)
 - [x] Без ключа провайдера отправка — no-op; dev/CI/e2e без сети (in-memory транспорт; Ethereal/Mailtrap только локально). → env `EMAIL_API_KEY`
-- [x] Секрет cron-endpoint (`REMINDERS_SECRET`) + rate-limit на нём; напоминание идемпотентно (повторный вызов не дублирует письма). → заголовок `X-Reminders-Secret`, без секрета — `404`; фикс [#86](https://github.com/frostiks777/ai-for-developers-project-386/issues/86) (scoped content-type parser)
+- [x] Секрет cron-endpoint (`REMINDERS_SECRET`) + rate-limit на нём; напоминание идемпотентно (повторный вызов не дублирует письма). → заголовок `X-Reminders-Secret`, без секрета — `404`; фикс [#86](https://github.com/frostiks777/ai-for-developers-project-387/issues/86) (scoped content-type parser)
 - [ ] Регистрация домена в Google Postmaster Tools + мониторинг спам-рейта (< 0.3%, цель ≤ 0.1%) и логов провайдера. → зависит от домена

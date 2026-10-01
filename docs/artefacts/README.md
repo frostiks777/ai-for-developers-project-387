@@ -1,7 +1,7 @@
 # Мобильный аудит вёрстки - issue #49
 
 Результаты прогонов мобильной версии (issue
-[#49](https://github.com/frostiks777/ai-for-developers-project-386/issues/49)).
+[#49](https://github.com/frostiks777/ai-for-developers-project-387/issues/49)).
 
 ## Что здесь
 
@@ -15,7 +15,7 @@
 ## Найденные дефекты
 
 Полный чек-лист с шагами воспроизведения и критериями — в issue
-[#49](https://github.com/frostiks777/ai-for-developers-project-386/issues/49).
+[#49](https://github.com/frostiks777/ai-for-developers-project-387/issues/49).
 
 ## Воспроизведение
 
@@ -29,7 +29,7 @@ DevTools → responsive, ширина 390 и 360 px, обе темы; ландш
 ## Важно
 
 Часть дефектов перекрывается редизайном v2
-([#48](https://github.com/frostiks777/ai-for-developers-project-386/issues/48)):
+([#48](https://github.com/frostiks777/ai-for-developers-project-387/issues/48)):
 шапка, мобильный мастер записи, экран успеха и панель переписываются на
 этапах 3/6/7/10. Проверено повторным прогоном: после v2 остались только два
 дефекта в панели организатора (`/admin/availability`, `/admin/blocks`) — оба

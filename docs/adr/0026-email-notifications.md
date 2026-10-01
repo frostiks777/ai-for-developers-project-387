@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-09-29. Связанные: [#83](https://github.com/frostiks777/ai-for-developers-project-386/issues/83), [`docs/research/email-notifications.md`](../research/email-notifications.md).
+Accepted — 2026-09-29. Связанные: [#83](https://github.com/frostiks777/ai-for-developers-project-387/issues/83), [`docs/research/email-notifications.md`](../research/email-notifications.md).
 
 ## Context
 
