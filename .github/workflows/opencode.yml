@@ -1,0 +1,39 @@
+# Ручной вызов агента из комментария: `/oc explain`, `/oc fix` и т.п.
+#
+# Событие `issue_comment` — инструкция берётся из текста комментария,
+# поэтому `prompt` не нужен: агент сам прочитает, что попросили.
+# Триггер срабатывает только на упоминании `/oc` или `/opencode`.
+#
+# Права шире, чем у автотриажа: `/oc fix` создаёт ветку и pull request.
+
+name: opencode
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  opencode:
+    if: |
+      contains(github.event.comment.body, '/oc') ||
+      contains(github.event.comment.body, '/opencode')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        with:
+          model: opencode/mimo-v2.6-flash-free
+          use_github_token: true
