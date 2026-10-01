@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Календарь звонков — Roadmap по TODO</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --done: #22c55e;
+    --high: #ef4444;
+    --medium: #f59e0b;
+    --low: #38bdf8;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.5;
+  }
+  header {
+    padding: 32px 20px 16px; text-align: center;
+    animation: fadeDown .7s ease both;
+  }
+  header h1 { margin: 0 0 8px; font-size: 28px; }
+  header p { margin: 0; color: var(--muted); }
+  .progress-wrap {
+    max-width: 720px; margin: 20px auto 0; padding: 0 20px;
+  }
+  .progress-label { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+  .progress {
+    height: 12px; background: #334155; border-radius: 999px; overflow: hidden;
+  }
+  .progress > div {
+    height: 100%; width: 0; border-radius: 999px;
+    background: linear-gradient(90deg, var(--done), #86efac);
+    animation: fill 1.4s ease forwards;
+  }
+  @keyframes fill { to { width: 83%; } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  .filters {
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    margin: 20px 0 8px;
+  }
+  .filters button {
+    border: 1px solid #334155; background: var(--card); color: var(--text);
+    padding: 8px 14px; border-radius: 999px; cursor: pointer; font-size: 14px;
+    transition: transform .15s ease, background .2s ease;
+  }
+  .filters button:hover { transform: translateY(-1px); }
+  .filters button.active { background: #334155; border-color: var(--text); }
+  main { max-width: 860px; margin: 0 auto; padding: 12px 20px 60px; }
+  section {
+    background: var(--card); border-radius: 14px; padding: 18px;
+    margin: 16px 0; border-left: 6px solid var(--muted);
+    opacity: 0;
+  }
+  section.visible { animation: fadeUp .6s ease both; }
+  section.done { border-color: var(--done); }
+  section.high { border-color: var(--high); }
+  section.medium { border-color: var(--medium); }
+  section.low { border-color: var(--low); }
+  section.p0 { border-color: var(--high); }
+  section.p1 { border-color: var(--medium); }
+  section h2 { margin: 0 0 10px; font-size: 20px; }
+  section h3 { margin: 14px 0 4px; font-size: 15px; color: var(--muted); }
+  .badge {
+    display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 999px;
+    background: #334155; color: var(--text); margin-left: 8px; vertical-align: middle;
+  }
+  ul { margin: 8px 0 0; padding-left: 20px; }
+  li { margin: 6px 0; }
+  li.done-item { color: #bbf7d0; }
+  .flow {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    color: var(--muted); font-size: 13px; margin: 4px 0;
+  }
+  .flow .arrow { animation: bounce 1.6s infinite; display: inline-block; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+  .hidden { display: none !important; }
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding-bottom: 30px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Календарь звонков — схема TODO</h1>
+  <p>Источник: <code>docs/todo.md</code> · Критерии приёмки: 15 / 18 закрыто (83%), 3 частично · Бэклог Gemini: 27 открыто</p>
+  <div class="progress-wrap">
+    <div class="progress-label">Прогресс критериев приёмки: 15/18 — 83% (бэклог Gemini — отдельно, вне MVP)</div>
+    <div class="progress"><div></div></div>
+  </div>
+  <div class="filters">
+    <button data-filter="all" class="active">Все</button>
+    <button data-filter="done">Сделано</button>
+    <button data-filter="course">Шаги курса</button>
+    <button data-filter="low">Low</button>
+    <button data-filter="p0">P0</button>
+    <button data-filter="p1">P1</button>
+    <button data-filter="backlog">Бэклог</button>
+  </div>
+</header>
+<main>
+  <section class="done" data-group="done">
+    <h2>✅ Сделано <span class="badge">32</span></h2>
+    <ul>
+      <li class="done-item">Каркас: Fastify :3000 (/health, /api/slots, /api/bookings), Vite, линтер, тесты, CI</li>
+      <li class="done-item">SQLite + Drizzle (slots, bookings), сид 8 слотов</li>
+      <li class="done-item">Обязательный email (zod, API 400, БД ALTER). ADR-0002; валидация телефона</li>
+      <li class="done-item">Интеграционные тесты API: buildApp() + app.inject(), in-memory БД; CI: vitest 4 + Node [22, 24]</li>
+      <li class="done-item">Race condition: unique-индекс bookings.slotId + 409 (ADR-0003)</li>
+      <li class="done-item">Экран успеха BookingSuccess; поле «комментарий»; месяц MonthCalendar + фильтр по дню</li>
+      <li class="done-item">Генерация слотов по правилам (availability.ts, ADR-0004); таймзоны; телефон опциональный</li>
+      <li class="done-item">/dashboard: брони + отмена + настройки доступности (ADR-0005); экспорт .ics/Google</li>
+      <li class="done-item">Отмена и перенос по токену (/cancel/:token, /reschedule/:token; ADR-0006, ADR-0008)</li>
+      <li class="done-item">Хосты + API v1 аддитивно (hosts, GET /api/v1/hosts/:slug/settings|slots; ADR-0009)</li>
+      <li class="done-item">Редизайн: этапы 1–7 (токены/темы, десктоп A, мобильная D, форма, успех, дашборд, документация; ADR-0007 Accepted)</li>
+      <li class="done-item"><strong>Шаг 1 курса:</strong> CONTEXT.md (словарь), ADR-0010; лендинг <code>/</code>, бронь на <code>/book/:slug</code>, NotFoundPage, фронт на API v1</li>
+      <li class="done-item"><strong>Шаг 2 курса:</strong> карта решений #10 + тикеты #11–#18; <code>docs/spec.md</code>; TypeSpec <code>api/main.tsp</code>; ADR-0011; <code>npm run api:generate</code> → OpenAPI + SDK + серверные типы</li>
+      <li class="done-item"><strong>Шаг 4 курса:</strong> Docker + деплой на Render (render.yaml, PORT, публичная ссылка)</li>
+    </ul>
+  </section>
+  <div class="flow"><span>поток работ</span><span class="arrow">⬇</span></div>
+  <section class="high" data-group="course">
+    <h2>🎓 Шаги курса <span class="badge">1–2 ✅ · 3 ⏳ · 4 ✅</span></h2>
+    <ul>
+      <li class="done-item">Шаг 1 — главная страница: CONTEXT.md, ADR-0010, лендинг, тесты/CI зелёные</li>
+      <li class="done-item">Шаг 2 — проектирование: карта #10, спецификация, TypeSpec → OpenAPI → SDK + серверные артефакты</li>
+      <li>Шаг 3 (в работе) — <code>/to-tickets</code> по <code>docs/spec.md</code>; реализация <code>event_types</code>/<code>status</code>/<code>availability_ranges</code> + <code>server/db/migrate.ts</code>; фронт через сгенерированный SDK; e2e Playwright</li>
+      <li class="done-item">Шаг 4 — Docker и деплой</li>
+    </ul>
+  </section>
+  <div class="flow"><span>остатки MVP и бэклог</span><span class="arrow">⬇</span></div>
+  <section class="low" data-group="low">
+    <h2>🔵 Low <span class="badge">2</span></h2>
+    <ul>
+      <li>Полная мульти-хост-модель: host_id в slots/bookings, POST /api/v1/bookings, страница /book/:hostId</li>
+      <li>Авторизация /dashboard (сейчас панель публична)</li>
+    </ul>
+  </section>
+  <section class="p0" data-group="p0 backlog">
+    <h2>🔴 P0 — публичный флоу бронирования (§1.1–1.3) <span class="badge">11</span></h2>
+    <ul>
+      <li>TimezoneSelector: поиск по IANA (§1.1) — частично: селект есть, поиска нет</li>
+      <li>Переключатель 12/24-часового формата (§1.1)</li>
+      <li>Валидация имени min 2 (§1.2) — частично: сейчас min 1</li>
+      <li>Маска телефона (§1.2) — частично: формат «10–15 цифр» есть, маски ввода нет</li>
+      <li>Лимит notes 500 (§1.2) — частично: поле comment есть, но max 1000</li>
+      <li>Поле guests — массив email с добавлением по Enter (§1.2)</li>
+      <li>Чекбокс согласия с правилами/ПДн (§1.2)</li>
+      <li>Заголовок Idempotency-Key (§1.2)</li>
+      <li>Обработка 409 (§1.2) — частично: тост + refetch есть, спец-алерта «слот только что заняли» нет</li>
+      <li>Экран /booking/:uuid/confirmed (§1.3) — частично: BookingSuccess есть; нет отдельного роута, аватара/названия встречи, ссылки на конференцию</li>
+      <li>Ссылка «Отменить встречу» на экране успеха (§1.3) — частично: только копируемая ссылка отмены, прямой кнопки нет</li>
+    </ul>
+  </section>
+  <section class="p1" data-group="p1 backlog">
+    <h2>🟠 P1 — self-service и дашборд (§2–3) <span class="badge">15</span></h2>
+    <h3>Self-service (§2.1–2.2) — 5</h3>
+    <ul>
+      <li>Роуты /booking/:uuid/cancel и /booking/:uuid/reschedule (§2.1–2.2): сейчас /cancel/:token, /reschedule/:token (в контракте Шага 3 — UUID)</li>
+      <li>Детали встречи на странице отмены (§2.1)</li>
+      <li>Поле cancellation_reason (§2.1)</li>
+      <li>Модалка подтверждения отмены (§2.1) — частично: inline-подтверждение есть</li>
+      <li>POST /api/bookings/:uuid/cancel (§2.1) — частично: есть POST /api/bookings/cancel по токену</li>
+    </ul>
+    <h3>Дашборд организатора (§3.1–3.3) — 10</h3>
+    <ul>
+      <li>Роут /admin/availability (§3.1) — частично: секция «Доступность» на /dashboard</li>
+      <li>Несколько интервалов в день (§3.1) — спроектировано (availability_ranges в спеке), реализация — Шаг 3</li>
+      <li>Кнопка «Скопировать понедельник на будни» (§3.1)</li>
+      <li>buffer_before / buffer_after (§3.1) — частично: один bufferMin 0–480</li>
+      <li>Пресеты max_future_days 14/30/60 (§3.1) — частично: ввод horizonDays 1–90</li>
+      <li>/admin/event-types + EventForm (§3.2) — спроектировано (event_types + CRUD в контракте), реализация — Шаг 3</li>
+      <li>Роут /admin/bookings (§3.3) — частично: список на /dashboard</li>
+      <li>Табы Upcoming / Past / Canceled (§3.3) — частично: фильтр Все / Неделя / Сегодня; <code>status</code> — Шаг 3</li>
+      <li>Поиск по имени и email (§3.3)</li>
+      <li>BlockTimeModal + форма блокировки времени (§3.3)</li>
+    </ul>
+  </section>
+  <section data-group="divergence low backlog">
+    <h2>⚠️ Ключевые расхождения со спекой <span class="badge">4</span></h2>
+    <ul>
+      <li>Схема БД: есть slots, bookings, availability_rules, hosts; нет event_types, bookings.status/eventTypeId, availability_ranges — целевое состояние в docs/spec.md, миграции — Шаг 3</li>
+      <li>API: /api/v1 реализован частично (settings|slots); контракт api/main.tsp описывает полный /api/v1 (event-types CRUD, availability, bookings, cancel/reschedule по UUID) — реализация Шаг 3; легаси /api/* сохранён</li>
+      <li>Форма: email обязателен, телефон опционален; нет guests, чекбокса согласия, Idempotency-Key (бэклог P0)</li>
+      <li>Экраны: / лендинг, /book/:slug бронь, /dashboard без auth, /cancel|/reschedule по токену; спека предполагает /booking/:uuid/... — Шаг 3</li>
+    </ul>
+  </section>
+</main>
+<footer>Сгенерировано из docs/todo.md · автономный файл, внешних зависимостей нет · обновлено 2026-09-24</footer>
+<script>
+  const sections = document.querySelectorAll('section');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.animationDelay = (i * 0.05) + 's';
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(s => io.observe(s));
+
+  const buttons = document.querySelectorAll('.filters button');
+  buttons.forEach(btn => btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    sections.forEach(s => {
+      const g = s.dataset.group || '';
+      s.classList.toggle('hidden', !(f === 'all' || g.includes(f)));
+    });
+  }));
+</script>
+</body>
+</html>

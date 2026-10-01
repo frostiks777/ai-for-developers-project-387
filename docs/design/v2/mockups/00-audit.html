@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Аудит интерфейса</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:#0F766E}a:hover{color:#0B5A53}
+.mk{position:absolute;width:26px;height:26px;border-radius:50%;background:#C2410C;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.25)}
+.shot{position:relative;border-radius:10px;overflow:hidden;border:1px solid #E3DDD2;background:#fff}
+.shot img{display:block;width:100%}
+.cap{font-size:12px;color:#57534E;margin-top:6px}
+</style>
+</head>
+<body>
+<div style="width: 1280px; height: 1240px; box-sizing: border-box; padding: 48px; background: #F4F1EA; display: flex; flex-direction: column; gap: 28px">
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div style="font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #57534E; font-weight: 600">Аудит · 25 сентября 2026 · прод и локальная сборка репозитория</div>
+    <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.15; max-width: 900px">Что мешает гостю и организатору сейчас</h1>
+    <div style="font-size: 15px; color: #57534E; max-width: 860px; line-height: 1.5">Приложение зрелое: есть типы встреч, перенос, отмена, .ics, тёмная тема. Проблемы в основном в согласованности: время показывается по-разному, у экранов разный визуальный язык, личные данные гостей видны всем. Цифры на скриншотах отсылают к пунктам списка.</div>
+  </div>
+  <div style="display: flex; gap: 32px; align-items: flex-start">
+    <div style="width: 560px; flex-shrink: 0; display: flex; flex-direction: column; gap: 18px">
+      
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #FBE4E1; color: #8F1D13">Критично</span>
+          </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Имена и email всех гостей открыты публично</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Пункт «Предстоящие события» (/events) виден любому посетителю и показывает контакты чужих броней. На проде там реальные адреса.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Одна встреча показывается в трёх вариантах времени</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Правила доступности заданы в UTC (10:00–18:00), поэтому гость из Москвы видит 13:00–20:50. На экране успеха встреча в 14:20, на странице отмены — «11:20 (UTC)».</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">На телефоне дни недели подписаны со сдвигом</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">В ленте дат 28 сентября подписано «Вс», хотя это понедельник. Легко записаться не на тот день.</div>
+              </div>
+            </div>
+          
+        </div>
+      
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #FCEBD9; color: #8A3A0A">Важно</span>
+          </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Месячная сетка режет 14-дневное окно</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">В сентябре доступны только 28–30 число, остальные дни прячутся за стрелкой. Кажется, что записаться почти некуда.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">5</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Перенос в один клик без подтверждения</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Двенадцать одинаковых кнопок «Перенести сюда», текущее время не отмечено, шапки приложения нет.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">6</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Отмена выглядит как основное действие</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Необратимое действие окрашено в фирменный зелёный, рядом «Не отменять». Нет шапки и пути назад.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">7</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Выбор типа встречи оторван от карточки</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Табы типов стоят над макетом. У «Конференции» 45 минут, а шаг сетки 40 минут: 13:40–14:25 наезжает на слот 14:20.</div>
+              </div>
+            </div>
+          
+        </div>
+      
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #E2F0EC; color: #0B5A53">Заметно</span>
+          </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">8</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Форма длиннее, чем нужно</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Пять полей плюс галочка. Кнопка неактивна до галочки, и форма не объясняет почему.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">9</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Экран успеха без иерархии</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Пять кнопок одного веса. Ссылка для отмены оказывается ниже первого экрана.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">10</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">На телефоне навигация обрезается</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">«Мои встречи» и переключатель темы не помещаются в шапку.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">11</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Панель организатора — одна длинная лента</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">В сайдбаре есть разделы, но всё выводится подряд. Поля времени обрезаны («10:», «06:»), сайдбар заканчивается на высоте экрана.</div>
+              </div>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px 14px">
+              <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #C2410C; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">12</span>
+              <div style="display: flex; flex-direction: column; gap: 3px">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.35">Первый слот выбран за гостя</div>
+                <div style="font-size: 13px; color: #57534E; line-height: 1.45">Кнопка «Забронировать» у 13:00 появляется до того, как гость что-то выбрал. На экране 1366×561 колонка времени уходит под сгиб.</div>
+              </div>
+            </div>
+          
+        </div>
+      
+    </div>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 22px">
+      <div>
+        <div class="shot" style="width: 592px">
+          <img src="../current/d-book.png" alt="Страница записи, десктоп">
+          <span class="mk" style="left: 218px; top: 246px">4</span>
+          <span class="mk" style="left: 420px; top: 122px">12</span>
+          <span class="mk" style="left: 98px; top: 290px">2</span>
+          <span class="mk" style="left: 30px; top: 40px">7</span>
+        </div>
+        <div class="cap">/book/default · десктоп 1280 px</div>
+      </div>
+      <div style="display: flex; gap: 20px; align-items: flex-start">
+        <div>
+          <div class="shot" style="width: 220px">
+            <img src="../current/m-book.png" alt="Страница записи, телефон">
+            <span class="mk" style="left: 14px; top: 212px">3</span>
+            <span class="mk" style="left: 178px; top: 6px">10</span>
+          </div>
+          <div class="cap">/book/default · телефон 390 px</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px">
+          <div>
+            <div class="shot" style="width: 352px; height: 130px">
+              <img src="../current/d-cancel.png" alt="Страница отмены" style="margin-top: -12px">
+              <span class="mk" style="left: 100px; top: 70px">6</span>
+              <span class="mk" style="left: 238px; top: 44px">2</span>
+            </div>
+            <div class="cap">/cancel/:token · время в UTC, зелёная кнопка удаления</div>
+          </div>
+          <div>
+            <div class="shot" style="width: 352px; height: 300px">
+              <img src="../current/d-dashboard.png" alt="Панель организатора">
+              <span class="mk" style="left: 276px; top: 58px">11</span>
+              <span class="mk" style="left: 250px; top: 28px">2</span>
+              <span class="mk" style="left: 20px; top: 190px">11</span>
+            </div>
+            <div class="cap">/dashboard · все разделы одной лентой, поля времени обрезаны</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

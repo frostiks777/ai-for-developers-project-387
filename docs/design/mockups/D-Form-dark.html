@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Телефон — форма (тёмная)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&amp;family=Golos+Text:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Golos Text',sans-serif;background:#111214;color:#F2F3F5}
+a{color:#5FD4C0}a:hover{color:#8FE6D6}
+button,select,input,textarea{font-family:inherit}
+input::placeholder,textarea::placeholder{color:#A3A8B3}
+</style>
+</head>
+<body>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #111214; color: #F2F3F5; display: flex; flex-direction: column; overflow: hidden; position: relative;">
+<div style="height: 88px; flex-shrink: 0; opacity: 0.35;"><header style="height: 60px; flex-shrink: 0; box-sizing: border-box; padding: 0 20px; display: flex; align-items: center; justify-content: space-between;"><div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px;"><span style="width: 28px; height: 28px; border-radius: 8px; background: #5FD4C0; color: #06201C; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>Календарь звонков</div><div style="display: flex; align-items: center; gap: 12px;"><button aria-label="Включить светлую тему" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #30343B; background: #1B1D21; color: #F2F3F5; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></button></div></header></div>
+<div style="position: absolute; inset: 0; background: rgba(0,0,0,0.6);"></div>
+<div role="dialog" aria-modal="true" aria-labelledby="m-dlg" style="position: absolute; left: 0; right: 0; bottom: 0; top: 88px; background: #1B1D21; border-radius: 24px 24px 0 0; border-top: 1px solid #30343B; padding: 10px 20px 26px; display: flex; flex-direction: column; gap: 14px;">
+<span aria-hidden="true" style="align-self: center; width: 40px; height: 4px; border-radius: 2px; background: #3A3F47;"></span>
+<div style="display: flex; justify-content: space-between; align-items: center;"><h2 id="m-dlg" style="margin: 0; font-family: Lora, serif; font-size: 22px; font-weight: 600;">Бронирование звонка</h2><button aria-label="Закрыть" style="width: 44px; height: 44px; border-radius: 50%; border: none; background: #24272C; color: #F2F3F5; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #173A35; font-size: 14px; color: #F2F3F5;"><span style="color: #8FE6D6;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span><span style="flex-grow: 1;"><strong>Чт, 24 сентября, 14:20–14:50</strong><br><span style="color: #A3A8B3;">30 мин · GMT+3</span></span></div>
+<form style="display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-name" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Имя</label><input id="booking-name" value="Иван" placeholder="Как к вам обращаться" style="height: 52px; border: 1px solid #3A3F47; border-radius: 14px; padding: 0 14px; font-size: 16px; background: #111214; color: #F2F3F5;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-email" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Email</label><input id="booking-email" value="ivan@example" placeholder="you@example.com" aria-invalid="true" aria-describedby="booking-email-error" style="height: 52px; border: 1px solid #F2857A; border-radius: 14px; padding: 0 14px; font-size: 16px; background: #111214; color: #F2F3F5;"><span id="booking-email-error" style="font-size: 13px; color: #F2857A;">Неверный email</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-phone" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Телефон<span style="font-weight: 400; color: #A3A8B3; font-size: 12px;">необязательно</span></label><input id="booking-phone" placeholder="+7 900 000-00-00" style="height: 52px; border: 1px solid #3A3F47; border-radius: 14px; padding: 0 14px; font-size: 16px; background: #111214; color: #F2F3F5;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-comment" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Комментарий<span style="font-weight: 400; color: #A3A8B3; font-size: 12px;">необязательно</span></label><textarea id="booking-comment" rows="2" placeholder="Вопрос или тема встречи" style="border: 1px solid #3A3F47; border-radius: 14px; padding: 12px 14px; font-size: 16px; resize: none; background: #111214; color: #F2F3F5;"></textarea></div>
+</form>
+<button disabled="disabled" style="margin-top: auto; height: 56px; border-radius: 16px; border: none; background: #5FD4C0; color: #06201C; opacity: 0.5; font-size: 17px; font-weight: 700;">Забронировать</button>
+</div>
+</div>
+</body>
+</html>

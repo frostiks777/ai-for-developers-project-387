@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: calendar-slots-app
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      # Строка подключения Neon (Postgres) приходит из Environment Group «DB»
+      - fromGroup: DB
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Панель организатора открыта без логина: владелец один и заранее задан,
+      # авторизация по спецификации курса не нужна (ADR-0028). ADMIN_PASSWORD
+      # больше не используется — если он задан в Environment Group, игнорируется.
+      # Cloudflare Turnstile (ADR-0025). CAPTCHA выключена, пока не задан
+      # TURNSTILE_SECRET_KEY. Настоящие ключи НЕ коммитим — задать в
+      # Environment Group (Render → Environment → Add). Здесь только напоминание:
+      #   TURNSTILE_SITEKEY=0x4AAAA...
+      #   TURNSTILE_SECRET_KEY=0x4AAAA...
+      #   TURNSTILE_ALLOWED_HOSTNAMES=calendar-slots-app.onrender.com

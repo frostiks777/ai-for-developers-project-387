@@ -1,0 +1,596 @@
+[
+  {
+    "name": "light-booking-dialog",
+    "label": "Форма брони (мобильная панель)",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 535
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 461
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground h",
+          "text": "Мои встречи",
+          "right": 459
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card te",
+          "text": "",
+          "right": 496
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 489
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transi",
+          "text": "",
+          "right": 535
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 526
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 524
+        }
+      ],
+      "offenderCount": 12
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-booking-dialog.png"
+  },
+  {
+    "name": "light-success",
+    "label": "Экран успеха",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 535
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 461
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground h",
+          "text": "Мои встречи",
+          "right": 459
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card te",
+          "text": "",
+          "right": 496
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 489
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transi",
+          "text": "",
+          "right": 535
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 526
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 524
+        },
+        {
+          "tag": "ol",
+          "cls": "toaster group",
+          "text": "Звонок забронирован",
+          "right": 406
+        }
+      ],
+      "offenderCount": 13
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-success.png"
+  },
+  {
+    "name": "light-links",
+    "hrefs": [
+      "/",
+      "/book/default",
+      "/events",
+      "/my",
+      "/dashboard",
+      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D0%97%D0%B2%D0%BE%D0%BD%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8F&dates=20260928T120000Z%2F20260928T123000Z&details=%D0%98%D0%BC%D1%8F%3A+%D0%93%D0%BE%D1%81%D1%82%D1%8C+%D0%90%D1%83%D0%B4%D0%B8%D1%82%0AEmail%3A+audit%40example.com",
+      "/reschedule/38068dc0-2f12-4b3e-ad96-b8472eb524fa",
+      "/cancel/38068dc0-2f12-4b3e-ad96-b8472eb524fa"
+    ]
+  },
+  {
+    "name": "light-reschedule",
+    "label": "Перенос",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-reschedule.png"
+  },
+  {
+    "name": "light-cancel",
+    "label": "Отмена",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-cancel.png"
+  },
+  {
+    "name": "light-dashboard-Типы",
+    "label": "Панель · Типы",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-dashboard-Типы.png"
+  },
+  {
+    "name": "light-dashboard-Блокировки",
+    "label": "Панель · Блокировки",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-dashboard-Блокировки.png"
+  },
+  {
+    "name": "light-dashboard-Хосты",
+    "label": "Панель · Хосты",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-light-dashboard-Хосты.png"
+  },
+  {
+    "name": "dark-booking-dialog",
+    "label": "Форма брони (мобильная панель)",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 535
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 461
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground h",
+          "text": "Мои встречи",
+          "right": 459
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card te",
+          "text": "",
+          "right": 496
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 489
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transi",
+          "text": "",
+          "right": 535
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 526
+        },
+        {
+          "tag": "circle",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 521
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 518
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 518
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 515
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 523
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 513
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 525
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 515
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 523
+        }
+      ],
+      "offenderCount": 20
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-booking-dialog.png"
+  },
+  {
+    "name": "dark-success",
+    "label": "Экран успеха",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 535
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "right": 461
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground h",
+          "text": "Мои встречи",
+          "right": 459
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card te",
+          "text": "",
+          "right": 496
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 489
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 487
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 480
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transi",
+          "text": "",
+          "right": 535
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 526
+        },
+        {
+          "tag": "circle",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 521
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 518
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 518
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 515
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 523
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 513
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 525
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 515
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "right": 523
+        },
+        {
+          "tag": "ol",
+          "cls": "toaster group",
+          "text": "Звонок забронирован",
+          "right": 406
+        }
+      ],
+      "offenderCount": 21
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-success.png"
+  },
+  {
+    "name": "dark-links",
+    "hrefs": [
+      "/",
+      "/book/default",
+      "/events",
+      "/my",
+      "/dashboard",
+      "https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D0%97%D0%B2%D0%BE%D0%BD%D0%BE%D0%BA-%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8F&dates=20260928T124000Z%2F20260928T131000Z&details=%D0%98%D0%BC%D1%8F%3A+%D0%93%D0%BE%D1%81%D1%82%D1%8C+%D0%90%D1%83%D0%B4%D0%B8%D1%82%0AEmail%3A+audit%40example.com",
+      "/reschedule/5e44ec4b-ea51-4a59-bd43-3ca2b1bf6e3b",
+      "/cancel/5e44ec4b-ea51-4a59-bd43-3ca2b1bf6e3b"
+    ]
+  },
+  {
+    "name": "dark-reschedule",
+    "label": "Перенос",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-reschedule.png"
+  },
+  {
+    "name": "dark-cancel",
+    "label": "Отмена",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-cancel.png"
+  },
+  {
+    "name": "dark-dashboard-Типы",
+    "label": "Панель · Типы",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-dashboard-Типы.png"
+  },
+  {
+    "name": "dark-dashboard-Блокировки",
+    "label": "Панель · Блокировки",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-dashboard-Блокировки.png"
+  },
+  {
+    "name": "dark-dashboard-Хосты",
+    "label": "Панель · Хосты",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/state-dark-dashboard-Хосты.png"
+  }
+]

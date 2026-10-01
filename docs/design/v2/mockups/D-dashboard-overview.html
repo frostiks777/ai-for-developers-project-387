@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Панель организатора</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:var(--p)}a:hover{color:var(--p-ink)}
+.mk{position:absolute;width:26px;height:26px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.25);z-index:5}
+.nav{display:flex;align-items:center;justify-content:space-between;height:44px;padding:0 12px;border-radius:10px;font-size:15px;font-weight:500;color:#44403C;text-decoration:none}
+.kpi{flex:1;background:#FFFFFF;border:1px solid #E3DDD2;border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+
+.fx{--ground:#F4F2EC}
+.bgfx{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--ground)}
+.bgfx .b{position:absolute;border-radius:50%;filter:blur(64px);opacity:.8;will-change:transform}
+.bgfx .b1{width:max(52%,300px);aspect-ratio:1;background:var(--bg1);left:-12%;top:-18%;animation:fxa 19s ease-in-out infinite alternate}
+.bgfx .b2{width:max(46%,260px);aspect-ratio:1;background:var(--bg2);right:-10%;top:8%;animation:fxb 23s ease-in-out infinite alternate}
+.bgfx .b3{width:max(50%,280px);aspect-ratio:1;background:var(--bg3);left:18%;bottom:-26%;animation:fxc 27s ease-in-out infinite alternate}
+.bgfx .b4{width:max(30%,180px);aspect-ratio:1;background:var(--bg4);right:14%;bottom:-8%;opacity:.7;animation:fxd 21s ease-in-out infinite alternate}
+.bgfx .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(28,25,23,.05) 1px,transparent 1px);background-size:3px 3px;opacity:.5}
+@keyframes fxa{0%{transform:translate(0,0) scale(1)}50%{transform:translate(18%,12%) scale(1.12)}100%{transform:translate(6%,24%) scale(.94)}}
+@keyframes fxb{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-16%,18%) scale(.9)}100%{transform:translate(-24%,-6%) scale(1.1)}}
+@keyframes fxc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(20%,-14%) scale(1.15)}100%{transform:translate(-10%,-20%) scale(1)}}
+@keyframes fxd{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-30%,-40%) scale(1.25)}}
+.still .bgfx .b{animation:none}
+@media (prefers-reduced-motion: reduce){.bgfx .b{animation:none}}
+</style>
+</head>
+<body>
+<div class="fx" style="width: 1280px; height: 860px; position: relative; background: var(--ground); isolation: isolate; overflow: hidden; --p:#0F766E; --p-ink:#0B4F49; --p-soft:#D7F0E8; --p-tint:#F0FAF6; --p-line:#93CFC1; --hot:#FFC53D; --on-hot:#2B1D00; --hot-glow:rgba(255,184,0,.42); --hot2:#FFE08A; --ground:#F4F2EC; --bg1:#A8E6D2; --bg2:#FFC9B8; --bg3:#C9DBFF; --bg4:#FFEAA6">
+  <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+  <div style="position: absolute; left: 0; top: 0; width: 240px; height: 860px; box-sizing: border-box; background: rgba(255,255,255,.5); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-right: 1px solid rgba(255,255,255,.75); padding: 20px 14px; display: flex; flex-direction: column; gap: 4px">
+    <div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; padding: 0 8px 18px">
+      <span style="width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--p), var(--hot)); display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>Календарь звонков
+    </div>
+    <a href="#" class="nav" style="background: var(--p-soft); color: var(--p-ink); font-weight: 600">Обзор <span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #FFFFFF">4</span></a>
+    <a href="#" class="nav">Все встречи</a>
+    <a href="#" class="nav">Типы встреч <span style="font-size: 12px; color: #57534E">3</span></a>
+    <a href="#" class="nav">Доступность <span style="width: 8px; height: 8px; border-radius: 50%; background: #1C1917"></span></a>
+    <a href="#" class="nav">Блокировки</a>
+    <div style="flex-grow: 1"></div>
+    <div style="background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 12px; color: #57534E">Ссылка для записи</span>
+      <span style="font-size: 13px; font-weight: 600; word-break: break-all">…onrender.com/book/default</span>
+      <button type="button" style="height: 36px; border: 1px solid #D6CFC2; border-radius: 10px; background: #FBF9F5; font: 600 13px 'Golos Text', sans-serif; color: #1C1917">Скопировать</button>
+    </div>
+    <span style="font-size: 12px; color: #57534E; padding: 8px 8px 0">Ваш пояс: Москва, UTC+3</span>
+  </div>
+
+  <div style="position: absolute; left: 272px; top: 24px; width: 968px; box-sizing: border-box; background: #FCEBD9; border: 1px solid #F2C9A5; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 14px">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A0A" stroke-width="2"><path d="M12 3l9 16H3z"></path><path d="M12 10v4M12 17v.5"></path></svg>
+    <span style="flex-grow: 1; font-size: 14px; color: #5C2807; line-height: 1.4"><b>Часы работы заданы в UTC.</b> Вы указали 10:00–18:00, а гости из Москвы видят 13:00–20:50.</span>
+    <button type="button" style="height: 40px; padding: 0 16px; border: 0; border-radius: 10px; background: #8A3A0A; color: #FFFFFF; font: 600 14px 'Golos Text', sans-serif">Считать по Москве</button>
+  </div>
+
+  <div style="position: absolute; left: 272px; top: 96px; width: 968px; display: flex; flex-direction: column; gap: 14px">
+    <span style="font-family: Lora, Georgia, serif; font-size: 30px; font-weight: 600">Пятница, 25 сентября</span>
+    <div style="display: flex; gap: 12px">
+      <div class="kpi" style="background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85)"><span style="font-size: 12px; color: #57534E">Сегодня</span><span style="font-size: 22px; font-weight: 700">Выходной</span></div>
+      <div class="kpi" style="background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85)"><span style="font-size: 12px; color: #57534E">Следующая встреча</span><span style="font-size: 22px; font-weight: 700">Пн, 13:00</span></div>
+      <div class="kpi" style="background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85)"><span style="font-size: 12px; color: #57534E">На неделе 28.09–2.10</span><span style="font-size: 22px; font-weight: 700">3 встречи</span></div>
+      <div class="kpi" style="background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85)"><span style="font-size: 12px; color: #57534E">Свободно на 14 дней</span><span style="font-size: 22px; font-weight: 700">113 окон</span></div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 272px; top: 240px; width: 560px; height: 596px; box-sizing: border-box; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 18px; font-weight: 600">Ближайшие встречи</span><span style="font-size: 12px; color: #57534E">имена — пример</span></div>
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; color: #57534E; margin-top: 4px">ПОНЕДЕЛЬНИК, 28 СЕНТЯБРЯ</span>
+    <div style="display: flex; align-items: center; gap: 14px; padding: 10px 12px; border-radius: 12px; border: 1px solid #F1EDE5">
+      <span style="width: 56px; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums">13:00</span>
+      <div style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">Ольга Н.</span><span style="font-size: 12px; color: #57534E">Звонок-консультация · 30 мин</span></div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+    </div>
+    <div style="border-radius: 12px; border: 2px solid var(--p); padding: 12px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; gap: 14px">
+        <span style="width: 56px; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums">15:40</span>
+        <div style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">Игорь П.</span><span style="font-size: 12px; color: #57534E">Конференция · 45 мин · очно</span></div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M6 15l6-6 6 6"></path></svg>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; font-size: 13px; padding-left: 70px">
+        <span style="color: #57534E">Email</span><span>igor@example.ru</span>
+        <span style="color: #57534E">Телефон</span><span>+7 900 000-00-00</span>
+        <span style="color: #57534E">Вопрос</span><span>Хочу обсудить интеграцию с CRM</span>
+      </div>
+      <div style="display: flex; gap: 8px; padding-left: 70px">
+        <button type="button" style="height: 38px; padding: 0 14px; border: 1px solid #D6CFC2; border-radius: 10px; background: #FFFFFF; font: 600 13px 'Golos Text', sans-serif; color: #1C1917">Скопировать текст для гостя</button>
+        <button type="button" style="height: 38px; padding: 0 14px; border: 1px solid #D6CFC2; border-radius: 10px; background: #FFFFFF; font: 600 13px 'Golos Text', sans-serif; color: #1C1917">Перенести</button>
+        <button type="button" style="height: 38px; padding: 0 14px; border: 1px solid #EBC8C3; border-radius: 10px; background: #FFFFFF; font: 600 13px 'Golos Text', sans-serif; color: #B42318">Отменить</button>
+      </div>
+    </div>
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; color: #57534E; margin-top: 6px">ВТОРНИК, 29 СЕНТЯБРЯ</span>
+    <div style="display: flex; align-items: center; gap: 14px; padding: 10px 12px; border-radius: 12px; border: 1px solid #F1EDE5">
+      <span style="width: 56px; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums">15:40</span>
+      <div style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">Андрей С.</span><span style="font-size: 12px; color: #57534E">Видеозвонок · 30 мин</span></div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+    </div>
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; color: #57534E; margin-top: 6px">ВТОРНИК, 6 ОКТЯБРЯ</span>
+    <div style="display: flex; align-items: center; gap: 14px; padding: 10px 12px; border-radius: 12px; border: 1px solid #F1EDE5">
+      <span style="width: 56px; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums">19:40</span>
+      <div style="flex-grow: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">Елена К.</span><span style="font-size: 12px; color: #57534E">Звонок-консультация · 30 мин</span></div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 856px; top: 240px; width: 384px; height: 596px; box-sizing: border-box; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+    <span style="font-size: 18px; font-weight: 600">Неделя глазами гостя</span>
+    <span style="font-size: 13px; color: #57534E; margin-top: -6px">28 сентября – 2 октября, по Москве</span>
+    <div style="display: flex; gap: 6px">
+      <span style="width: 44px"></span>
+      <span style="flex: 1; text-align: center; font-size: 12px; font-weight: 600; color: #57534E">Пн</span><span style="flex: 1; text-align: center; font-size: 12px; font-weight: 600; color: #57534E">Вт</span><span style="flex: 1; text-align: center; font-size: 12px; font-weight: 600; color: #57534E">Ср</span><span style="flex: 1; text-align: center; font-size: 12px; font-weight: 600; color: #57534E">Чт</span><span style="flex: 1; text-align: center; font-size: 12px; font-weight: 600; color: #57534E">Пт</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">13:00</span>
+          
+            
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p)"></span>
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">13:40</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">14:20</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">15:00</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">15:40</span>
+          
+            
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p)"></span>
+            
+          
+            
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p)"></span>
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">16:20</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">17:00</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">17:40</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">18:20</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">19:00</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            
+            
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: repeating-linear-gradient(135deg, #D6CFC2 0 3px, #F1EDE5 3px 7px)"></span>
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">19:40</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            
+            
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: repeating-linear-gradient(135deg, #D6CFC2 0 3px, #F1EDE5 3px 7px)"></span>
+          
+        </div>
+      
+        <div style="display: flex; gap: 6px; align-items: center">
+          <span style="width: 44px; font-size: 11px; color: #57534E; font-variant-numeric: tabular-nums">20:20</span>
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: var(--p-soft)"></span>
+            
+            
+          
+            
+            
+            <span style="flex: 1; height: 22px; border-radius: 5px; background: repeating-linear-gradient(135deg, #D6CFC2 0 3px, #F1EDE5 3px 7px)"></span>
+          
+        </div>
+      
+    </div>
+    <div style="display: flex; gap: 12px; font-size: 12px; color: #57534E; flex-wrap: wrap">
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--p-soft)"></span>свободно</span>
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--p)"></span>встреча</span>
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: repeating-linear-gradient(135deg, #D6CFC2 0 2px, #F1EDE5 2px 4px)"></span>заблокировано</span>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <button type="button" style="height: 44px; border: 1px solid #D6CFC2; border-radius: 12px; background: #FBF9F5; font: 600 14px 'Golos Text', sans-serif; color: #1C1917">Заблокировать время</button>
+  </div>
+
+  <span class="mk" style="left: 258px; top: 256px">1</span>
+  <span class="mk" style="left: 258px; top: 406px">2</span>
+  <span class="mk" style="left: 258px; top: 18px">3</span>
+  <span class="mk" style="left: 842px; top: 256px">3</span>
+  <span class="mk" style="left: 1214px; top: 786px">4</span>
+</div>
+</body>
+</html>

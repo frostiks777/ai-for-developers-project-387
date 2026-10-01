@@ -1,0 +1,885 @@
+openapi: 3.0.0
+info:
+  title: Call Calendar API
+  version: 0.0.0
+tags: []
+paths:
+  /api/v1/bookings/{bookingId}:
+    get:
+      operationId: Bookings_getBooking
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/Booking'
+                  - $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/bookings/{bookingId}/cancel:
+    post:
+      operationId: Bookings_cancelBooking
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/Booking'
+                  - $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelBookingRequest'
+  /api/v1/bookings/{bookingId}/reschedule:
+    post:
+      operationId: Bookings_rescheduleBooking
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/Booking'
+                  - $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RescheduleBookingRequest'
+  /api/v1/hosts:
+    get:
+      operationId: Hosts_listHosts
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/Host'
+                  - $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: Hosts_createHost
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHostRequest'
+  /api/v1/hosts/{slug}/availability:
+    get:
+      operationId: Availability_getAvailability
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/AvailabilitySettings'
+                  - $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: Availability_updateAvailability
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/AvailabilitySettings'
+                  - $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAvailabilityRequest'
+  /api/v1/hosts/{slug}/blocks:
+    get:
+      operationId: TimeBlocks_listTimeBlocks
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/TimeBlock'
+                  - $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: TimeBlocks_createTimeBlock
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTimeBlockRequest'
+  /api/v1/hosts/{slug}/blocks/{blockId}:
+    delete:
+      operationId: TimeBlocks_deleteTimeBlock
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: blockId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+  /api/v1/hosts/{slug}/bookings:
+    get:
+      operationId: HostBookings_listHostBookings
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/Booking'
+                  - $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: HostBookings_createBooking
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '429':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookingRequest'
+  /api/v1/hosts/{slug}/event-types:
+    get:
+      operationId: EventTypes_listEventTypes
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/EventType'
+                  - $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: EventTypes_createEventType
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventTypeRequest'
+  /api/v1/hosts/{slug}/event-types/{eventTypeId}:
+    patch:
+      operationId: EventTypes_updateEventType
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: eventTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/EventType'
+                  - $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEventTypeRequest'
+    delete:
+      operationId: EventTypes_deleteEventType
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: eventTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+  /api/v1/hosts/{slug}/settings:
+    get:
+      operationId: ApiV1_getHostSettings
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/HostSettings'
+                  - $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/hosts/{slug}/slots:
+    get:
+      operationId: ApiV1_listSlots
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocalDate'
+          explode: false
+        - name: eventTypeId
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/AvailabilityDay'
+                  - $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ApiError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          allOf:
+            - $ref: '#/components/schemas/ErrorCode'
+          description: Код ошибки для программной обработки.
+        message:
+          type: string
+          description: Человекочитаемое сообщение.
+        details:
+          type: object
+          additionalProperties: {}
+          description: Дополнительные детали (например, ошибки полей).
+      description: Единая модель ошибки для всех не-2xx ответов.
+    AvailabilityDay:
+      type: object
+      required:
+        - timeZone
+        - slots
+      properties:
+        date:
+          type: string
+          allOf:
+            - $ref: '#/components/schemas/LocalDate'
+          nullable: true
+          description: Дата фильтра, если была запрошена.
+        timeZone:
+          type: string
+          description: IANA-пояс, к которому относятся startAt слотов.
+        slots:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slot'
+    AvailabilityRange:
+      type: object
+      required:
+        - weekday
+        - startMinute
+        - endMinute
+      properties:
+        weekday:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 7
+          description: 'День недели: 1 — понедельник, 7 — воскресенье.'
+        startMinute:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1440
+        endMinute:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1440
+      description: Непрерывный интервал записи внутри дня недели (минуты от полуночи, пояс хоста).
+    AvailabilitySettings:
+      type: object
+      required:
+        - timeZone
+        - slotDurationMin
+        - bufferBeforeMin
+        - bufferAfterMin
+        - minNoticeMin
+        - horizonDays
+        - ranges
+      properties:
+        timeZone:
+          type: string
+        slotDurationMin:
+          type: integer
+          format: int32
+        bufferBeforeMin:
+          type: integer
+          format: int32
+          description: Буфер до начала встречи, минуты.
+        bufferAfterMin:
+          type: integer
+          format: int32
+          description: Буфер после встречи, минуты.
+        minNoticeMin:
+          type: integer
+          format: int32
+        horizonDays:
+          type: integer
+          format: int32
+        ranges:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailabilityRange'
+    Booking:
+      type: object
+      required:
+        - id
+        - hostSlug
+        - eventTypeId
+        - startAt
+        - endAt
+        - timeZone
+        - clientName
+        - clientEmail
+        - consentAccepted
+        - status
+        - createdAt
+      properties:
+        id:
+          type: string
+          description: UUID — публичный идентификатор для ссылок отмены и переноса.
+        hostSlug:
+          type: string
+        eventTypeId:
+          type: string
+        startAt:
+          allOf:
+            - $ref: '#/components/schemas/UtcDateTime'
+          description: Начало встречи (UTC ISO 8601).
+        endAt:
+          $ref: '#/components/schemas/UtcDateTime'
+        timeZone:
+          type: string
+        clientName:
+          type: string
+        clientEmail:
+          type: string
+        clientPhone:
+          type: string
+          nullable: true
+        clientNotes:
+          type: string
+          nullable: true
+        clientGuests:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Приглашённые участники (email).
+        consentAccepted:
+          type: boolean
+          description: Согласие на обработку персональных данных.
+        status:
+          $ref: '#/components/schemas/BookingStatus'
+        cancellationReason:
+          type: string
+          nullable: true
+          description: Причина отмены, если бронь отменена.
+        createdAt:
+          type: string
+    BookingStatus:
+      type: string
+      enum:
+        - confirmed
+        - cancelled
+    CancelBookingRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Необязательная причина отмены.
+    CaptchaSettings:
+      type: object
+      required:
+        - provider
+        - required
+        - siteKey
+      properties:
+        provider:
+          type: string
+          enum:
+            - turnstile
+          description: Провайдер защиты от ботов. Сейчас всегда turnstile.
+        required:
+          type: boolean
+          description: true — виджет обязателен и токен проверяется; false — CAPTCHA выключена.
+        siteKey:
+          type: string
+          nullable: true
+          description: Публичный site key. null, если CAPTCHA выключена.
+      description: Публичные настройки CAPTCHA для формы записи (ADR-0025).
+    CreateBookingRequest:
+      type: object
+      required:
+        - eventTypeId
+        - startAt
+        - clientName
+        - clientEmail
+        - consentAccepted
+      properties:
+        eventTypeId:
+          type: string
+        startAt:
+          allOf:
+            - $ref: '#/components/schemas/UtcDateTime'
+          description: Желаемое начало слота (UTC ISO 8601).
+        clientName:
+          type: string
+        clientEmail:
+          type: string
+        clientPhone:
+          type: string
+        clientNotes:
+          type: string
+        guests:
+          type: array
+          items:
+            type: string
+          description: Приглашённые участники (email), необязательно.
+        consentAccepted:
+          type: boolean
+          description: Согласие на обработку персональных данных (обязательно).
+        captchaToken:
+          type: string
+          description: Одноразовый токен Cloudflare Turnstile. Обязателен, когда CAPTCHA включена.
+    CreateEventTypeRequest:
+      type: object
+      required:
+        - slug
+        - title
+        - durationMin
+        - locationType
+      properties:
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        durationMin:
+          type: integer
+          format: int32
+        locationType:
+          $ref: '#/components/schemas/LocationType'
+        isActive:
+          type: boolean
+    CreateHostRequest:
+      type: object
+      required:
+        - slug
+        - name
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        timeZone:
+          type: string
+          description: Необязательный IANA-пояс; по умолчанию UTC.
+    CreateTimeBlockRequest:
+      type: object
+      required:
+        - startAt
+        - endAt
+      properties:
+        startAt:
+          $ref: '#/components/schemas/UtcDateTime'
+        endAt:
+          $ref: '#/components/schemas/UtcDateTime'
+        reason:
+          type: string
+    ErrorCode:
+      type: string
+      enum:
+        - VALIDATION_ERROR
+        - NOT_FOUND
+        - SLOT_TAKEN
+        - CONFLICT
+        - CAPTCHA_FAILED
+        - RATE_LIMITED
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+      description: 'Тело ответа с ошибкой: конверт `{ error: ApiError }`.'
+    EventType:
+      type: object
+      required:
+        - id
+        - slug
+        - title
+        - durationMin
+        - locationType
+        - isActive
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        durationMin:
+          type: integer
+          format: int32
+          description: 'Длительность встречи в минутах (MVP: 30).'
+        locationType:
+          $ref: '#/components/schemas/LocationType'
+        isActive:
+          type: boolean
+          description: Активен ли тип для записи гостем.
+    Host:
+      type: object
+      required:
+        - id
+        - slug
+        - name
+        - timeZone
+      properties:
+        id:
+          type: string
+          description: Стабильный UUID хоста (используется в публичных ссылках /book/:id).
+        slug:
+          type: string
+        name:
+          type: string
+        timeZone:
+          type: string
+          description: IANA-пояс хоста.
+      description: Организатор (хост) в мульти-хост-модели.
+    HostSettings:
+      type: object
+      required:
+        - slug
+        - name
+        - timeZone
+        - captcha
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        timeZone:
+          type: string
+          description: IANA-пояс хоста, например Europe/Moscow.
+        captcha:
+          allOf:
+            - $ref: '#/components/schemas/CaptchaSettings'
+          description: 'Параметры CAPTCHA: провайдер, обязательность и публичный site key.'
+      description: Публичные настройки организатора по slug.
+    LocalDate:
+      type: string
+      format: date
+      description: Локальная дата (YYYY-MM-DD) в поясе хоста.
+    LocationType:
+      type: string
+      enum:
+        - online
+        - offline
+        - phone
+    RescheduleBookingRequest:
+      type: object
+      required:
+        - startAt
+      properties:
+        startAt:
+          allOf:
+            - $ref: '#/components/schemas/UtcDateTime'
+          description: Новое начало слота (UTC ISO 8601).
+    Slot:
+      type: object
+      required:
+        - id
+        - startAt
+        - durationMin
+        - available
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Идентификатор слота (используется до перехода брони на startAt).
+        startAt:
+          allOf:
+            - $ref: '#/components/schemas/UtcDateTime'
+          description: Начало слота (UTC ISO 8601).
+        durationMin:
+          type: integer
+          format: int32
+        available:
+          type: boolean
+          description: Свободен ли слот для записи активной бронью.
+    TimeBlock:
+      type: object
+      required:
+        - id
+        - startAt
+        - endAt
+        - createdAt
+      properties:
+        id:
+          type: string
+        startAt:
+          allOf:
+            - $ref: '#/components/schemas/UtcDateTime'
+          description: Начало блокировки (UTC ISO 8601).
+        endAt:
+          allOf:
+            - $ref: '#/components/schemas/UtcDateTime'
+          description: Конец блокировки (UTC ISO 8601).
+        reason:
+          type: string
+          nullable: true
+          description: Необязательная причина блокировки.
+        createdAt:
+          type: string
+      description: Интервал, в который организатор не принимает записи.
+    UpdateAvailabilityRequest:
+      type: object
+      properties:
+        timeZone:
+          type: string
+        slotDurationMin:
+          type: integer
+          format: int32
+        bufferBeforeMin:
+          type: integer
+          format: int32
+        bufferAfterMin:
+          type: integer
+          format: int32
+        minNoticeMin:
+          type: integer
+          format: int32
+        horizonDays:
+          type: integer
+          format: int32
+        ranges:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailabilityRange'
+    UpdateEventTypeRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        durationMin:
+          type: integer
+          format: int32
+        locationType:
+          $ref: '#/components/schemas/LocationType'
+        isActive:
+          type: boolean
+    UtcDateTime:
+      type: string
+      format: date-time
+      description: Момент времени в UTC, ISO 8601 с миллисекундами и суффиксом `Z`; для отображения — поле timeZone (IANA).
+servers:
+  - url: http://localhost:3000
+    description: Local development
+    variables: {}

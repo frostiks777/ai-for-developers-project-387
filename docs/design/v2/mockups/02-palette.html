@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Палитры и живой фон</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:var(--p)}a:hover{color:var(--p-ink)}
+.bgfx{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--ground)}
+.bgfx .b{position:absolute;border-radius:50%;filter:blur(48px);opacity:.85;will-change:transform}
+.bgfx .b1{width:260px;aspect-ratio:1;background:var(--bg1);left:-80px;top:-70px;animation:fxa 19s ease-in-out infinite alternate}
+.bgfx .b2{width:220px;aspect-ratio:1;background:var(--bg2);right:-70px;top:140px;animation:fxb 23s ease-in-out infinite alternate}
+.bgfx .b3{width:260px;aspect-ratio:1;background:var(--bg3);left:10px;bottom:-110px;animation:fxc 27s ease-in-out infinite alternate}
+.bgfx .b4{width:160px;aspect-ratio:1;background:var(--bg4);right:10px;bottom:40px;opacity:.75;animation:fxd 21s ease-in-out infinite alternate}
+.bgfx .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(28,25,23,.05) 1px,transparent 1px);background-size:3px 3px;opacity:.5}
+@keyframes fxa{0%{transform:translate(0,0) scale(1)}50%{transform:translate(22%,14%) scale(1.12)}100%{transform:translate(8%,30%) scale(.94)}}
+@keyframes fxb{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-20%,22%) scale(.9)}100%{transform:translate(-30%,-8%) scale(1.1)}}
+@keyframes fxc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(24%,-16%) scale(1.15)}100%{transform:translate(-12%,-24%) scale(1)}}
+@keyframes fxd{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-40%,-50%) scale(1.25)}}
+.still .bgfx .b{animation:none}
+@media (prefers-reduced-motion: reduce){.bgfx .b{animation:none}}
+.glass{background:rgba(255,255,255,.72);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border:1px solid rgba(255,255,255,.85)}
+</style>
+</head>
+<body>
+<div class="fx" style="width: 1440px; height: 900px; box-sizing: border-box; padding: 40px; background: #F4F1EA; display: flex; flex-direction: column; gap: 26px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 760px">
+      <div style="font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #57534E; font-weight: 600">Цветовые решения</div>
+      <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 600; font-size: 34px">Палитра «Мята и солнце» и три запасных</h1>
+      <div style="font-size: 14px; color: #57534E; line-height: 1.5">Основной цвет отвечает за навигацию, выбранный день и свободные окна. Яркий акцент выделяет выбранное время и главную кнопку, больше нигде. Фон: пастельные пятна медленно плывут под карточками из матового стекла и останавливаются, если в системе отключена анимация.</div>
+    </div>
+    <div style="font-size: 13px; color: #44403C; line-height: 1.5; max-width: 360px; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 14px; padding: 12px 14px">Схему любого макета можно сменить в <b>Tweaks → Цвет</b>. Там же выключается движение фона.</div>
+  </div>
+  <div style="display: flex; gap: 26px">
+    
+      <div style="position: relative; isolation: isolate; overflow: hidden; width: 320px; height: 700px; border-radius: 24px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 14px; border: 1px solid rgba(28,25,23,.08); --p:#0F766E; --p-ink:#0B4F49; --p-soft:#D7F0E8; --p-line:#93CFC1; --hot:#FFC53D; --on-hot:#2B1D00; --hot-glow:rgba(255,184,0,.42); --ground:#F4F2EC; --bg1:#A8E6D2; --bg2:#FFC9B8; --bg3:#C9DBFF; --bg4:#FFEAA6">
+        <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="align-self: flex-start; margin-bottom: 4px; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: #1C1917; color: #FFFFFF">ВЫБРАНА</span>
+          <span style="font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600">Мята и солнце</span>
+          <span style="font-size: 12px; color: #44403C">Выбрана для всех экранов</span>
+        </div>
+        <div class="glass" style="border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 8px">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p)"></span><span style="font-size: 11px; color: #44403C">основной<br>#0F766E</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--hot); box-shadow: 0 6px 16px var(--hot-glow)"></span><span style="font-size: 11px; color: #44403C">акцент<br>#FFC53D</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p-soft); border: 1px solid var(--p-line)"></span><span style="font-size: 11px; color: #44403C">мягкий<br>#D7F0E8</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <span style="font-size: 11px; color: #44403C; margin-right: 4px">фон</span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg1)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg2)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg3)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg4)"></span>
+          </div>
+        </div>
+        <div class="glass" style="border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(28,25,23,.08)">
+          <span style="align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: var(--hot); color: var(--on-hot)">БЛИЖАЙШЕЕ: ПН, 13:40</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 50px; border-radius: 12px; background: var(--p); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">28<span style="font-size: 10px; font-weight: 500">Пн</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">29<span style="font-size: 10px; font-weight: 500">Вт</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">30<span style="font-size: 10px; font-weight: 500">Ср</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">1<span style="font-size: 10px; font-weight: 500">Чт</span></span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px dashed #D6CFC2; color: #A29A92; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: line-through">13:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">13:40</span>
+            <span style="height: 44px; border-radius: 12px; background: var(--hot); color: var(--on-hot); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px var(--hot-glow), 0 8px 18px var(--hot-glow)">14:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">15:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">16:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">17:00</span>
+          </div>
+          <button type="button" style="height: 52px; border: 0; border-radius: 14px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 16px 'Golos Text', sans-serif">Записаться на 14:20</button>
+          <a href="#" style="font-size: 13px; font-weight: 600; text-align: center">Показать вторник</a>
+        </div>
+        <div style="flex-grow: 1"></div>
+        <div class="glass" style="border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #44403C; line-height: 1.5">Контраст текста: на основном 5,5:1, на акценте 10,4:1, на мягком 7,9:1. AA пройден.</div>
+      </div>
+    
+      <div style="position: relative; isolation: isolate; overflow: hidden; width: 320px; height: 700px; border-radius: 24px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 14px; border: 1px solid rgba(28,25,23,.08); --p:#5B3FD9; --p-ink:#3A2896; --p-soft:#E9E4FF; --p-line:#BFB2F7; --hot:#D1167E; --on-hot:#FFFFFF; --hot-glow:rgba(209,22,126,.30); --ground:#F4F2FA; --bg1:#CDBDFF; --bg2:#FFC4E4; --bg3:#BFE3FF; --bg4:#DDF7D0">
+        <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          
+          <span style="font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600">Лаванда и фуксия</span>
+          <span style="font-size: 12px; color: #44403C">Запасной вариант</span>
+        </div>
+        <div class="glass" style="border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 8px">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p)"></span><span style="font-size: 11px; color: #44403C">основной<br>#5B3FD9</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--hot); box-shadow: 0 6px 16px var(--hot-glow)"></span><span style="font-size: 11px; color: #44403C">акцент<br>#D1167E</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p-soft); border: 1px solid var(--p-line)"></span><span style="font-size: 11px; color: #44403C">мягкий<br>#E9E4FF</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <span style="font-size: 11px; color: #44403C; margin-right: 4px">фон</span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg1)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg2)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg3)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg4)"></span>
+          </div>
+        </div>
+        <div class="glass" style="border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(28,25,23,.08)">
+          <span style="align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: var(--hot); color: var(--on-hot)">БЛИЖАЙШЕЕ: ПН, 13:40</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 50px; border-radius: 12px; background: var(--p); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">28<span style="font-size: 10px; font-weight: 500">Пн</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">29<span style="font-size: 10px; font-weight: 500">Вт</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">30<span style="font-size: 10px; font-weight: 500">Ср</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">1<span style="font-size: 10px; font-weight: 500">Чт</span></span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px dashed #D6CFC2; color: #A29A92; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: line-through">13:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">13:40</span>
+            <span style="height: 44px; border-radius: 12px; background: var(--hot); color: var(--on-hot); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px var(--hot-glow), 0 8px 18px var(--hot-glow)">14:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">15:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">16:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">17:00</span>
+          </div>
+          <button type="button" style="height: 52px; border: 0; border-radius: 14px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 16px 'Golos Text', sans-serif">Записаться на 14:20</button>
+          <a href="#" style="font-size: 13px; font-weight: 600; text-align: center">Показать вторник</a>
+        </div>
+        <div style="flex-grow: 1"></div>
+        <div class="glass" style="border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #44403C; line-height: 1.5">Контраст текста: на основном 6,7:1, на акценте 5,1:1, на мягком 8,8:1. AA пройден.</div>
+      </div>
+    
+      <div style="position: relative; isolation: isolate; overflow: hidden; width: 320px; height: 700px; border-radius: 24px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 14px; border: 1px solid rgba(28,25,23,.08); --p:#2146C7; --p-ink:#172F86; --p-soft:#E1E9FF; --p-line:#AFC3F7; --hot:#FF7A2F; --on-hot:#1A1206; --hot-glow:rgba(255,122,47,.38); --ground:#FAF5EF; --bg1:#FFD3B8; --bg2:#FFE7A3; --bg3:#C8D8FF; --bg4:#F7C9DE">
+        <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          
+          <span style="font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600">Персик и ультрамарин</span>
+          <span style="font-size: 12px; color: #44403C">Запасной вариант</span>
+        </div>
+        <div class="glass" style="border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 8px">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p)"></span><span style="font-size: 11px; color: #44403C">основной<br>#2146C7</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--hot); box-shadow: 0 6px 16px var(--hot-glow)"></span><span style="font-size: 11px; color: #44403C">акцент<br>#FF7A2F</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p-soft); border: 1px solid var(--p-line)"></span><span style="font-size: 11px; color: #44403C">мягкий<br>#E1E9FF</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <span style="font-size: 11px; color: #44403C; margin-right: 4px">фон</span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg1)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg2)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg3)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg4)"></span>
+          </div>
+        </div>
+        <div class="glass" style="border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(28,25,23,.08)">
+          <span style="align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: var(--hot); color: var(--on-hot)">БЛИЖАЙШЕЕ: ПН, 13:40</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 50px; border-radius: 12px; background: var(--p); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">28<span style="font-size: 10px; font-weight: 500">Пн</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">29<span style="font-size: 10px; font-weight: 500">Вт</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">30<span style="font-size: 10px; font-weight: 500">Ср</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">1<span style="font-size: 10px; font-weight: 500">Чт</span></span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px dashed #D6CFC2; color: #A29A92; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: line-through">13:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">13:40</span>
+            <span style="height: 44px; border-radius: 12px; background: var(--hot); color: var(--on-hot); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px var(--hot-glow), 0 8px 18px var(--hot-glow)">14:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">15:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">16:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">17:00</span>
+          </div>
+          <button type="button" style="height: 52px; border: 0; border-radius: 14px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 16px 'Golos Text', sans-serif">Записаться на 14:20</button>
+          <a href="#" style="font-size: 13px; font-weight: 600; text-align: center">Показать вторник</a>
+        </div>
+        <div style="flex-grow: 1"></div>
+        <div class="glass" style="border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #44403C; line-height: 1.5">Контраст текста: на основном 7,6:1, на акценте 7,1:1, на мягком 9,7:1. AA пройден.</div>
+      </div>
+    
+      <div style="position: relative; isolation: isolate; overflow: hidden; width: 320px; height: 700px; border-radius: 24px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 14px; border: 1px solid rgba(28,25,23,.08); --p:#0B6FA4; --p-ink:#08496E; --p-soft:#DCF0FB; --p-line:#9DD2EE; --hot:#A3E635; --on-hot:#1A2E05; --hot-glow:rgba(132,204,22,.42); --ground:#F2F6F9; --bg1:#BFE6FF; --bg2:#DDF8B5; --bg3:#FFD9EC; --bg4:#D6D0FF">
+        <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          
+          <span style="font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600">Небо и лайм</span>
+          <span style="font-size: 12px; color: #44403C">Запасной вариант</span>
+        </div>
+        <div class="glass" style="border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 8px">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p)"></span><span style="font-size: 11px; color: #44403C">основной<br>#0B6FA4</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--hot); box-shadow: 0 6px 16px var(--hot-glow)"></span><span style="font-size: 11px; color: #44403C">акцент<br>#A3E635</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="height: 44px; border-radius: 10px; background: var(--p-soft); border: 1px solid var(--p-line)"></span><span style="font-size: 11px; color: #44403C">мягкий<br>#DCF0FB</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <span style="font-size: 11px; color: #44403C; margin-right: 4px">фон</span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg1)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg2)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg3)"></span>
+            <span style="width: 22px; height: 22px; border-radius: 50%; background: var(--bg4)"></span>
+          </div>
+        </div>
+        <div class="glass" style="border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(28,25,23,.08)">
+          <span style="align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: var(--hot); color: var(--on-hot)">БЛИЖАЙШЕЕ: ПН, 13:40</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 50px; border-radius: 12px; background: var(--p); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">28<span style="font-size: 10px; font-weight: 500">Пн</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">29<span style="font-size: 10px; font-weight: 500">Вт</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">30<span style="font-size: 10px; font-weight: 500">Ср</span></span>
+            <span style="height: 50px; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; line-height: 1.1">1<span style="font-size: 10px; font-weight: 500">Чт</span></span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px dashed #D6CFC2; color: #A29A92; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: line-through">13:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">13:40</span>
+            <span style="height: 44px; border-radius: 12px; background: var(--hot); color: var(--on-hot); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px var(--hot-glow), 0 8px 18px var(--hot-glow)">14:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">15:00</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">16:20</span>
+            <span style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--p); background: rgba(255,255,255,.7); color: var(--p); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">17:00</span>
+          </div>
+          <button type="button" style="height: 52px; border: 0; border-radius: 14px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 16px 'Golos Text', sans-serif">Записаться на 14:20</button>
+          <a href="#" style="font-size: 13px; font-weight: 600; text-align: center">Показать вторник</a>
+        </div>
+        <div style="flex-grow: 1"></div>
+        <div class="glass" style="border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #44403C; line-height: 1.5">Контраст текста: на основном 5,5:1, на акценте 9,7:1, на мягком 8,2:1. AA пройден.</div>
+      </div>
+    
+  </div>
+</div>
+</body>
+</html>

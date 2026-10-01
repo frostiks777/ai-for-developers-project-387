@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Вариант B: недельная сетка</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:var(--p)}a:hover{color:var(--p-ink)}
+.mk{position:absolute;width:26px;height:26px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.25);z-index:5}
+.lbl{font-size:13px;font-weight:600;color:#44403C}
+.inp{box-sizing:border-box;width:100%;height:44px;border:1px solid #D6CFC2;border-radius:10px;background:#FBF9F5;padding:0 12px;font:400 15px "Golos Text",sans-serif;color:#1C1917}
+.ib{width:40px;height:40px;border-radius:50%;border:1px solid #D6CFC2;background:#FFFFFF;display:flex;align-items:center;justify-content:center}
+
+.fx{--ground:#F4F2EC}
+.bgfx{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--ground)}
+.bgfx .b{position:absolute;border-radius:50%;filter:blur(64px);opacity:.8;will-change:transform}
+.bgfx .b1{width:max(52%,300px);aspect-ratio:1;background:var(--bg1);left:-12%;top:-18%;animation:fxa 19s ease-in-out infinite alternate}
+.bgfx .b2{width:max(46%,260px);aspect-ratio:1;background:var(--bg2);right:-10%;top:8%;animation:fxb 23s ease-in-out infinite alternate}
+.bgfx .b3{width:max(50%,280px);aspect-ratio:1;background:var(--bg3);left:18%;bottom:-26%;animation:fxc 27s ease-in-out infinite alternate}
+.bgfx .b4{width:max(30%,180px);aspect-ratio:1;background:var(--bg4);right:14%;bottom:-8%;opacity:.7;animation:fxd 21s ease-in-out infinite alternate}
+.bgfx .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(28,25,23,.05) 1px,transparent 1px);background-size:3px 3px;opacity:.5}
+@keyframes fxa{0%{transform:translate(0,0) scale(1)}50%{transform:translate(18%,12%) scale(1.12)}100%{transform:translate(6%,24%) scale(.94)}}
+@keyframes fxb{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-16%,18%) scale(.9)}100%{transform:translate(-24%,-6%) scale(1.1)}}
+@keyframes fxc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(20%,-14%) scale(1.15)}100%{transform:translate(-10%,-20%) scale(1)}}
+@keyframes fxd{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-30%,-40%) scale(1.25)}}
+.still .bgfx .b{animation:none}
+@media (prefers-reduced-motion: reduce){.bgfx .b{animation:none}}
+</style>
+</head>
+<body>
+<div class="fx" style="width: 1280px; height: 860px; position: relative; background: var(--ground); isolation: isolate; overflow: hidden; --p:#0F766E; --p-ink:#0B4F49; --p-soft:#D7F0E8; --p-tint:#F0FAF6; --p-line:#93CFC1; --hot:#FFC53D; --on-hot:#2B1D00; --hot-glow:rgba(255,184,0,.42); --hot2:#FFE08A; --ground:#F4F2EC; --bg1:#A8E6D2; --bg2:#FFC9B8; --bg3:#C9DBFF; --bg4:#FFEAA6">
+  <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+  <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 64px; box-sizing: border-box; padding: 0 40px; background: rgba(255,255,255,.5); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.75); display: flex; align-items: center; justify-content: space-between">
+    <div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px">
+      <span style="width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, var(--p), var(--hot)); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>
+      Календарь звонков
+    </div>
+    <nav style="display: flex; align-items: center; gap: 6px">
+      <a href="#" style="text-decoration: none; font-size: 14px; font-weight: 600; color: #1C1917; padding: 8px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E3DDD2">Записаться</a>
+      <a href="#" style="text-decoration: none; font-size: 14px; font-weight: 500; color: #57534E; padding: 8px 14px">Мои встречи</a>
+    </nav>
+  </div>
+
+  <div style="position: absolute; left: 40px; top: 88px; width: 840px; height: 48px; display: flex; align-items: center; justify-content: space-between">
+    <button type="button" style="height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid #D6CFC2; background: #FFFFFF; font: 600 14px 'Golos Text', sans-serif; color: #1C1917; display: flex; align-items: center; gap: 8px">Звонок-консультация · 30 мин <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <button type="button" class="ib" aria-label="Предыдущая неделя"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A29A92" stroke-width="2"><path d="M15 6l-6 6 6 6"></path></svg></button>
+      <div style="display: flex; flex-direction: column; align-items: center; min-width: 180px">
+        <span style="font-size: 15px; font-weight: 600">28 сентября – 2 октября</span>
+        <span style="font-size: 12px; color: #57534E">57 окон · время по Москве</span>
+      </div>
+      <button type="button" class="ib" aria-label="Следующая неделя"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2"><path d="M9 6l6 6-6 6"></path></svg></button>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <div role="tablist" aria-label="Вид выбора времени" style="height: 36px; box-sizing: border-box; padding: 3px; border-radius: 999px; background: rgba(241,237,229,.9); display: flex; gap: 2px">
+        <button type="button" role="tab" aria-selected="false" style="height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; font: 500 13px 'Golos Text', sans-serif; color: #57534E">Дни</button>
+        <button type="button" role="tab" aria-selected="true" style="height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: 0 1px 3px rgba(28,25,23,.12); font: 600 13px 'Golos Text', sans-serif; color: #1C1917">Неделя</button>
+      </div>
+      <span style="font-size: 13px; color: #44403C; padding: 8px 12px; border-radius: 999px; background: #F1EDE5">МСК</span>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 40px; top: 152px; width: 840px; height: 684px; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 20px"></div>
+  
+    <div style="position: absolute; left: 112px; top: 168px; width: 144px; height: 46px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <span style="font-size: 14px; font-weight: 700">Пн 28</span>
+      <span style="font-size: 12px; color: #57534E">10 свободно</span>
+    </div>
+  
+    <div style="position: absolute; left: 264px; top: 168px; width: 144px; height: 46px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <span style="font-size: 14px; font-weight: 700">Вт 29</span>
+      <span style="font-size: 12px; color: #57534E">11 свободно</span>
+    </div>
+  
+    <div style="position: absolute; left: 416px; top: 168px; width: 144px; height: 46px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <span style="font-size: 14px; font-weight: 700">Ср 30</span>
+      <span style="font-size: 12px; color: #57534E">12 свободно</span>
+    </div>
+  
+    <div style="position: absolute; left: 568px; top: 168px; width: 144px; height: 46px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <span style="font-size: 14px; font-weight: 700">Чт 1</span>
+      <span style="font-size: 12px; color: #57534E">12 свободно</span>
+    </div>
+  
+    <div style="position: absolute; left: 720px; top: 168px; width: 144px; height: 46px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <span style="font-size: 14px; font-weight: 700">Пт 2</span>
+      <span style="font-size: 12px; color: #57534E">12 свободно</span>
+    </div>
+  
+  
+    <div style="position: absolute; left: 52px; top: 222px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">13:00</div>
+  
+    <div style="position: absolute; left: 52px; top: 272px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">13:40</div>
+  
+    <div style="position: absolute; left: 52px; top: 322px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">14:20</div>
+  
+    <div style="position: absolute; left: 52px; top: 372px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">15:00</div>
+  
+    <div style="position: absolute; left: 52px; top: 422px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">15:40</div>
+  
+    <div style="position: absolute; left: 52px; top: 472px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">16:20</div>
+  
+    <div style="position: absolute; left: 52px; top: 522px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">17:00</div>
+  
+    <div style="position: absolute; left: 52px; top: 572px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">17:40</div>
+  
+    <div style="position: absolute; left: 52px; top: 622px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">18:20</div>
+  
+    <div style="position: absolute; left: 52px; top: 672px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">19:00</div>
+  
+    <div style="position: absolute; left: 52px; top: 722px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">19:40</div>
+  
+    <div style="position: absolute; left: 52px; top: 772px; width: 52px; height: 48px; display: flex; align-items: center; font-size: 12px; color: #57534E; font-variant-numeric: tabular-nums">20:20</div>
+  
+  
+    
+    
+      <div style="position: absolute; left: 112px; top: 224px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px dashed #D6CFC2; background: repeating-linear-gradient(135deg, #F4F1EA 0 6px, #FFFFFF 6px 12px); color: #A29A92; font-size: 13px; display: flex; align-items: center; padding-left: 12px; gap: 6px"><span style="text-decoration: line-through">13:00</span> занято</div>
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 274px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 324px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">14:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 374px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:00</div>
+    
+    
+    
+  
+    
+    
+      <div style="position: absolute; left: 112px; top: 424px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px dashed #D6CFC2; background: repeating-linear-gradient(135deg, #F4F1EA 0 6px, #FFFFFF 6px 12px); color: #A29A92; font-size: 13px; display: flex; align-items: center; padding-left: 12px; gap: 6px"><span style="text-decoration: line-through">15:40</span> занято</div>
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 474px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">16:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 524px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 574px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 624px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">18:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 674px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 724px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 112px; top: 774px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">20:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 224px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 274px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 324px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">14:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 374px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:00</div>
+    
+    
+    
+  
+    
+    
+      <div style="position: absolute; left: 264px; top: 424px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px dashed #D6CFC2; background: repeating-linear-gradient(135deg, #F4F1EA 0 6px, #FFFFFF 6px 12px); color: #A29A92; font-size: 13px; display: flex; align-items: center; padding-left: 12px; gap: 6px"><span style="text-decoration: line-through">15:40</span> занято</div>
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 474px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">16:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 524px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 574px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 624px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">18:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 674px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 724px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 264px; top: 774px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">20:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 224px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 274px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 324px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">14:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 374px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 424px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 474px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">16:20</div>
+    
+    
+    
+  
+    
+    
+    
+      <div style="position: absolute; left: 416px; top: 524px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; background: var(--hot); color: var(--on-hot); font-size: 14px; font-weight: 700; display: flex; align-items: center; padding-left: 12px; gap: 6px; box-shadow: 0 0 0 4px var(--hot-glow), 0 8px 20px var(--hot-glow)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"></path></svg>17:00 – 17:30</div>
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 574px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 624px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">18:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 674px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 724px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 416px; top: 774px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">20:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 224px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 274px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 324px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">14:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 374px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 424px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 474px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">16:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 524px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 574px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 624px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">18:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 674px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 724px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 568px; top: 774px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">20:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 224px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 274px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">13:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 324px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">14:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 374px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 424px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">15:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 474px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">16:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 524px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 574px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">17:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 624px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">18:20</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 674px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:00</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 724px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">19:40</div>
+    
+    
+    
+  
+    
+      <div style="position: absolute; left: 720px; top: 774px; width: 144px; height: 44px; box-sizing: border-box; border-radius: 9px; border: 1px solid var(--p-line); background: var(--p-tint); color: var(--p-ink); font-size: 14px; font-weight: 600; display: flex; align-items: center; padding-left: 12px">20:20</div>
+    
+    
+    
+  
+
+  <div style="position: absolute; left: 904px; top: 88px; width: 336px; height: 748px; box-sizing: border-box; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; align-items: center; gap: 10px">
+      <span style="width: 40px; height: 40px; border-radius: 50%; background: var(--p-soft); color: var(--p-ink); font-weight: 700; display: flex; align-items: center; justify-content: center">О</span>
+      <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #57534E">Звонок с организатором</span><span style="font-size: 15px; font-weight: 600">[Имя организатора]</span></div>
+    </div>
+    <div style="height: 1px; background: #F1EDE5"></div>
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <span style="font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600">Ср, 30 сентября</span>
+      <a href="#" style="font-size: 13px">изменить</a>
+    </div>
+    <span style="font-size: 15px; font-weight: 600; color: var(--p-ink); margin-top: -8px">17:00 – 17:30 · по Москве</span>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label class="lbl" for="b-name">Имя</label>
+      <input id="b-name" class="inp" placeholder="Как к вам обращаться" style="">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label class="lbl" for="b-mail">Email</label>
+      <input id="b-mail" class="inp" placeholder="you@example.com" style="">
+    </div>
+    <a href="#" style="font-size: 14px; font-weight: 600; text-decoration: none">+ Телефон, комментарий, гости</a>
+    <label for="b-ok" style="display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: #57534E; line-height: 1.4"><input id="b-ok" type="checkbox" style="margin-top: 2px; accent-color: var(--p);">Согласен на обработку персональных данных</label>
+    <button type="button" style="height: 52px; border: 0; border-radius: 12px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 16px 'Golos Text', sans-serif">Записаться на 17:00</button>
+    <span style="font-size: 12px; color: #57534E">Чтобы записаться, заполните имя, email и отметьте согласие</span>
+    <div style="flex-grow: 1"></div>
+    <div style="display: flex; gap: 14px; font-size: 12px; color: #57534E; flex-wrap: wrap">
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; border: 1px solid var(--p-line); background: var(--p-tint)"></span>свободно</span>
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; border: 1px dashed #D6CFC2; background: repeating-linear-gradient(135deg, #F4F1EA 0 3px, #FFFFFF 3px 6px)"></span>занято</span>
+      <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: var(--hot)"></span>ваш выбор</span>
+    </div>
+  </div>
+
+  <span class="mk" style="left: 26px; top: 76px">1</span>
+  <span class="mk" style="left: 390px; top: 76px">2</span>
+  <span class="mk" style="left: 398px; top: 518px">3</span>
+  <span class="mk" style="left: 890px; top: 250px">4</span>
+  <span class="mk" style="left: 1214px; top: 548px">5</span>
+  <span class="mk" style="left: 868px; top: 76px">6</span>
+  <svg width="1280" height="860" viewBox="0 0 1280 860" style="position: absolute; left: 0; top: 0; pointer-events: none; z-index: 4">
+    <defs><marker id="bah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1C1917"></path></marker></defs>
+    <g stroke="#1C1917" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#bah)">
+      <path d="M520,146 C520,330 420,440 414,512"></path>
+      <path d="M570,546 C760,546 800,300 900,292"></path>
+    </g>
+  </svg>
+</div>
+</body>
+</html>

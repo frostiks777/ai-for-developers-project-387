@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Управление встречей</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:var(--p)}a:hover{color:var(--p-ink)}
+.mk{position:absolute;width:26px;height:26px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.25);z-index:5}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:11px 0;border-bottom:1px solid #F1EDE5}
+
+.fx{--ground:#F4F2EC}
+.bgfx{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--ground)}
+.bgfx .b{position:absolute;border-radius:50%;filter:blur(64px);opacity:.8;will-change:transform}
+.bgfx .b1{width:max(52%,300px);aspect-ratio:1;background:var(--bg1);left:-12%;top:-18%;animation:fxa 19s ease-in-out infinite alternate}
+.bgfx .b2{width:max(46%,260px);aspect-ratio:1;background:var(--bg2);right:-10%;top:8%;animation:fxb 23s ease-in-out infinite alternate}
+.bgfx .b3{width:max(50%,280px);aspect-ratio:1;background:var(--bg3);left:18%;bottom:-26%;animation:fxc 27s ease-in-out infinite alternate}
+.bgfx .b4{width:max(30%,180px);aspect-ratio:1;background:var(--bg4);right:14%;bottom:-8%;opacity:.7;animation:fxd 21s ease-in-out infinite alternate}
+.bgfx .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(28,25,23,.05) 1px,transparent 1px);background-size:3px 3px;opacity:.5}
+@keyframes fxa{0%{transform:translate(0,0) scale(1)}50%{transform:translate(18%,12%) scale(1.12)}100%{transform:translate(6%,24%) scale(.94)}}
+@keyframes fxb{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-16%,18%) scale(.9)}100%{transform:translate(-24%,-6%) scale(1.1)}}
+@keyframes fxc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(20%,-14%) scale(1.15)}100%{transform:translate(-10%,-20%) scale(1)}}
+@keyframes fxd{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-30%,-40%) scale(1.25)}}
+.still .bgfx .b{animation:none}
+@media (prefers-reduced-motion: reduce){.bgfx .b{animation:none}}
+</style>
+</head>
+<body>
+<div class="fx" style="width: 1280px; height: 860px; position: relative; background: var(--ground); isolation: isolate; overflow: hidden; --p:#0F766E; --p-ink:#0B4F49; --p-soft:#D7F0E8; --p-tint:#F0FAF6; --p-line:#93CFC1; --hot:#FFC53D; --on-hot:#2B1D00; --hot-glow:rgba(255,184,0,.42); --hot2:#FFE08A; --ground:#F4F2EC; --bg1:#A8E6D2; --bg2:#FFC9B8; --bg3:#C9DBFF; --bg4:#FFEAA6">
+  <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+  <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 64px; box-sizing: border-box; padding: 0 40px; background: rgba(255,255,255,.5); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.75); display: flex; align-items: center; justify-content: space-between">
+    <div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px">
+      <span style="width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, var(--p), var(--hot)); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>
+      Календарь звонков
+    </div>
+    <nav style="display: flex; align-items: center; gap: 6px">
+      <a href="#" style="text-decoration: none; font-size: 14px; font-weight: 500; color: #57534E; padding: 8px 14px">Записаться</a>
+      <a href="#" style="text-decoration: none; font-size: 14px; font-weight: 600; color: #1C1917; padding: 8px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E3DDD2">Мои встречи</a>
+    </nav>
+  </div>
+
+  <div style="position: absolute; left: 40px; top: 88px; width: 400px; height: 740px; box-sizing: border-box; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px">
+    <a href="#" style="font-size: 14px; font-weight: 600; text-decoration: none">← Все мои встречи</a>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <span style="font-family: Lora, Georgia, serif; font-size: 30px; font-weight: 600">Ваша встреча</span>
+      <span style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #E3F6EA; color: #1E7A45">подтверждена</span>
+    </div>
+    <div>
+      <div class="row"><span style="color: #57534E">Когда</span><span style="font-weight: 600; text-align: right">Пн, 28 сентября<br>14:20 – 14:50 по Москве</span></div>
+      <div class="row"><span style="color: #57534E">Формат</span><span style="font-weight: 600">Звонок-консультация, онлайн</span></div>
+      <div class="row"><span style="color: #57534E">Организатор</span><span style="font-weight: 600">[Имя организатора]</span></div>
+      <div class="row" style="border-bottom: 0"><span style="color: #57534E">Вы</span><span style="font-weight: 600">Мария · maria@example.ru</span></div>
+    </div>
+    <button type="button" style="height: 48px; border: 1px solid #D6CFC2; border-radius: 12px; background: #FFFFFF; font: 600 15px 'Golos Text', sans-serif; color: #1C1917">Добавить в календарь</button>
+    <div style="flex-grow: 1"></div>
+    <div style="border: 1px solid #EBC8C3; background: #FDF3F1; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 15px; font-weight: 700; color: #8F1D13">Отменить встречу 28 сентября в 14:20?</span>
+      <span style="font-size: 13px; color: #44403C; line-height: 1.45">Время освободится для других. Вернуть эту запись будет нельзя, только записаться заново.</span>
+      <div style="display: flex; gap: 8px">
+        <button type="button" style="flex: 1; height: 46px; border: 0; border-radius: 12px; background: #B42318; color: #FFFFFF; font: 600 15px 'Golos Text', sans-serif">Да, отменить</button>
+        <button type="button" style="flex: 1; height: 46px; border: 1px solid #D6CFC2; border-radius: 12px; background: #FFFFFF; color: #1C1917; font: 600 15px 'Golos Text', sans-serif">Оставить</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 464px; top: 88px; width: 776px; height: 496px; box-sizing: border-box; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 20px; padding: 28px 24px"></div>
+  <div style="position: absolute; left: 488px; top: 116px; font-family: Lora, Georgia, serif; font-size: 26px; font-weight: 600">Перенести на другое время</div>
+  <div style="position: absolute; left: 488px; top: 156px; font-size: 14px; color: #57534E">Та же сетка, что при записи. Текущее время отмечено, ничего не изменится до подтверждения.</div>
+  
+    
+      <div style="position: absolute; left: 488px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Пн</span><span style="font-size: 18px; font-weight: 700">28</span></div>
+    
+    
+  
+    
+    
+      <div style="position: absolute; left: 561px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Вт</span><span style="font-size: 18px; font-weight: 700">29</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 634px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Ср</span><span style="font-size: 18px; font-weight: 700">30</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 707px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Чт</span><span style="font-size: 18px; font-weight: 700">1</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 780px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Пт</span><span style="font-size: 18px; font-weight: 700">2</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 853px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Пн</span><span style="font-size: 18px; font-weight: 700">5</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 926px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Вт</span><span style="font-size: 18px; font-weight: 700">6</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 999px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Ср</span><span style="font-size: 18px; font-weight: 700">7</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 1072px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Чт</span><span style="font-size: 18px; font-weight: 700">8</span></div>
+    
+  
+    
+    
+      <div style="position: absolute; left: 1145px; top: 196px; width: 66px; height: 60px; box-sizing: border-box; border-radius: 12px; background: var(--p-soft); color: var(--p-ink); display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px">Пт</span><span style="font-size: 18px; font-weight: 700">9</span></div>
+    
+  
+  <div style="position: absolute; left: 488px; top: 282px; font-size: 16px; font-weight: 600">Понедельник, 28 сентября <span style="font-weight: 400; font-size: 13px; color: #57534E">· по Москве</span></div>
+  
+    
+    <div style="position: absolute; left: 488px; top: 318px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px dashed #D6CFC2; background: repeating-linear-gradient(135deg, #F4F1EA 0 6px, #FFFFFF 6px 12px); color: #A29A92; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 4px"><span style="text-decoration: line-through">13:00</span> занято</div>
+    
+    
+  
+    <div style="position: absolute; left: 610.8px; top: 318px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">13:40</div>
+    
+    
+    
+  
+    
+    
+    <div style="position: absolute; left: 733.6px; top: 318px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 2px solid #44403C; background: #F1EDE5; color: #44403C; font-size: 14px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1">14:20<span style="font-size: 11px; font-weight: 600">сейчас</span></div>
+    
+  
+    <div style="position: absolute; left: 856.4px; top: 318px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">15:00</div>
+    
+    
+    
+  
+    
+    <div style="position: absolute; left: 979.2px; top: 318px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px dashed #D6CFC2; background: repeating-linear-gradient(135deg, #F4F1EA 0 6px, #FFFFFF 6px 12px); color: #A29A92; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 4px"><span style="text-decoration: line-through">15:40</span> занято</div>
+    
+    
+  
+    <div style="position: absolute; left: 1102px; top: 318px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">16:20</div>
+    
+    
+    
+  
+    <div style="position: absolute; left: 488px; top: 376px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">17:00</div>
+    
+    
+    
+  
+    
+    
+    
+    <div style="position: absolute; left: 610.8px; top: 376px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; background: var(--hot); color: var(--on-hot); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 0 0 4px var(--hot-glow), 0 8px 20px var(--hot-glow)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7"></path></svg>17:40</div>
+  
+    <div style="position: absolute; left: 733.6px; top: 376px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">18:20</div>
+    
+    
+    
+  
+    <div style="position: absolute; left: 856.4px; top: 376px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">19:00</div>
+    
+    
+    
+  
+    <div style="position: absolute; left: 979.2px; top: 376px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">19:40</div>
+    
+    
+    
+  
+    <div style="position: absolute; left: 1102px; top: 376px; width: 114px; height: 48px; box-sizing: border-box; border-radius: 10px; border: 1px solid var(--p); color: var(--p); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">20:20</div>
+    
+    
+    
+  
+
+  <div style="position: absolute; left: 488px; top: 448px; width: 728px; height: 104px; box-sizing: border-box; border-radius: 16px; background: #FBF9F5; border: 1px solid #E3DDD2; padding: 16px 18px; display: flex; align-items: center; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #57534E">Было</span><span style="font-size: 16px; font-weight: 600; color: #57534E; text-decoration: line-through">Пн, 28 сен, 14:20</span></div>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-size: 12px; color: #57534E">Станет</span><span style="font-size: 18px; font-weight: 700; color: var(--p-ink)">Пн, 28 сен, 17:40</span></div>
+    <button type="button" style="height: 52px; padding: 0 24px; border: 0; border-radius: 12px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 16px 'Golos Text', sans-serif">Перенести встречу</button>
+  </div>
+
+  <div style="position: absolute; left: 464px; top: 608px; width: 776px; box-sizing: border-box; border: 1px dashed #D6CFC2; border-radius: 16px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px">
+    <span style="font-size: 14px; font-weight: 600">Одна страница вместо двух</span>
+    <span style="font-size: 13px; color: #57534E; line-height: 1.5">Открывается из «Мои встречи», с экрана успеха и по ссылке из файла .ics. Заменяет /reschedule/:token и /cancel/:token: та же шапка, то же время в поясе гостя, отмена — красным и с подтверждением.</span>
+  </div>
+  <span class="mk" style="left: 450px; top: 112px">1</span>
+  <span class="mk" style="left: 1202px; top: 434px">2</span>
+  <span class="mk" style="left: 26px; top: 640px">3</span>
+</div>
+</body>
+</html>

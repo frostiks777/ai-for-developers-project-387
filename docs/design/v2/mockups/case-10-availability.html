@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>О5–О6 Настроить доступность и заблокировать время</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F2EC}
+a{color:#0F766E}a:hover{color:#0B4F49}
+.mk{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #FFC53D,0 2px 6px rgba(0,0,0,.25)}
+.shot{position:relative;overflow:hidden;border-radius:12px;border:1px solid #E3DDD2;background:#fff}
+.shot img{display:block}
+</style>
+</head>
+<body>
+<div style="width: 1440px; height: 1010px; box-sizing: border-box; padding: 40px; background: linear-gradient(135deg, #EAF6F1 0%, #F4F2EC 45%, #FFF6DC 100%); display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 860px">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: #0F766E; color: #FFFFFF">О5–О6</span>
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #57534E">Организатор</span>
+      </div>
+      <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 600; font-size: 32px; line-height: 1.15; text-wrap: balance">Настроить доступность и заблокировать время</h1>
+      <span style="font-size: 15px; color: #44403C">Задача: Задать рабочие часы в своём поясе и видеть, что получится у гостя.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end; font-size: 13px">
+      <span style="padding: 6px 12px; border-radius: 999px; background: #FFC53D; color: #2B1D00; font-weight: 700">Макеты: D3 · D4</span>
+      <span style="color: #57534E; font-family: ui-monospace, Menlo, monospace; font-size: 12px">/admin/availability, /admin/blocks</span>
+    </div>
+  </div>
+  <div style="display: flex; gap: 32px; align-items: flex-start">
+    <div style="width: 640px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">КАК СЕЙЧАС</span>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div class="shot" style="width: 640px; height: 420px"><img src="../current/d-dashboard.png" alt="Доступность сейчас (правая колонка)" style="width: 640px; height: 602px"><span class="mk" style="left: 488px; top: 73px">1</span><span class="mk" style="left: 500px; top: 138px">2</span><span class="mk" style="left: 510px; top: 350px">3</span></div>
+        <span style="font-size: 12px; color: #57534E">Доступность сейчас (правая колонка)</span>
+      </div>
+      </div>
+    </div>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">ЧТО МЕНЯЕМ И ПОЧЕМУ</span>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">1</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Правила — в поясе организатора, и пояс написан у полей</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> «Часовой пояс: UTC» при работе из Москвы даёт гостям 13:00–20:50 вместо 10:00–18:00. Это главная причина «странного» времени у гостей.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">availability-settings-form.tsx, hosts.timezone</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">2</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Предупреждение, если пояс правил не совпадает с поясом браузера</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> «Вы указали 10:00–18:00, а гости из Москвы видят 13:00–20:50» и кнопка «Считать по Москве».</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">availability-settings-form.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">3</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Поля времени шире, в 24-часовом формате</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Сейчас они обрезаны до «10:» и «06:», а 06 — это 18:00 в 12-часовом формате. Ошибиться легко.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">availability-settings-form.tsx: w-[112px], step=600</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">4</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Превью «неделя глазами гостя» рядом с правилами</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Организатор сразу видит результат настройки: где свободно, где встречи, где блокировки.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">новый availability-preview.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">5</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Блокировки на той же неделе, выделением диапазона</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Отпуск или личные дела проще отметить там, где видишь время, чем в отдельной форме.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">blocks-editor.tsx</span>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

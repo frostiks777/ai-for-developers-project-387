@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Мастер: контакты</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:var(--p)}a:hover{color:var(--p-ink)}
+.mk{position:absolute;width:26px;height:26px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.25);z-index:5}
+.lbl{font-size:14px;font-weight:600;color:#44403C}
+.inp{box-sizing:border-box;width:100%;height:52px;border:1px solid #D6CFC2;border-radius:14px;background:#FFFFFF;padding:0 14px;font:400 16px "Golos Text",sans-serif;color:#1C1917}
+
+.fx{--ground:#F4F2EC}
+.bgfx{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--ground)}
+.bgfx .b{position:absolute;border-radius:50%;filter:blur(64px);opacity:.8;will-change:transform}
+.bgfx .b1{width:max(52%,300px);aspect-ratio:1;background:var(--bg1);left:-12%;top:-18%;animation:fxa 19s ease-in-out infinite alternate}
+.bgfx .b2{width:max(46%,260px);aspect-ratio:1;background:var(--bg2);right:-10%;top:8%;animation:fxb 23s ease-in-out infinite alternate}
+.bgfx .b3{width:max(50%,280px);aspect-ratio:1;background:var(--bg3);left:18%;bottom:-26%;animation:fxc 27s ease-in-out infinite alternate}
+.bgfx .b4{width:max(30%,180px);aspect-ratio:1;background:var(--bg4);right:14%;bottom:-8%;opacity:.7;animation:fxd 21s ease-in-out infinite alternate}
+.bgfx .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(28,25,23,.05) 1px,transparent 1px);background-size:3px 3px;opacity:.5}
+@keyframes fxa{0%{transform:translate(0,0) scale(1)}50%{transform:translate(18%,12%) scale(1.12)}100%{transform:translate(6%,24%) scale(.94)}}
+@keyframes fxb{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-16%,18%) scale(.9)}100%{transform:translate(-24%,-6%) scale(1.1)}}
+@keyframes fxc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(20%,-14%) scale(1.15)}100%{transform:translate(-10%,-20%) scale(1)}}
+@keyframes fxd{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-30%,-40%) scale(1.25)}}
+.still .bgfx .b{animation:none}
+@media (prefers-reduced-motion: reduce){.bgfx .b{animation:none}}
+</style>
+</head>
+<body>
+<div class="fx" style="width: 390px; height: 844px; position: relative; background: var(--ground); isolation: isolate; overflow: hidden; display: flex; flex-direction: column; --p:#0F766E; --p-ink:#0B4F49; --p-soft:#D7F0E8; --p-tint:#F0FAF6; --p-line:#93CFC1; --hot:#FFC53D; --on-hot:#2B1D00; --hot-glow:rgba(255,184,0,.42); --hot2:#FFE08A; --ground:#F4F2EC; --bg1:#A8E6D2; --bg2:#FFC9B8; --bg3:#C9DBFF; --bg4:#FFEAA6">
+  <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+  <div style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 8px; background: rgba(255,255,255,.5); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.75); display: flex; align-items: center">
+    <a href="#" style="display: flex; align-items: center; gap: 4px; height: 44px; padding: 0 8px; text-decoration: none; font-size: 15px; font-weight: 600; color: #1C1917"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2"><path d="M15 6l-6 6 6 6"></path></svg>Время</a>
+  </div>
+  <div style="padding: 14px 16px 0; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #57534E"><span>ШАГ 3 ИЗ 3 · КОНТАКТЫ</span><span>почти готово</span></div>
+      <div style="height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--p), var(--hot))"></div>
+    </div>
+    <div style="background: var(--p-soft); border-radius: 16px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 17px; font-weight: 700; color: var(--p-ink)">Пн, 28 сентября · 14:20</span>
+        <span style="font-size: 13px; color: var(--p-ink)">Звонок-консультация, 30 мин · по Москве</span>
+      </div>
+      <a href="#" style="font-size: 14px; font-weight: 600">Изменить</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <label class="lbl" for="c-name">Как вас зовут</label>
+      <input id="c-name" class="inp" value="Мария Иванова" autocomplete="name" style="">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <label class="lbl" for="c-mail">Email</label>
+      <input id="c-mail" class="inp" value="maria@example" style="border-color: rgb(180, 35, 24);" autocomplete="email">
+      <span style="font-size: 13px; color: #B42318">Похоже, адрес не полный: не хватает домена, например .ru</span>
+    </div>
+    <button type="button" style="height: 48px; border: 1px dashed #D6CFC2; border-radius: 14px; background: transparent; font: 600 15px 'Golos Text', sans-serif; color: var(--p); text-align: left; padding: 0 14px">+ Добавить телефон или вопрос к встрече</button>
+    <label for="c-ok" style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.4"><input id="c-ok" type="checkbox" checked="" style="width: 20px; height: 20px; margin: 0px; accent-color: var(--p);">Согласен на обработку персональных данных для этой встречи</label>
+  </div>
+  <div style="flex-grow: 1"></div>
+  <div style="flex-shrink: 0; padding: 12px 16px 24px; display: flex; flex-direction: column; gap: 8px">
+    <button type="button" style="height: 56px; border: 0; border-radius: 14px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 17px 'Golos Text', sans-serif">Записаться на 14:20</button>
+    <span style="font-size: 12px; color: #57534E; text-align: center">Сохраним встречу на этом телефоне в «Мои встречи»</span>
+  </div>
+  <span class="mk" style="left: 352px; top: 118px">1</span>
+  <span class="mk" style="left: 352px; top: 300px">2</span>
+  <span class="mk" style="left: 352px; top: 772px">3</span>
+</div>
+</body>
+</html>

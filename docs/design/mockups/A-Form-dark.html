@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Десктоп — форма (тёмная)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&amp;family=Golos+Text:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Golos Text',sans-serif;background:#111214;color:#F2F3F5}
+a{color:#5FD4C0}a:hover{color:#8FE6D6}
+button,select,input,textarea{font-family:inherit}
+input::placeholder,textarea::placeholder{color:#A3A8B3}
+</style>
+</head>
+<body>
+<div style="width: 1280px; height: 820px; box-sizing: border-box; background: #111214; color: #F2F3F5; display: flex; flex-direction: column; position: relative; overflow: hidden;">
+<header style="height: 64px; flex-shrink: 0; box-sizing: border-box; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #30343B; background: #16181B;">
+<div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px;"><span style="width: 32px; height: 32px; border-radius: 8px; background: #5FD4C0; color: #06201C; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>Календарь звонков</div>
+<div style="display: flex; align-items: center; gap: 20px;"><a href="A-Dashboard-dark.html" style="font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 6px;">Панель организатора<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><button aria-label="Включить светлую тему" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #30343B; background: #1B1D21; color: #F2F3F5; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></button></div>
+</header>
+<main style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 32px 48px;">
+<div style="width: 1140px; height: 660px; background: #1B1D21; border: 1px solid #30343B; border-radius: 20px; display: flex; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);">
+<aside style="width: 300px; flex-shrink: 0; box-sizing: border-box; padding: 36px 32px; border-right: 1px solid #30343B; display: flex; flex-direction: column; gap: 24px;">
+<div style="width: 56px; height: 56px; border-radius: 50%; background: #173A35; color: #8FE6D6; font-weight: 600; font-size: 20px; display: flex; align-items: center; justify-content: center;">ОР</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="font-size: 14px; color: #A3A8B3;">[Имя организатора]</div>
+<h1 style="margin: 0; font-family: Lora, serif; font-size: 30px; line-height: 1.15; font-weight: 600;">Звонок-консультация</h1>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; font-size: 15px; color: #D5D8DE;">
+<li style="display: flex; align-items: center; gap: 10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A3A8B3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>30 минут</li>
+<li style="display: flex; align-items: center; gap: 10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A3A8B3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2"></rect><path d="M16 10l5-3v10l-5-3"></path></svg>Онлайн-звонок</li>
+<li style="display: flex; align-items: center; gap: 10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A3A8B3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"></path></svg>Бронь не позже чем за 2 часа</li>
+</ul>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
+<label for="timezone" style="font-size: 13px; font-weight: 500; color: #A3A8B3; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A8B3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg>Часовой пояс</label>
+<select id="timezone" style="height: 44px; border: 1px solid #3A3F47; border-radius: 10px; padding: 0 12px; font-size: 14px; background: #1B1D21; color: #F2F3F5;"><option>Europe/Moscow (GMT+3)</option><option>UTC</option><option>Europe/Berlin (GMT+2)</option></select>
+<span style="font-size: 12px; color: #A3A8B3;">Определён по вашему браузеру</span>
+</div>
+</aside>
+<section style="width: 460px; flex-shrink: 0; box-sizing: border-box; padding: 36px 32px; border-right: 1px solid #30343B; display: flex; flex-direction: column; gap: 18px;">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600;">Выберите дату</h2>
+<div style="display: flex; align-items: center; justify-content: space-between;">
+<span style="font-size: 16px; font-weight: 500;">Сентябрь 2026</span>
+<div style="display: flex; gap: 8px;">
+<button aria-label="Предыдущий месяц" disabled="disabled" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #30343B; background: #1B1D21; color: #6B707A; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button aria-label="Следующий месяц" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #30343B; background: #1B1D21; color: #F2F3F5; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; justify-items: center; font-size: 12px; font-weight: 500; color: #A3A8B3; text-transform: uppercase; letter-spacing: 0.04em;">
+<span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; justify-items: center;">
+<span></span>
+<button aria-label="2026-09-01" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">1</button>
+<button aria-label="2026-09-02" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">2</button>
+<button aria-label="2026-09-03" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">3</button>
+<button aria-label="2026-09-04" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">4</button>
+<button aria-label="2026-09-05" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">5</button>
+<button aria-label="2026-09-06" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">6</button>
+<button aria-label="2026-09-07" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">7</button>
+<button aria-label="2026-09-08" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">8</button>
+<button aria-label="2026-09-09" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">9</button>
+<button aria-label="2026-09-10" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">10</button>
+<button aria-label="2026-09-11" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">11</button>
+<button aria-label="2026-09-12" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">12</button>
+<button aria-label="2026-09-13" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">13</button>
+<button aria-label="2026-09-14" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">14</button>
+<button aria-label="2026-09-15" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">15</button>
+<button aria-label="2026-09-16" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">16</button>
+<button aria-label="2026-09-17" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">17</button>
+<button aria-label="2026-09-18" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">18</button>
+<button aria-label="2026-09-19" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">19</button>
+<button aria-label="2026-09-20" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">20</button>
+<button aria-label="2026-09-21" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">21</button>
+<button aria-label="2026-09-22" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">22</button>
+<button aria-label="2026-09-23" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #F2F3F5; box-shadow: inset 0 0 0 1px #30343B;">23<span style="position: absolute; bottom: 7px; width: 4px; height: 4px; border-radius: 50%; background: #A3A8B3;"></span></button>
+<button aria-label="2026-09-24" aria-pressed="true" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: #5FD4C0; color: #06201C; font-weight: 600;">24</button>
+<button aria-label="2026-09-25" aria-pressed="false" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: #173A35; color: #8FE6D6; font-weight: 600;">25</button>
+<button aria-label="2026-09-26" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">26</button>
+<button aria-label="2026-09-27" disabled="disabled" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: transparent; color: #6B707A;">27</button>
+<button aria-label="2026-09-28" aria-pressed="false" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: #173A35; color: #8FE6D6; font-weight: 600;">28</button>
+<button aria-label="2026-09-29" aria-pressed="false" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: #173A35; color: #8FE6D6; font-weight: 600;">29</button>
+<button aria-label="2026-09-30" aria-pressed="false" style="width: 52px; height: 52px; border-radius: 50%; border: none; font-size: 15px; display: flex; align-items: center; justify-content: center; position: relative; background: #173A35; color: #8FE6D6; font-weight: 600;">30</button>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+<div style="margin-top: auto; display: flex; gap: 18px; font-size: 12px; color: #A3A8B3;">
+<span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #173A35; box-shadow: inset 0 0 0 1px #5FD4C0;"></span>Есть свободное время</span>
+<span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #5FD4C0;"></span>Выбрано</span>
+<span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px #A3A8B3;"></span>Сегодня</span>
+</div>
+</section>
+<section style="flex-grow: 1; min-width: 0; box-sizing: border-box; padding: 36px 28px; display: flex; flex-direction: column; gap: 18px;">
+<div>
+<h2 style="margin: 0; font-size: 18px; font-weight: 600;">Четверг, 24 сентября</h2>
+<p style="margin: 6px 0 0; font-size: 13px; color: #A3A8B3;">10 свободных окон · время по Europe/Moscow</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">13:00</button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">13:40</button>
+<div style="grid-column: span 2; display: flex; gap: 8px;">
+<div style="flex-grow: 1; height: 48px; border-radius: 10px; background: #F2F3F5; color: #111214; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">14:20 – 14:50</div>
+<button style="flex-grow: 1; height: 48px; border-radius: 10px; border: none; background: #5FD4C0; color: #06201C; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">Забронировать<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</div>
+<button disabled="disabled" style="height: 48px; border-radius: 10px; border: 1px dashed #30343B; background: #16181B; color: #6B707A; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 6px;"><span style="text-decoration: line-through;">15:00</span><span>занято</span></button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">15:40</button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">16:20</button>
+<button disabled="disabled" style="height: 48px; border-radius: 10px; border: 1px dashed #30343B; background: #16181B; color: #6B707A; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 6px;"><span style="text-decoration: line-through;">17:00</span><span>занято</span></button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">17:40</button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">18:20</button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">19:00</button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">19:40</button>
+<button style="height: 48px; border-radius: 10px; border: 1px solid #5FD4C0; background: #1B1D21; color: #5FD4C0; font-size: 15px; font-weight: 600;">20:20</button>
+</div>
+</section>
+</div>
+</main><div style="position: absolute; inset: 0; background: rgba(0,0,0,0.6);"></div>
+<div role="dialog" aria-modal="true" aria-labelledby="dlg-title" style="position: absolute; left: 400px; top: 110px; width: 480px; box-sizing: border-box; background: #1B1D21; border: 1px solid #30343B; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 24px 64px rgba(0,0,0,0.25);">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+<div><h2 id="dlg-title" style="margin: 0; font-family: Lora, serif; font-size: 24px; font-weight: 600;">Бронирование звонка</h2>
+<p style="margin: 8px 0 0; font-size: 14px; color: #A3A8B3; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A8B3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Чт, 24 сентября 2026, 14:20–14:50 · 30 мин</p></div>
+<button aria-label="Закрыть" style="width: 36px; height: 36px; border-radius: 50%; border: none; background: #24272C; color: #F2F3F5; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<form style="display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-name" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Имя</label><input id="booking-name" value="Иван" placeholder="Как к вам обращаться" style="height: 44px; border: 1px solid #3A3F47; border-radius: 10px; padding: 0 12px; font-size: 15px; background: #1B1D21; color: #F2F3F5;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-email" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Email</label><input id="booking-email" value="ivan@example" placeholder="you@example.com" aria-invalid="true" aria-describedby="booking-email-error" style="height: 44px; border: 1px solid #F2857A; border-radius: 10px; padding: 0 12px; font-size: 15px; background: #1B1D21; color: #F2F3F5;"><span id="booking-email-error" style="font-size: 13px; color: #F2857A;">Неверный email</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-phone" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Телефон<span style="font-size: 12px; font-weight: 400; color: #A3A8B3;">необязательно</span></label><input id="booking-phone" placeholder="+7 900 000-00-00" style="height: 44px; border: 1px solid #3A3F47; border-radius: 10px; padding: 0 12px; font-size: 15px; background: #1B1D21; color: #F2F3F5;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="booking-comment" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;">Комментарий<span style="font-size: 12px; font-weight: 400; color: #A3A8B3;">необязательно</span></label><textarea id="booking-comment" rows="3" placeholder="Вопрос или тема встречи" style="border: 1px solid #3A3F47; border-radius: 10px; padding: 10px 12px; font-size: 15px; resize: none; background: #1B1D21; color: #F2F3F5;"></textarea><span style="font-size: 12px; color: #A3A8B3; align-self: flex-end;">0 / 1000</span></div>
+<div style="display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px;">
+<button type="button" style="height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #3A3F47; background: #1B1D21; color: #F2F3F5; font-size: 15px; font-weight: 500;">Отмена</button>
+<button type="submit" disabled="disabled" style="height: 44px; padding: 0 20px; border-radius: 10px; border: none; background: #5FD4C0; color: #06201C; opacity: 0.5; font-size: 15px; font-weight: 600;">Забронировать</button>
+</div>
+</form>
+</div>
+</div>
+</body>
+</html>

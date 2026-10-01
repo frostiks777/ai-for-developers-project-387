@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+*.tsbuildinfo
+coverage
+server/data
+tsp-output
+*.db
+*.db-journal
+playwright-report
+test-results
+.env
+.env.*
+!.env.example
+telegram-bot/

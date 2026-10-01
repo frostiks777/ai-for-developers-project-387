@@ -1,0 +1,124 @@
+/*
+ * Дизайн v2 «Мята и солнце» — токены для src/index.css.
+ * Заменяют блоки :root и .dark в @layer base целиком.
+ * Формат значений — «H S% L%» без hsl(), как в shadcn: Tailwind подставляет прозрачность
+ * через hsl(var(--x) / <alpha-value>) (см. tailwind.config.snippet.js).
+ *
+ * Что нового по сравнению с v1 (docs/design/tokens.css):
+ *   --accent               чуть насыщеннее (#D7F0E8 вместо #E2F0EC): мягкая подложка дней и сводки
+ *   --highlight(-foreground) яркий «солнечный» акцент: выбранное время и главная кнопка
+ *   --blob-1…4             пастельные пятна живого фона
+ *   --glass                прозрачность карточек из матового стекла (0–1)
+ * Остальные токены v1 не меняются.
+ */
+
+@layer base {
+  :root {
+    --background: 42 31.3% 93.7%; /* #F4F1EA */
+    --foreground: 24 9.8% 10%; /* #1C1917 */
+    --card: 0 0% 100%;
+    --card-foreground: 24 9.8% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 9.8% 10%;
+    --primary: 175 77.4% 26.1%; /* #0F766E */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 30% 92.2%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 40 30% 92.2%;
+    --muted-foreground: 33 5.5% 32.4%; /* #57534E */
+    --accent: 161 45.5% 89.2%; /* #D7F0E8 */
+    --accent-foreground: 175 78.2% 19.8%; /* #0B5A53 */
+    --destructive: 4 76.5% 40%; /* #B42318 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 39 23.3% 85.7%;
+    --input: 39 19.6% 80%;
+    --ring: 175 77.4% 26.1%;
+    --surface: 40 42.9% 97.3%;
+    --surface-foreground: 24 9.8% 10%;
+    --selected: 30 6.2% 25.1%;
+    --selected-foreground: 0 0% 100%;
+    --success: 145 60.5% 29.8%;
+    --success-soft: 142 51.4% 92.7%;
+    --disabled-foreground: 30 7.9% 60.4%;
+    --destructive-border: 8 50% 84.3%;
+    --segment-active: 0 0% 100%;
+    --radius: 0.625rem;
+
+    /* v2 */
+    --highlight: 42 100% 62%; /* #FFC53D — выбранное время, главная кнопка */
+    --highlight-foreground: 40 100% 8.4%; /* #2B1D00, контраст 10.4:1 */
+    --blob-1: 161 55.4% 78%; /* #A8E6D2 мята */
+    --blob-2: 14 100% 86.1%; /* #FFC9B8 персик */
+    --blob-3: 220 100% 89.4%; /* #C9DBFF небо */
+    --blob-4: 46 100% 82.5%; /* #FFEAA6 солнце */
+    --blob-opacity: 0.8;
+    --glass: 0.72;
+  }
+
+  .dark {
+    --background: 220 8.1% 7.3%;
+    --foreground: 220 13% 95.5%;
+    --card: 220 10% 11.8%;
+    --card-foreground: 220 13% 95.5%;
+    --popover: 220 10% 11.8%;
+    --popover-foreground: 220 13% 95.5%;
+    --primary: 170 57.6% 60.2%; /* #5FD4C0 */
+    --primary-foreground: 171 68.4% 7.5%;
+    --secondary: 218 10% 15.7%;
+    --secondary-foreground: 220 13% 95.5%;
+    --muted: 218 10% 15.7%;
+    --muted-foreground: 221 9.5% 67.1%;
+    --accent: 171 43.2% 15.9%;
+    --accent-foreground: 169 63.5% 73.1%;
+    --destructive: 6 82.2% 71.4%;
+    --destructive-foreground: 7 50% 7.1%;
+    --border: 218 10.3% 21%;
+    --input: 217 10.1% 25.3%;
+    --ring: 170 57.6% 60.2%;
+    --surface: 216 10.2% 9.6%;
+    --surface-foreground: 220 13% 95.5%;
+    --selected: 220 13% 95.5%;
+    --selected-foreground: 220 8.1% 7.3%;
+    --success: 146 54% 63.3%;
+    --success-soft: 147 41.8% 15.5%;
+    --disabled-foreground: 220 6.6% 44.9%;
+    --destructive-border: 5 35.3% 26.1%;
+    --segment-active: 218 10.3% 21%;
+
+    /* v2 */
+    --highlight: 42 100% 62%; /* тот же жёлтый: на тёмном фоне он ещё заметнее */
+    --highlight-foreground: 40 100% 8.4%;
+    --blob-1: 169 60.8% 19%; /* #134E43 */
+    --blob-2: 14 39.6% 20.8%; /* #4A2A20 */
+    --blob-3: 221 45.1% 22.2%; /* #1F2F52 */
+    --blob-4: 46 60.9% 18%; /* #4A3D12 */
+    --blob-opacity: 0.55;
+    --glass: 0.72;
+  }
+}
+
+/* Живой фон и стекло. Кладётся в src/index.css после блоков токенов. */
+@layer components {
+  /* Слой фона: fixed, z-0. Контент страницы лежит в обёртке `relative z-10` (см. AppShell). */
+  .ambient {
+    @apply pointer-events-none fixed inset-0 z-0 overflow-hidden bg-background;
+  }
+  .ambient-blob {
+    @apply absolute aspect-square rounded-full blur-[64px] will-change-transform;
+    opacity: var(--blob-opacity);
+  }
+  .glass {
+    background-color: hsl(var(--card) / var(--glass));
+    @apply border border-white/80 backdrop-blur-xl backdrop-saturate-150 dark:border-white/10;
+  }
+  .glass-bar {
+    background-color: hsl(var(--card) / 0.5);
+    @apply border-b border-white/75 backdrop-blur-md dark:border-white/10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob {
+    animation: none !important;
+  }
+}

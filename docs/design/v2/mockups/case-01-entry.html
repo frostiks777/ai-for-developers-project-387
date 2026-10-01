@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Г1–Г2 Открыть ссылку и выбрать формат встречи</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F2EC}
+a{color:#0F766E}a:hover{color:#0B4F49}
+.mk{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #FFC53D,0 2px 6px rgba(0,0,0,.25)}
+.shot{position:relative;overflow:hidden;border-radius:12px;border:1px solid #E3DDD2;background:#fff}
+.shot img{display:block}
+</style>
+</head>
+<body>
+<div style="width: 1440px; height: 1010px; box-sizing: border-box; padding: 40px; background: linear-gradient(135deg, #EAF6F1 0%, #F4F2EC 45%, #FFF6DC 100%); display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 860px">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: #0F766E; color: #FFFFFF">Г1–Г2</span>
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #57534E">Гость</span>
+      </div>
+      <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 600; font-size: 32px; line-height: 1.15; text-wrap: balance">Открыть ссылку и выбрать формат встречи</h1>
+      <span style="font-size: 15px; color: #44403C">Задача: Понять, с кем и о чём звонок, и выбрать подходящий формат за один шаг.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end; font-size: 13px">
+      <span style="padding: 6px 12px; border-radius: 999px; background: #FFC53D; color: #2B1D00; font-weight: 700">Макеты: A1 · B1 · C1</span>
+      <span style="color: #57534E; font-family: ui-monospace, Menlo, monospace; font-size: 12px">/ и /book/:slug</span>
+    </div>
+  </div>
+  <div style="display: flex; gap: 32px; align-items: flex-start">
+    <div style="width: 640px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">КАК СЕЙЧАС</span>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div class="shot" style="width: 640px; height: 466px"><img src="../current/d-landing.png" alt="Лендинг сейчас" style="width: 640px; height: 466px"><span class="mk" style="left: 500px; top: 113px">1</span><span class="mk" style="left: 450px; top: 16px">2</span><span class="mk" style="left: 93px; top: 176px">3</span></div>
+        <span style="font-size: 12px; color: #57534E">Лендинг сейчас</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div class="shot" style="width: 640px; height: 150px"><img src="../current/d-book.png" alt="Табы форматов над карточкой записи" style="width: 640px; height: 400px"><span class="mk" style="left: 108px; top: 59px">4</span></div>
+        <span style="font-size: 12px; color: #57534E">Табы форматов над карточкой записи</span>
+      </div>
+      </div>
+    </div>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">ЧТО МЕНЯЕМ И ПОЧЕМУ</span>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">1</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Показывать настоящее имя организатора, а если его нет — прятать подпись</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Сейчас рядом стоят «Организатор» и «Организатор». Это выглядит как ошибка ровно в тот момент, когда гость решает, доверять ли сервису свои контакты.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">landing-page.tsx, host-info.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">2</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Убрать «Предстоящие события» из гостевого меню</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Гостю не нужны чужие встречи, а страница показывает их имена и email. В меню гостя остаются «Записаться» и «Мои встречи».</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">app-header.tsx и все tabs={[…]}</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">3</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">На лендинге одна главная кнопка, форматы — карточками под ней</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Первое решение гостя — формат встречи. Когда форматов три, их лучше показать сразу, а не прятать в табы на следующем экране.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">landing-page.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">4</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">В записи формат выбирается карточками в левой колонке</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Формат, длительность и свободные окна видны в одном месте. 45-минутная «Конференция» не выглядит как 30-минутный звонок.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">home-page.tsx, новый event-type-picker.tsx</span>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

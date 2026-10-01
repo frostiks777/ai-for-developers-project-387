@@ -1,0 +1,84 @@
+/*
+ * Токены дизайна «Календарь звонков» (утверждённый вариант A + D).
+ * Формат shadcn/ui: HSL-тройки без hsl(). Вставить в src/index.css вместо текущего @layer base с :root/.dark.
+ * Шрифты: Golos Text (интерфейс), Lora (заголовки h1/h2 страниц и диалогов).
+ */
+@layer base {
+  :root {
+    --background: 42 31.3% 93.7%; /* #F4F1EA */
+    --foreground: 24 9.8% 10.0%; /* #1C1917 */
+    --card: 0 0.0% 100.0%; /* #FFFFFF */
+    --card-foreground: 24 9.8% 10.0%; /* #1C1917 */
+    --popover: 0 0.0% 100.0%; /* #FFFFFF */
+    --popover-foreground: 24 9.8% 10.0%; /* #1C1917 */
+    --primary: 175 77.4% 26.1%; /* #0F766E */
+    --primary-foreground: 0 0.0% 100.0%; /* #FFFFFF */
+    --secondary: 40 30.0% 92.2%; /* #F1EDE5 */
+    --secondary-foreground: 24 9.8% 10.0%; /* #1C1917 */
+    --muted: 40 30.0% 92.2%; /* #F1EDE5 */
+    --muted-foreground: 33 5.5% 32.4%; /* #57534E */
+    --accent: 163 31.8% 91.4%; /* #E2F0EC */
+    --accent-foreground: 175 78.2% 19.8%; /* #0B5A53 */
+    --destructive: 4 76.5% 40.0%; /* #B42318 */
+    --destructive-foreground: 0 0.0% 100.0%; /* #FFFFFF */
+    --border: 39 23.3% 85.7%; /* #E3DDD2 */
+    --input: 39 19.6% 80.0%; /* #D6CFC2 */
+    --ring: 175 77.4% 26.1%; /* #0F766E */
+    --surface: 40 42.9% 97.3%; /* #FBF9F5 */
+    --surface-foreground: 24 9.8% 10.0%; /* #1C1917 */
+    --selected: 30 6.2% 25.1%; /* #44403C */
+    --selected-foreground: 0 0.0% 100.0%; /* #FFFFFF */
+    --success: 145 60.5% 29.8%; /* #1E7A45 */
+    --success-soft: 142 51.4% 92.7%; /* #E3F6EA */
+    --disabled-foreground: 30 7.9% 60.4%; /* #A29A92 */
+    --destructive-border: 8 50.0% 84.3%; /* #EBC8C3 */
+    --segment-active: 0 0.0% 100.0%; /* #FFFFFF */
+    --radius: 0.625rem; /* 10px — кнопки, поля; карточки: rounded-2xl/20px */
+  }
+
+  .dark {
+    --background: 220 8.1% 7.3%; /* #111214 */
+    --foreground: 220 13.0% 95.5%; /* #F2F3F5 */
+    --card: 220 10.0% 11.8%; /* #1B1D21 */
+    --card-foreground: 220 13.0% 95.5%; /* #F2F3F5 */
+    --popover: 220 10.0% 11.8%; /* #1B1D21 */
+    --popover-foreground: 220 13.0% 95.5%; /* #F2F3F5 */
+    --primary: 170 57.6% 60.2%; /* #5FD4C0 */
+    --primary-foreground: 171 68.4% 7.5%; /* #06201C */
+    --secondary: 218 10.0% 15.7%; /* #24272C */
+    --secondary-foreground: 220 13.0% 95.5%; /* #F2F3F5 */
+    --muted: 218 10.0% 15.7%; /* #24272C */
+    --muted-foreground: 221 9.5% 67.1%; /* #A3A8B3 */
+    --accent: 171 43.2% 15.9%; /* #173A35 */
+    --accent-foreground: 169 63.5% 73.1%; /* #8FE6D6 */
+    --destructive: 6 82.2% 71.4%; /* #F2857A */
+    --destructive-foreground: 7 50.0% 7.1%; /* #1B0B09 */
+    --border: 218 10.3% 21.0%; /* #30343B */
+    --input: 217 10.1% 25.3%; /* #3A3F47 */
+    --ring: 170 57.6% 60.2%; /* #5FD4C0 */
+    --surface: 216 10.2% 9.6%; /* #16181B */
+    --surface-foreground: 220 13.0% 95.5%; /* #F2F3F5 */
+    --selected: 220 13.0% 95.5%; /* #F2F3F5 */
+    --selected-foreground: 220 8.1% 7.3%; /* #111214 */
+    --success: 146 54.0% 63.3%; /* #6FD49A */
+    --success-soft: 147 41.8% 15.5%; /* #173826 */
+    --disabled-foreground: 220 6.6% 44.9%; /* #6B707A */
+    --destructive-border: 5 35.3% 26.1%; /* #5A2F2B */
+    --segment-active: 218 10.3% 21.0%; /* #30343B */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}

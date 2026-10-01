@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Мастер: запись готова</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F1EA}
+a{color:var(--p)}a:hover{color:var(--p-ink)}
+.mk{position:absolute;width:26px;height:26px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #fff,0 2px 6px rgba(0,0,0,.25);z-index:5}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:10px 0;border-bottom:1px solid #F1EDE5}
+
+.fx{--ground:#F4F2EC}
+.bgfx{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--ground)}
+.bgfx .b{position:absolute;border-radius:50%;filter:blur(64px);opacity:.8;will-change:transform}
+.bgfx .b1{width:max(52%,300px);aspect-ratio:1;background:var(--bg1);left:-12%;top:-18%;animation:fxa 19s ease-in-out infinite alternate}
+.bgfx .b2{width:max(46%,260px);aspect-ratio:1;background:var(--bg2);right:-10%;top:8%;animation:fxb 23s ease-in-out infinite alternate}
+.bgfx .b3{width:max(50%,280px);aspect-ratio:1;background:var(--bg3);left:18%;bottom:-26%;animation:fxc 27s ease-in-out infinite alternate}
+.bgfx .b4{width:max(30%,180px);aspect-ratio:1;background:var(--bg4);right:14%;bottom:-8%;opacity:.7;animation:fxd 21s ease-in-out infinite alternate}
+.bgfx .grain{position:absolute;inset:0;background-image:radial-gradient(rgba(28,25,23,.05) 1px,transparent 1px);background-size:3px 3px;opacity:.5}
+@keyframes fxa{0%{transform:translate(0,0) scale(1)}50%{transform:translate(18%,12%) scale(1.12)}100%{transform:translate(6%,24%) scale(.94)}}
+@keyframes fxb{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-16%,18%) scale(.9)}100%{transform:translate(-24%,-6%) scale(1.1)}}
+@keyframes fxc{0%{transform:translate(0,0) scale(1)}50%{transform:translate(20%,-14%) scale(1.15)}100%{transform:translate(-10%,-20%) scale(1)}}
+@keyframes fxd{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-30%,-40%) scale(1.25)}}
+.still .bgfx .b{animation:none}
+@media (prefers-reduced-motion: reduce){.bgfx .b{animation:none}}
+</style>
+</head>
+<body>
+<div class="fx" style="width: 390px; height: 844px; position: relative; background: var(--ground); isolation: isolate; overflow: hidden; display: flex; flex-direction: column; --p:#0F766E; --p-ink:#0B4F49; --p-soft:#D7F0E8; --p-tint:#F0FAF6; --p-line:#93CFC1; --hot:#FFC53D; --on-hot:#2B1D00; --hot-glow:rgba(255,184,0,.42); --hot2:#FFE08A; --ground:#F4F2EC; --bg1:#A8E6D2; --bg2:#FFC9B8; --bg3:#C9DBFF; --bg4:#FFEAA6">
+  <div class="bgfx" aria-hidden="true"><span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span><span class="grain"></span></div>
+  <div style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 16px; background: rgba(255,255,255,.5); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.75); display: flex; align-items: center; justify-content: space-between">
+    <span style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px"><span style="width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--p), var(--hot)); display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>Календарь звонков</span>
+    <a href="#" style="font-size: 14px; font-weight: 600; text-decoration: none">Мои встречи</a>
+  </div>
+  <div style="padding: 24px 16px 0; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+      <span style="width: 64px; height: 64px; border-radius: 50%; background: #E3F6EA; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1E7A45" stroke-width="2.4"><path d="M5 12l5 5L20 7"></path></svg></span>
+      <span style="font-family: Lora, Georgia, serif; font-size: 28px; font-weight: 600">Вы записаны</span>
+      <span style="font-size: 16px; font-weight: 600">Пн, 28 сентября · 14:20 – 14:50</span>
+      <span style="font-size: 13px; color: #57534E; margin-top: -6px">по Москве (UTC+3)</span>
+    </div>
+    <div style="background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border: 1px solid rgba(255,255,255,.85); border-radius: 16px; padding: 4px 14px">
+      <div class="row"><span style="color: #57534E">Формат</span><span style="font-weight: 600">Звонок-консультация, онлайн</span></div>
+      <div class="row"><span style="color: #57534E">Организатор</span><span style="font-weight: 600">[Имя организатора]</span></div>
+      <div class="row" style="border-bottom: 0"><span style="color: #57534E">Вы</span><span style="font-weight: 600">Мария · maria@example.ru</span></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <button type="button" style="height: 56px; border: 0; border-radius: 14px; background: var(--hot); color: var(--on-hot); box-shadow: 0 10px 26px var(--hot-glow); font: 600 17px 'Golos Text', sans-serif">Добавить в календарь</button>
+      <span style="font-size: 12px; color: #57534E; text-align: center">Google Календарь или файл .ics для Apple и Outlook</span>
+    </div>
+    <div style="background: #FBF9F5; border: 1px solid #E3DDD2; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 15px; font-weight: 600">Планы изменились?</span>
+      <div style="display: flex; gap: 8px">
+        <a href="#" style="flex: 1; height: 48px; border-radius: 12px; border: 1px solid #D6CFC2; background: #FFFFFF; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 15px; font-weight: 600; color: #1C1917">Перенести</a>
+        <a href="#" style="flex: 1; height: 48px; border-radius: 12px; border: 1px solid #EBC8C3; background: #FFFFFF; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 15px; font-weight: 600; color: #B42318">Отменить</a>
+      </div>
+      <span style="font-size: 12px; color: #57534E; line-height: 1.4">Встреча сохранена в «Мои встречи» на этом телефоне. Для другого устройства <a href="#" style="font-weight: 600">скопируйте ссылку</a>.</span>
+    </div>
+  </div>
+  <span class="mk" style="left: 352px; top: 290px">1</span>
+  <span class="mk" style="left: 352px; top: 450px">2</span>
+  <span class="mk" style="left: 352px; top: 560px">3</span>
+</div>
+</body>
+</html>

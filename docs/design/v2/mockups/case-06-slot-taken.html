@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Б1 Время заняли, пока гость заполнял форму</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F2EC}
+a{color:#0F766E}a:hover{color:#0B4F49}
+.mk{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #FFC53D,0 2px 6px rgba(0,0,0,.25)}
+.shot{position:relative;overflow:hidden;border-radius:12px;border:1px solid #E3DDD2;background:#fff}
+.shot img{display:block}
+</style>
+</head>
+<body>
+<div style="width: 1440px; height: 1010px; box-sizing: border-box; padding: 40px; background: linear-gradient(135deg, #EAF6F1 0%, #F4F2EC 45%, #FFF6DC 100%); display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 860px">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: #0F766E; color: #FFFFFF">Б1</span>
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #57534E">Гость</span>
+      </div>
+      <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 600; font-size: 32px; line-height: 1.15; text-wrap: balance">Время заняли, пока гость заполнял форму</h1>
+      <span style="font-size: 15px; color: #44403C">Задача: Не потерять введённые данные и быстро выбрать другое время.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end; font-size: 13px">
+      <span style="padding: 6px 12px; border-radius: 999px; background: #FFC53D; color: #2B1D00; font-weight: 700">Макеты: A3 · C2</span>
+      <span style="color: #57534E; font-family: ui-monospace, Menlo, monospace; font-size: 12px">/book/:slug · ответ 409 SLOT_TAKEN</span>
+    </div>
+  </div>
+  <div style="display: flex; gap: 32px; align-items: flex-start">
+    <div style="width: 640px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">КАК СЕЙЧАС</span>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+      <div style="width: 640px; box-sizing: border-box; background: #FFFFFF; border: 1px dashed #D6CFC2; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 700; color: #8F1D13">Сейчас</span>
+        <span style="font-size: 15px; line-height: 1.5">Сейчас при ответе 409 диалог остаётся открытым: всплывает toast и строка «Этот слот только что заняли. Выберите другое время». Но сменить время внутри диалога нельзя. Гость закрывает его, имя и email сбрасываются, а сетка не обновляется, и занятое окно по-прежнему выглядит свободным.</span>
+      </div>
+      <div style="width: 640px; box-sizing: border-box; background: rgba(255,255,255,.8); border: 1px solid #E3DDD2; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-size: 13px; font-weight: 700; color: #0B4F49">Как будет</span>
+        <div style="display: flex; gap: 8px">
+          <span style="flex: 1; height: 46px; border-radius: 10px; border: 1px dashed #D6CFC2; color: #A29A92; display: flex; align-items: center; justify-content: center; font-size: 14px"><s>14:20</s>&nbsp;занято</span>
+          <span style="flex: 1; height: 46px; border-radius: 10px; border: 1px solid #0F766E; color: #0F766E; display: flex; align-items: center; justify-content: center; font-weight: 600">15:00</span>
+          <span style="flex: 1; height: 46px; border-radius: 10px; border: 1px solid #0F766E; color: #0F766E; display: flex; align-items: center; justify-content: center; font-weight: 600">16:20</span>
+          <span style="flex: 1; height: 46px; border-radius: 10px; border: 1px solid #0F766E; color: #0F766E; display: flex; align-items: center; justify-content: center; font-weight: 600">17:00</span>
+        </div>
+        <div role="alert" style="background: #FCEBD9; border: 1px solid #F2C9A5; border-radius: 12px; padding: 12px 14px; font-size: 14px; color: #5C2807; line-height: 1.45"><b>Это время только что заняли.</b> Выберите соседнее — ваши имя и email сохранены.</div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 600; color: #44403C">Имя</span>
+          <span style="height: 44px; border: 1px solid #D6CFC2; border-radius: 10px; background: #FBF9F5; display: flex; align-items: center; padding: 0 12px; font-size: 15px">Мария Иванова</span>
+        </div>
+        <span style="height: 50px; border-radius: 12px; background: #FFC53D; color: #2B1D00; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 26px rgba(255,184,0,.42)">Записаться на 15:00</span>
+      </div>
+      </div>
+    </div>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">ЧТО МЕНЯЕМ И ПОЧЕМУ</span>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">1</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Сохранять введённые данные при смене времени</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Гость уже потратил усилия на форму. Сейчас они теряются при закрытии диалога, а это главная причина бросить запись на этом шаге. Форма в колонке (A) или на отдельном шаге (C3) не закрывается при выборе другого окна.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">booking-form.tsx: состояние полей не сбрасывать при смене слота</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">2</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Сразу обновить сетку, чтобы окно стало «занято»</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Сейчас после 409 refetch не вызывается. Гость видит, что изменилось, без перезагрузки и без догадок.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">home-page.tsx: refetch() на 409, slot-grid.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">3</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Предложить три ближайших свободных окна кнопками</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> «Это время только что заняли. Свободно рядом: 15:00, 16:20, 17:00». Один клик — и форма снова готова к отправке.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">новый slot-suggestions.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">4</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Оставить одно сообщение у формы и убрать дублирующий toast</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Два сообщения об одном и том же отвлекают, а toast исчезает через несколько секунд. Сообщение с role="alert" у кнопки остаётся, пока гость не выберет новое время.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">booking-form.tsx, use-booking.ts</span>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

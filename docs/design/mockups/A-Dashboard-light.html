@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Десктоп — панель (светлая)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&amp;family=Golos+Text:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Golos Text',sans-serif;background:#F4F1EA;color:#1C1917}
+a{color:#0F766E}a:hover{color:#0B5A53}
+button,select,input,textarea{font-family:inherit}
+input::placeholder,textarea::placeholder{color:#57534E}
+</style>
+</head>
+<body>
+<div style="width: 1280px; height: 900px; box-sizing: border-box; background: #F4F1EA; color: #1C1917; display: flex; flex-direction: column; position: relative; overflow: hidden;">
+<div style="flex-grow: 1; display: flex; min-height: 0;">
+<nav style="width: 248px; flex-shrink: 0; box-sizing: border-box; padding: 24px 16px; background: #FBF9F5; border-right: 1px solid #E3DDD2; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; padding: 0 8px 20px;"><span style="width: 32px; height: 32px; border-radius: 8px; background: #0F766E; color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>Календарь звонков</div>
+<a href="#" aria-current="page" style="height: 44px; border-radius: 10px; background: #E2F0EC; color: #0B5A53; display: flex; align-items: center; gap: 10px; padding: 0 12px; font-size: 15px; font-weight: 600; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"></path><circle cx="4.5" cy="6" r="1"></circle><circle cx="4.5" cy="12" r="1"></circle><circle cx="4.5" cy="18" r="1"></circle></svg>Встречи<span style="margin-left: auto; font-size: 12px; background: #FFFFFF; border-radius: 999px; padding: 2px 8px;">4</span></a>
+<a href="#availability" style="height: 44px; border-radius: 10px; color: #44403C; display: flex; align-items: center; gap: 10px; padding: 0 12px; font-size: 15px; font-weight: 500; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>Доступность</a>
+<div style="margin-top: auto; border-top: 1px solid #E3DDD2; padding-top: 16px; display: flex; flex-direction: column; gap: 12px;">
+<a href="A-Booking-light.html" style="font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 0 12px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"></path></svg>Страница бронирования</a>
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 0 4px 0 12px;"><span style="font-size: 12px; color: #57534E;">Время: Europe/Moscow</span><button aria-label="Включить тёмную тему" style="width: 36px; height: 36px; border-radius: 50%; border: 1px solid #E3DDD2; background: #FFFFFF; color: #1C1917; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"></path></svg></button></div>
+</div>
+</nav>
+<main style="flex-grow: 1; min-width: 0; box-sizing: border-box; padding: 40px 40px; display: flex; gap: 32px;">
+<section style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;">
+<div><h1 style="margin: 0; font-family: Lora, serif; font-size: 32px; font-weight: 600;">Встречи</h1><p style="margin: 6px 0 0; font-size: 14px; color: #57534E;">Предстоящие брони по дням</p></div>
+<div role="tablist" aria-label="Период" style="display: flex; background: #F1EDE5; border-radius: 10px; padding: 3px;">
+<button role="tab" aria-selected="true" style="height: 36px; padding: 0 14px; border: none; border-radius: 8px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #1C1917; box-shadow: 0 1px 2px rgba(0,0,0,0.12);">Все</button>
+<button role="tab" aria-selected="false" style="height: 36px; padding: 0 14px; border: none; border-radius: 8px; background: transparent; font-size: 13px; color: #57534E;">Неделя</button>
+<button role="tab" aria-selected="false" style="height: 36px; padding: 0 14px; border: none; border-radius: 8px; background: transparent; font-size: 13px; color: #57534E;">Сегодня</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #57534E; text-transform: uppercase; letter-spacing: 0.05em;">Четверг, 24 сентября</h3>
+<div style="display: flex; align-items: center; gap: 20px; padding: 16px 20px; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 14px;">
+<div style="width: 92px; flex-shrink: 0;"><div style="font-size: 18px; font-weight: 600;">15:00</div><div style="font-size: 12px; color: #57534E;">до 15:30</div></div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+<div style="font-size: 16px; font-weight: 600;">Иван Петров</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: #57534E;"><span style="display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>ivan@example.com</span><span style="display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"></path></svg>+7 900 000-00-00</span></div>
+<div style="font-size: 14px; color: #44403C; display: flex; gap: 6px; align-items: flex-start;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"></path></svg>Обсудить архитектуру</div>
+</div>
+<button style="height: 40px; padding: 0 16px; border-radius: 10px; border: 1px solid #EBC8C3; background: #FFFFFF; color: #B42318; font-size: 14px; font-weight: 500;">Отменить</button>
+</div>
+<div style="display: flex; align-items: center; gap: 20px; padding: 16px 20px; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 14px;">
+<div style="width: 92px; flex-shrink: 0;"><div style="font-size: 18px; font-weight: 600;">17:00</div><div style="font-size: 12px; color: #57534E;">до 17:30</div></div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+<div style="font-size: 16px; font-weight: 600;">Анна Смирнова</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: #57534E;"><span style="display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>anna@example.com</span></div>
+
+</div>
+<button style="height: 40px; padding: 0 16px; border-radius: 10px; border: 1px solid #EBC8C3; background: #FFFFFF; color: #B42318; font-size: 14px; font-weight: 500;">Отменить</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #57534E; text-transform: uppercase; letter-spacing: 0.05em;">Пятница, 25 сентября</h3>
+<div style="display: flex; align-items: center; gap: 20px; padding: 16px 20px; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 14px;">
+<div style="width: 92px; flex-shrink: 0;"><div style="font-size: 18px; font-weight: 600;">13:40</div><div style="font-size: 12px; color: #57534E;">до 14:10</div></div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+<div style="font-size: 16px; font-weight: 600;">Мария Ковалёва</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: #57534E;"><span style="display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>maria@example.com</span><span style="display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"></path></svg>+7 911 222-33-44</span></div>
+<div style="font-size: 14px; color: #44403C; display: flex; gap: 6px; align-items: flex-start;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"></path></svg>Вопрос по интеграции</div>
+</div>
+<button style="height: 40px; padding: 0 16px; border-radius: 10px; border: 1px solid #EBC8C3; background: #FFFFFF; color: #B42318; font-size: 14px; font-weight: 500;">Отменить</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #57534E; text-transform: uppercase; letter-spacing: 0.05em;">Понедельник, 28 сентября</h3>
+<div style="display: flex; align-items: center; gap: 20px; padding: 16px 20px; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 14px;">
+<div style="width: 92px; flex-shrink: 0;"><div style="font-size: 18px; font-weight: 600;">19:00</div><div style="font-size: 12px; color: #57534E;">до 19:30</div></div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+<div style="font-size: 16px; font-weight: 600;">Олег Никитин</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: #57534E;"><span style="display: flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>oleg@example.com</span></div>
+<div style="font-size: 14px; color: #44403C; display: flex; gap: 6px; align-items: flex-start;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"></path></svg>Созвон по оценке задачи</div>
+</div>
+<button style="height: 40px; padding: 0 16px; border-radius: 10px; border: 1px solid #EBC8C3; background: #FFFFFF; color: #B42318; font-size: 14px; font-weight: 500;">Отменить</button>
+</div>
+</div>
+</section>
+<div style="flex-shrink: 0; align-self: flex-start;"><section id="availability" style="width: 360px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E3DDD2; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+<div><h2 style="margin: 0; font-size: 20px; font-weight: 600;">Доступность</h2><p style="margin: 4px 0 0; font-size: 13px; color: #57534E;">Из этих правил собираются свободные слоты</p></div>
+<fieldset style="border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px;"><legend style="font-size: 13px; font-weight: 500; color: #57534E; padding: 0 0 8px;">Рабочие дни</legend><div style="display: flex; gap: 4px;"><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #0F766E; background: #0F766E; color: #FFFFFF; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" checked style="position: absolute; opacity: 0; width: 1px; height: 1px;">Пн</label><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #0F766E; background: #0F766E; color: #FFFFFF; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" checked style="position: absolute; opacity: 0; width: 1px; height: 1px;">Вт</label><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #0F766E; background: #0F766E; color: #FFFFFF; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" checked style="position: absolute; opacity: 0; width: 1px; height: 1px;">Ср</label><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #0F766E; background: #0F766E; color: #FFFFFF; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" checked style="position: absolute; opacity: 0; width: 1px; height: 1px;">Чт</label><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #0F766E; background: #0F766E; color: #FFFFFF; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" checked style="position: absolute; opacity: 0; width: 1px; height: 1px;">Пт</label><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #D6CFC2; background: #FFFFFF; color: #57534E; font-weight: 500; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" style="position: absolute; opacity: 0; width: 1px; height: 1px;">Сб</label><label style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; border: 1px solid #D6CFC2; background: #FFFFFF; color: #57534E; font-weight: 500; font-size: 14px; display: flex; align-items: center; justify-content: center; position: relative;"><input type="checkbox" style="position: absolute; opacity: 0; width: 1px; height: 1px;">Вс</label></div></fieldset>
+<div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 500; color: #57534E;">Рабочее окно (UTC)</span>
+<div style="display: flex; align-items: center; gap: 8px;"><select id="rules-window-start" aria-label="Начало окна" style="height: 44px; border: 1px solid #D6CFC2; border-radius: 10px; padding: 0 12px; font-size: 14px; background: #FFFFFF; color: #1C1917;"><option>10:00</option></select><span style="color: #57534E;">—</span><select id="rules-window-end" aria-label="Конец окна" style="height: 44px; border: 1px solid #D6CFC2; border-radius: 10px; padding: 0 12px; font-size: 14px; background: #FFFFFF; color: #1C1917;"><option>18:00</option></select></div>
+<span style="font-size: 12px; color: #57534E;">= 13:00–21:00 по Europe/Moscow</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13px; font-weight: 500; color: #57534E;">Длительность встречи, мин</span><div role="radiogroup" aria-label="Длительность встречи, мин" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; background: #F1EDE5; border-radius: 10px; padding: 3px;"><button role="radio" aria-checked="false" style="height: 38px; border: none; border-radius: 8px; background: transparent; font-size: 14px; color: #57534E;">15</button><button role="radio" aria-checked="true" style="height: 38px; border: none; border-radius: 8px; background: #FFFFFF; font-size: 14px; font-weight: 600; color: #0B5A53; box-shadow: 0 1px 2px rgba(0,0,0,0.12);">30</button><button role="radio" aria-checked="false" style="height: 38px; border: none; border-radius: 8px; background: transparent; font-size: 14px; color: #57534E;">45</button><button role="radio" aria-checked="false" style="height: 38px; border: none; border-radius: 8px; background: transparent; font-size: 14px; color: #57534E;">60</button></div></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><label style="font-size: 13px; font-weight: 500; color: #57534E;">Буфер</label>
+<div style="height: 44px; box-sizing: border-box; border: 1px solid #D6CFC2; border-radius: 10px; display: flex; align-items: center; padding: 0 12px; gap: 8px; background: #FFFFFF;"><input value="10" style="border: none; outline: none; width: 100%; font-size: 15px; background: transparent; color: #1C1917;"><span style="font-size: 13px; color: #57534E;">мин</span></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label style="font-size: 13px; font-weight: 500; color: #57534E;">Не позже чем за</label>
+<div style="height: 44px; box-sizing: border-box; border: 1px solid #D6CFC2; border-radius: 10px; display: flex; align-items: center; padding: 0 12px; gap: 8px; background: #FFFFFF;"><input value="120" style="border: none; outline: none; width: 100%; font-size: 15px; background: transparent; color: #1C1917;"><span style="font-size: 13px; color: #57534E;">мин</span></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label style="font-size: 13px; font-weight: 500; color: #57534E;">Открыто на</label>
+<div style="height: 44px; box-sizing: border-box; border: 1px solid #D6CFC2; border-radius: 10px; display: flex; align-items: center; padding: 0 12px; gap: 8px; background: #FFFFFF;"><input value="14" style="border: none; outline: none; width: 100%; font-size: 15px; background: transparent; color: #1C1917;"><span style="font-size: 13px; color: #57534E;">дней</span></div></div>
+</div>
+<div style="font-size: 13px; color: #0B5A53; background: #E2F0EC; border-radius: 10px; padding: 10px 12px;">≈ 12 слотов в рабочий день</div>
+<button style="height: 46px; border: none; border-radius: 10px; background: #0F766E; color: #FFFFFF; font-size: 15px; font-weight: 600;">Сохранить</button>
+</section></div>
+</main>
+</div>
+</div>
+</body>
+</html>

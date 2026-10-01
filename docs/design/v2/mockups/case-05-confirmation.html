@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Г7 Получить подтверждение</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Lora:wght@500;600&amp;display=swap">
+<style>
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;color:#1C1917;background:#F4F2EC}
+a{color:#0F766E}a:hover{color:#0B4F49}
+.mk{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#1C1917;color:#fff;font:700 13px/26px "Golos Text",sans-serif;text-align:center;box-shadow:0 0 0 3px #FFC53D,0 2px 6px rgba(0,0,0,.25)}
+.shot{position:relative;overflow:hidden;border-radius:12px;border:1px solid #E3DDD2;background:#fff}
+.shot img{display:block}
+</style>
+</head>
+<body>
+<div style="width: 1440px; height: 1010px; box-sizing: border-box; padding: 40px; background: linear-gradient(135deg, #EAF6F1 0%, #F4F2EC 45%, #FFF6DC 100%); display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 860px">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: #0F766E; color: #FFFFFF">Г7</span>
+        <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #57534E">Гость</span>
+      </div>
+      <h1 style="margin: 0; font-family: Lora, Georgia, serif; font-weight: 600; font-size: 32px; line-height: 1.15; text-wrap: balance">Получить подтверждение</h1>
+      <span style="font-size: 15px; color: #44403C">Задача: Убедиться, что запись прошла, сохранить встречу и знать, как её поменять.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end; font-size: 13px">
+      <span style="padding: 6px 12px; border-radius: 999px; background: #FFC53D; color: #2B1D00; font-weight: 700">Макеты: C4 · M</span>
+      <span style="color: #57534E; font-family: ui-monospace, Menlo, monospace; font-size: 12px">/booking/:uuid/confirmed</span>
+    </div>
+  </div>
+  <div style="display: flex; gap: 32px; align-items: flex-start">
+    <div style="width: 640px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">КАК СЕЙЧАС</span>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div class="shot" style="width: 640px; height: 400px"><img src="../current/d-success.png" alt="Экран успеха сейчас" style="width: 640px; height: 400px"><span class="mk" style="left: 320px; top: 322px">1</span><span class="mk" style="left: 320px; top: 349px">2</span><span class="mk" style="left: 320px; top: 376px">3</span><span class="mk" style="left: 539px; top: 374px">4</span></div>
+        <span style="font-size: 12px; color: #57534E">Экран успеха сейчас</span>
+      </div>
+      </div>
+    </div>
+    <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #57534E">ЧТО МЕНЯЕМ И ПОЧЕМУ</span>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">1</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Одно главное действие — «Добавить в календарь»</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Сейчас пять кнопок одного веса. Главное, что гостю нужно после записи, — не забыть о встрече. Google и .ics — варианты одного действия.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">booking-success.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">2</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">«Перенести» и «Отменить» в отдельном блоке «Планы изменились?»</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Это редкие действия, поэтому они вторичные. «Отменить» написано красным, чтобы его не нажали по ошибке.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">booking-success.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">3</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Время всегда с поясом: «14:20 – 14:50 по Москве (UTC+3)»</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Экран успеха гость потом открывает из «Моих встреч», возможно в другом поясе.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">booking-success.tsx</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.82); border: 1px solid #E3DDD2; border-radius: 14px; padding: 14px 16px">
+          <span style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #1C1917; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFC53D">4</span>
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <span style="font-size: 15px; font-weight: 600; line-height: 1.35">Сразу видно, где найти встречу потом</span>
+            <span style="font-size: 13px; color: #44403C; line-height: 1.5"><b style="color: #0B4F49">Почему:</b> Писем сервис не отправляет, поэтому ссылка — единственный путь назад. Строка «Сохранено в „Мои встречи“ на этом устройстве» и кнопка «Скопировать ссылку» заменяют подпись под сгибом.</span>
+            <span style="font-size: 12px; color: #57534E; font-family: ui-monospace, 'JetBrains Mono', Menlo, monospace">booking-success.tsx, utils/my-bookings.ts</span>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

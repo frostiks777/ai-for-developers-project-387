@@ -1,0 +1,1278 @@
+[
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "landing",
+    "path": "/",
+    "overflow": {
+      "innerWidth": 534,
+      "scrollWidth": 534,
+      "clientWidth": 390,
+      "bodyScrollWidth": 534,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-landing.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "book",
+    "path": "/book/default",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 535,
+            "width": 388
+          }
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 461,
+            "width": 313
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground hover:text-foreground",
+          "text": "Мои встречи",
+          "rect": {
+            "left": 379,
+            "right": 459,
+            "width": 80
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card text-muted-foreground transition",
+          "text": "",
+          "rect": {
+            "left": 467,
+            "right": 496,
+            "width": 29
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 473,
+            "right": 489,
+            "width": 16
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outl",
+          "text": "",
+          "rect": {
+            "left": 502,
+            "right": 535,
+            "width": 33
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 510,
+            "right": 526,
+            "width": 16
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 512,
+            "right": 524,
+            "width": 12
+          }
+        }
+      ],
+      "offenderCount": 12
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-book.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "events",
+    "path": "/events",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 390,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-events.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "my",
+    "path": "/my",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 390,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-my.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "dashboard",
+    "path": "/dashboard",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-dashboard.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "dashboard-bookings",
+    "path": "/admin/bookings",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-dashboard-bookings.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "dashboard-availability",
+    "path": "/admin/availability",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-dashboard-availability.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "dashboard-hosts",
+    "path": "/admin/hosts",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-dashboard-hosts.png"
+  },
+  {
+    "vp": "390",
+    "theme": "light",
+    "route": "notfound",
+    "path": "/no-such-route-xyz",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-light-notfound.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "landing",
+    "path": "/",
+    "overflow": {
+      "innerWidth": 534,
+      "scrollWidth": 534,
+      "clientWidth": 390,
+      "bodyScrollWidth": 534,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-landing.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "book",
+    "path": "/book/default",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 535,
+            "width": 388
+          }
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 461,
+            "width": 313
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground hover:text-foreground",
+          "text": "Мои встречи",
+          "rect": {
+            "left": 379,
+            "right": 459,
+            "width": 80
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card text-muted-foreground transition",
+          "text": "",
+          "rect": {
+            "left": 467,
+            "right": 496,
+            "width": 29
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 473,
+            "right": 489,
+            "width": 16
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outl",
+          "text": "",
+          "rect": {
+            "left": 502,
+            "right": 535,
+            "width": 33
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 510,
+            "right": 526,
+            "width": 16
+          }
+        },
+        {
+          "tag": "circle",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 516,
+            "right": 521,
+            "width": 5
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 518,
+            "right": 518,
+            "width": 0
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 518,
+            "right": 518,
+            "width": 0
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 514,
+            "right": 515,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 522,
+            "right": 523,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 512,
+            "right": 513,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 524,
+            "right": 525,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 514,
+            "right": 515,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 522,
+            "right": 523,
+            "width": 1
+          }
+        }
+      ],
+      "offenderCount": 20
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-book.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "events",
+    "path": "/events",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 390,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-events.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "my",
+    "path": "/my",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 390,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-my.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "dashboard",
+    "path": "/dashboard",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-dashboard.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "dashboard-bookings",
+    "path": "/admin/bookings",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-dashboard-bookings.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "dashboard-availability",
+    "path": "/admin/availability",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-dashboard-availability.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "dashboard-hosts",
+    "path": "/admin/hosts",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-dashboard-hosts.png"
+  },
+  {
+    "vp": "390",
+    "theme": "dark",
+    "route": "notfound",
+    "path": "/no-such-route-xyz",
+    "overflow": {
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "bodyScrollWidth": 390,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/390-dark-notfound.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "landing",
+    "path": "/",
+    "overflow": {
+      "innerWidth": 534,
+      "scrollWidth": 534,
+      "clientWidth": 360,
+      "bodyScrollWidth": 534,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-landing.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "book",
+    "path": "/book/default",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 535,
+            "width": 388
+          }
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 461,
+            "width": 313
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground hover:text-foreground",
+          "text": "Предстоящие события",
+          "rect": {
+            "left": 252,
+            "right": 375,
+            "width": 123
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground hover:text-foreground",
+          "text": "Мои встречи",
+          "rect": {
+            "left": 379,
+            "right": 459,
+            "width": 80
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card text-muted-foreground transition",
+          "text": "",
+          "rect": {
+            "left": 467,
+            "right": 496,
+            "width": 29
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 473,
+            "right": 489,
+            "width": 16
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outl",
+          "text": "",
+          "rect": {
+            "left": 502,
+            "right": 535,
+            "width": 33
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 510,
+            "right": 526,
+            "width": 16
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 512,
+            "right": 524,
+            "width": 12
+          }
+        }
+      ],
+      "offenderCount": 13
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-book.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "events",
+    "path": "/events",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 360,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-events.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "my",
+    "path": "/my",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 360,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-my.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "dashboard",
+    "path": "/dashboard",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-dashboard.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "dashboard-bookings",
+    "path": "/admin/bookings",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-dashboard-bookings.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "dashboard-availability",
+    "path": "/admin/availability",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-dashboard-availability.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "dashboard-hosts",
+    "path": "/admin/hosts",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-dashboard-hosts.png"
+  },
+  {
+    "vp": "360",
+    "theme": "light",
+    "route": "notfound",
+    "path": "/no-such-route-xyz",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-light-notfound.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "landing",
+    "path": "/",
+    "overflow": {
+      "innerWidth": 534,
+      "scrollWidth": 534,
+      "clientWidth": 360,
+      "bodyScrollWidth": 534,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-landing.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "book",
+    "path": "/book/default",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [
+        {
+          "tag": "div",
+          "cls": "flex items-center gap-1.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 535,
+            "width": 388
+          }
+        },
+        {
+          "tag": "nav",
+          "cls": "flex items-center gap-1 rounded-full bg-secondary p-0.5",
+          "text": "ЗаписатьсяПредстоящие событияМои встречи",
+          "rect": {
+            "left": 147,
+            "right": 461,
+            "width": 313
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground hover:text-foreground",
+          "text": "Предстоящие события",
+          "rect": {
+            "left": 252,
+            "right": 375,
+            "width": 123
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors text-muted-foreground hover:text-foreground",
+          "text": "Мои встречи",
+          "rect": {
+            "left": 379,
+            "right": 459,
+            "width": 80
+          }
+        },
+        {
+          "tag": "a",
+          "cls": "inline-flex size-9 items-center justify-center rounded-full border border-input bg-card text-muted-foreground transition",
+          "text": "",
+          "rect": {
+            "left": 467,
+            "right": 496,
+            "width": 29
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 473,
+            "right": 489,
+            "width": 16
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 483,
+            "right": 487,
+            "width": 5
+          }
+        },
+        {
+          "tag": "rect",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 475,
+            "right": 480,
+            "width": 5
+          }
+        },
+        {
+          "tag": "button",
+          "cls": "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outl",
+          "text": "",
+          "rect": {
+            "left": 502,
+            "right": 535,
+            "width": 33
+          }
+        },
+        {
+          "tag": "svg",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 510,
+            "right": 526,
+            "width": 16
+          }
+        },
+        {
+          "tag": "circle",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 516,
+            "right": 521,
+            "width": 5
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 518,
+            "right": 518,
+            "width": 0
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 518,
+            "right": 518,
+            "width": 0
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 514,
+            "right": 515,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 522,
+            "right": 523,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 512,
+            "right": 513,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 524,
+            "right": 525,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 514,
+            "right": 515,
+            "width": 1
+          }
+        },
+        {
+          "tag": "path",
+          "cls": "[object SVGAnimatedString]",
+          "text": "",
+          "rect": {
+            "left": 522,
+            "right": 523,
+            "width": 1
+          }
+        }
+      ],
+      "offenderCount": 21
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-book.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "events",
+    "path": "/events",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 360,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-events.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "my",
+    "path": "/my",
+    "overflow": {
+      "innerWidth": 535,
+      "scrollWidth": 535,
+      "clientWidth": 360,
+      "bodyScrollWidth": 535,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-my.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "dashboard",
+    "path": "/dashboard",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-dashboard.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "dashboard-bookings",
+    "path": "/admin/bookings",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-dashboard-bookings.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "dashboard-availability",
+    "path": "/admin/availability",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-dashboard-availability.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "dashboard-hosts",
+    "path": "/admin/hosts",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-dashboard-hosts.png"
+  },
+  {
+    "vp": "360",
+    "theme": "dark",
+    "route": "notfound",
+    "path": "/no-such-route-xyz",
+    "overflow": {
+      "innerWidth": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "bodyScrollWidth": 360,
+      "pageOverflow": false,
+      "offenders": [],
+      "offenderCount": 0
+    },
+    "consoleErrors": [],
+    "file": "C:/Users/Adm/AppData/Local/Temp/opencode/audit/360-dark-notfound.png"
+  }
+]
