@@ -77,7 +77,7 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 ├── docs/artefacts/    # Скриншоты и отчёты аудитов
 ├── public/            # Статика
 ├── .agents/
-│   └── skills/        # 83 SKILL.md: локальные процессные + upstream-набор (в .gitignore не попадают)
+│   └── skills/        # 84 SKILL.md: локальные процессные + upstream-набор (в .gitignore не попадают)
 ├── MEMORY.md          # Долгосрочное состояние проекта между сессиями
 ├── skills-lock.json   # Манифест установленных скиллов (mattpocock/skills)
 ├── opencode.jsonc     # Конфигурация opencode (модели, MCP, субагенты)
@@ -178,20 +178,21 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 OpenCode-скилы — повторно используемые workflow, которые агент подгружает через `skill` tool по триггер-фразам в `description`.
 
 - Расположение: `.agents/skills/<name>/SKILL.md`. Одна директория на скил + YAML frontmatter (`name`, `description` обязательны, `description` ≤ 1024 символов).
-- Всего 83 директории: ~11 проектных процессных + upstream-набор (mattpocock/skills, tech-leads-club, tlc-*, архитектурные и т.д.). Полный список — `ls .agents/skills/`, манифест — `skills-lock.json`.
+- Всего 84 директории: ~12 проектных процессных + upstream-набор (mattpocock/skills, tech-leads-club, tlc-*, архитектурные и т.д.). Полный список — `ls .agents/skills/`, манифест — `skills-lock.json`.
 - Проектные скилы:
   - `apply-design` — внедрение редизайна v1 (история, этапы 1–7).
   - `apply-design-v2` — внедрение редизайна v2 («Мята и солнце») по `docs/design/v2/implementation-plan.md` (этапы 0–13).
   - `commit-push` — workflow для коммита и пуша (lint + typecheck + тесты → Conventional Commits → push).
   - `interview` — задаёт 3–7 уточняющих вопросов до начала работы над нетривиальной задачей.
   - `plan` — превращает задачу в атомарный пронумерованный чек-лист с проверками.
+  - `plan-small-feature` — read-only разбор небольшой продуктовой доработки: текущее поведение, путь данных UI → правило, факты отдельно от предположений, влияние, инварианты, риски, нецели, проверка.
   - `ponytail` — принудительная проверка «можно ли решить без нового кода/зависимости/абстракции».
   - `tdd` — сначала failing-тест, потом минимум кода для зелёного, потом рефакторинг.
   - `telegram-bridge` — личный Telegram-мост согласований (`telegram-bot/`, в `.gitignore`): отправка через `notify.mjs`, решения из `decisions.jsonl`.
   - `verify` — финальный прогон `lint`/`typecheck`/`test`/`build` перед отметкой задачи как «готово».
 - Чтобы добавить новый скил: создать `.agents/skills/<имя>/SKILL.md`; имя в frontmatter должно совпадать с именем директории.
 - В этом проекте используем **только** `.agents/skills/`. `.opencode/skills/` и `.claude/skills/` больше не применять.
-- Порядок применения процессных скиллов: `interview` → `plan` → (`ponytail` по ситуации) → `tdd` по ситуации → `verify` → `commit-push`.
+- Порядок применения процессных скиллов: `interview` → (`plan-small-feature` для небольших продуктовых доработок) → `plan` → (`ponytail` по ситуации) → (`tdd` по ситуации) → `verify` → `commit-push`.
 - Подробнее — https://opencode.ai/docs/skills/.
 
 
