@@ -1,7 +1,7 @@
 {
   "name": "call-calendar",
   "private": true,
-  "version": "1.24.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "Календарь звонков — сервис бронирования звонков. Учебный проект Хекслета.",
   "scripts": {
