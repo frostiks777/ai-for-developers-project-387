@@ -1,5 +1,43 @@
 # MEMORY.md — Состояние проекта «Календарь звонков»
 
+## ⏸ Продолжить: автотриаж задач агентом OpenCode (2026-10-01)
+
+Шаг курса «Issue → разбор агентом → автотриаж» **начат, не закончен**. Триаж ещё отрабатывает
+на [issue #4](https://github.com/frostiks777/ai-for-developers-project-387/issues/4).
+
+**Сделано:**
+- Репозиторий 386 → 387 перенесён (merge `d9e04f6`, ссылки `98a540a`, релиз `v1.0.0`).
+  Все прогоны зелёные: локально lint/typecheck/build + 336/336 тестов, на GitHub `CI` и `hexlet-check`.
+- Права Actions в 387 исправлены через API: было `default_workflow_permissions: read` +
+  `can_approve_pull_request_reviews: false` → `write` / `true`. Без этого `release-please`
+  падал с «GitHub Actions is not permitted to create or approve pull requests».
+- Скилл `plan-small-feature` → `.agents/skills/plan-small-feature/SKILL.md` (коммит `e1b9059`,
+  issue [#2](https://github.com/frostiks777/ai-for-developers-project-387/issues/2) закрыт);
+  `AGENTS.md` синхронизирован (счётчик 84 директории, скилл в списке и в порядке применения).
+- Воркфлоу автотриажа: `.github/workflows/opencode-triage.yml` (`issues: [opened]` + `prompt`)
+  и `.github/workflows/opencode.yml` (`issue_comment` на `/oc`). Коммит `3e5bf2f`,
+  issue [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3).
+  Оба в режиме `use_github_token: true` (без GitHub App), модель `opencode/mimo-v2.6-flash-free`,
+  секрет `OPENCODE_API_KEY` создан из локального `auth.json`.
+
+**Не закончено (начать с этого):**
+1. **Дождаться триажа на #4.** Run `36917958351`, job `triage` — `in_progress` на момент
+   остановки, комментариев в issue ещё 0. Проверить: `gh run view 36917958351 -R
+   frostiks777/ai-for-developers-project-387` и `gh issue view 4 -R ...`. Если упал —
+   смотреть лог, чаще всего неверное имя секрета или модель.
+2. **Сравнить два разбора** (требование шага): автоматический триаж на `issues` против ручного
+   `/oc explain` в комментарии. Зафиксировать, какой точнее и почему.
+3. **Дописать в #4 итоговую постановку** — что считается исправлением. Критерии уже есть
+   в теле issue, но итоговую формулировку должен предложить разбор агента.
+4. **Закрыть #3** после зелёного триажа.
+5. **Синхронизировать документацию**: `docs/mcp.md` и `AGENTS.md` (раздел про агентов) не
+   упоминают автотриаж; `docs/todo.md` — не отражает новый шаг.
+6. **План развития** (`docs/roadmap.md`) не создан. Согласовано: фичи 1 и 2 слить в одну
+   (отступы лендинга + анимации MagicUI). Остальные кандидаты — фича «ссылка на звонок в типе
+   встречи», фича «гости получают `.ics`-приглашение», баг «гонка брони → 500 вместо 409».
+   Issue #4 покрывает первую фичу. Email-уведомления как пункт плана **не подходят** —
+   они уже реализованы (`server/email.ts`, `server/notifications.ts`, ADR-0026).
+
 > Дата последнего обновления: 2026-09-30 ([#100](https://github.com/frostiks777/ai-for-developers-project-387/issues/100) — актуализация документации: выполненные планы перенесены в [`docs/archive/`](docs/archive/README.md) с `README`-каноном, битые ссылки исправлены, `MEMORY.md` и `docs/todo.md` пересобраны; прогон 336/336 тестов). До этого: 2026-09-29 — закрыты [#97](https://github.com/frostiks777/ai-for-developers-project-387/issues/97) «отменённые брони держат слоты вне сетки» и [#99](https://github.com/frostiks777/ai-for-developers-project-387/issues/99) «апгрейд `@fastify/static` 8.3.0 → 10.1.5», [ADR-0029](docs/adr/0029-audit-fastify-static-upgrade-deferred.md) обновлён; ревью #88–#93 закрыто; email-уведомления [#83](https://github.com/frostiks777/ai-for-developers-project-387/issues/83), [ADR-0026](docs/adr/0026-email-notifications.md). Открытых issues нет.
 > Все шаги курса закрыты. Продуктовый backlog — `docs/todo.md` («Backlog продукта»): уведомления ✅, далее регистрация/аккаунты, интеграции с календарями, повторяющиеся события, аналитика.
 > **Итог ревью проверяющего (2026-09-29):** все шесть замечаний оформлены как issues [#88](https://github.com/frostiks777/ai-for-developers-project-387/issues/88)–[#93](https://github.com/frostiks777/ai-for-developers-project-387/issues/93) и **закрыты**: #88 (панель без логина, [ADR-0028](docs/adr/0028-dashboard-access-without-login.md)), #89 (сетка слотов 30 мин, [ADR-0027](docs/adr/0027-slot-grid-step-independent-of-buffers.md)), #90 (CI на каждый push), #91 (npm audit), #92 (Conventional Commits), #93 (привязка коммитов к issue).
