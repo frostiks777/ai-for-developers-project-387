@@ -1,15 +1,22 @@
 # Ручной вызов агента из комментария: `/oc explain`, `/oc fix` и т.п.
 #
-# Событие `issue_comment` — инструкция берётся из текста комментария,
-# поэтому `prompt` не нужен: агент сам прочитает, что попросили.
-# Триггер срабатывает только на упоминании `/oc` или `/opencode`.
+# Два события, из которых берётся инструкция из текста комментария
+# (поэтому `prompt` не нужен — агент сам прочитает, что попросили):
+#   * `issue_comment`               — общий комментарий в обсуждении issue или PR
+#                                    (технически PR тоже issue);
+#   * `pull_request_review_comment` — замечание к строке diff: агенту вместе с
+#                                    событием приходят путь к файлу, номер строки
+#                                    и окружающий diff, указывать их в тексте не нужно.
 #
+# Триггер срабатывает только на упоминании `/oc` или `/opencode`.
 # Права шире, чем у автотриажа: `/oc fix` создаёт ветку и pull request.
 
 name: opencode
 
 on:
   issue_comment:
+    types: [created]
+  pull_request_review_comment:
     types: [created]
 
 permissions:
@@ -28,6 +35,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+          # Для замечания к строке агенту нужен checkout ветки pull request,
+          # иначе правки уйдут в ветку по умолчанию, а не в ту же.
+          ref: >-
+            ${{ github.event.pull_request.head.sha || github.sha }}
 
       # Права `contents: write` позволяют агенту коммитить, но на раннере git
       # без ident: любой коммит падает с "Author identity unknown".
