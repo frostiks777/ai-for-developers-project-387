@@ -34,11 +34,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
           # Для замечания к строке агенту нужен checkout ветки pull request,
           # иначе правки уйдут в ветку по умолчанию, а не в ту же.
           ref: >-
-            ${{ github.event.pull_request.head.sha || github.sha }}
+            ${{ github.event.pull_request.head.ref || github.sha }}
+          # `persist-credentials` не выключаем: без него в `.git/config` нет
+          # extraheader с токеном, и любой `git push` агента падает с
+          # "could not read Username for 'https://github.com'". Токен раннера
+          # живёт только в job и не попадает в коммиты или вывод команд.
 
       # Права `contents: write` позволяют агенту коммитить, но на раннере git
       # без ident: любой коммит падает с "Author identity unknown".
