@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.0...v1.0.1) (2026-10-02)
+
+
+### Bug Fixes
+
+* уменьшить отступы секций лендинга и сетку форматов ([#4](https://github.com/frostiks777/ai-for-developers-project-387/issues/4)) ([#5](https://github.com/frostiks777/ai-for-developers-project-387/issues/5)) ([7bfc06e](https://github.com/frostiks777/ai-for-developers-project-387/commit/7bfc06e21b988995507442bd4021d99a405dfa78))
+
 ## 1.0.0 (2026-10-01)
 
 
