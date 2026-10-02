@@ -193,21 +193,26 @@ export default function ManageBookingPage({
   const durationMin = durationMinutes(booking.startAt, booking.endAt)
   const hostName = host.name
   const eventTitle = host.meetingTitle
-  const movedSlot: TimeSlot = {
-    id: 0,
-    startAt: booking.startAt,
-    durationMin,
-    isBooked: true,
-  }
-  const movedBooking: CreatedBooking = {
-    id: booking.id,
-    name: booking.clientName,
-    phone: booking.clientPhone ?? null,
-    email: booking.clientEmail,
-    comment: booking.clientNotes ?? null,
-    createdAt: booking.createdAt,
-    cancelToken: booking.id,
-  }
+  const calendarData: { slot: TimeSlot; booking: CreatedBooking } | null =
+    result === 'moved'
+      ? {
+          slot: {
+            id: 0,
+            startAt: booking.startAt,
+            durationMin,
+            isBooked: true,
+          },
+          booking: {
+            id: booking.id,
+            name: booking.clientName,
+            phone: booking.clientPhone ?? null,
+            email: booking.clientEmail,
+            comment: booking.clientNotes ?? null,
+            createdAt: booking.createdAt,
+            cancelToken: booking.id,
+          },
+        }
+      : null
 
   const statusBadge =
     result === 'cancelled' || booking.status === BookingStatus.Cancelled ? (
@@ -368,7 +373,7 @@ export default function ManageBookingPage({
           </section>
 
           <section className="glass rounded-2xl p-5">
-            {result === 'moved' ? (
+            {calendarData ? (
               <>
                 <h2 className="font-serif text-[28px] font-semibold">Встреча перенесена</h2>
                 <p className="mt-2 text-[16px] font-semibold">
@@ -389,7 +394,9 @@ export default function ManageBookingPage({
                     className="h-12 rounded-xl bg-highlight text-highlight-foreground shadow-glow hover:bg-highlight/90"
                   >
                     <a
-                      href={googleCalendarUrl(movedBooking, movedSlot, { title: eventTitle })}
+                      href={googleCalendarUrl(calendarData.booking, calendarData.slot, {
+                        title: eventTitle,
+                      })}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -402,7 +409,7 @@ export default function ManageBookingPage({
                     onClick={() => {
                       downloadIcs(
                         `booking-${booking.id}.ics`,
-                        buildIcs(movedBooking, movedSlot, { title: eventTitle }),
+                        buildIcs(calendarData.booking, calendarData.slot, { title: eventTitle }),
                       )
                     }}
                   >
