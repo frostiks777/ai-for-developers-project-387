@@ -3,10 +3,12 @@
 # Событие `pull_request` с типами opened/synchronize/reopened/ready_for_review —
 # агент разбирает каждый PR сам, по критериям из `prompt`.
 #
-# Права: `issues: write` нужен для создания комментариев, хотя замечания
-# агента относятся к pull request — комментарий в PR идёт через issues API,
-# и с read-only токен GitHub отвечает 403 «Resource not accessible by
-# integration». Одобрять и мержить агент не может: таких прав здесь нет.
+# Права: комментарий в pull request создаётся через issues API, но право на
+# запись выдаётся именно за `pull-requests: write` — с одним лишь
+# `issues: write` токен раннера получает 403 «Resource not accessible by
+# integration» (проверено на run 37061060446). Держим оба, `issues: write`
+# нужен ещё и для реакций. Одобрять и мержить агент не может: таких прав
+# здесь нет.
 
 name: opencode-review
 
@@ -16,7 +18,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
   issues: write
   id-token: write
 
