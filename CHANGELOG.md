@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.2...v1.0.3) (2026-10-02)
+
+
+### Bug Fixes
+
+* рабочая ссылка на Google Календарь после переноса встречи ([#7](https://github.com/frostiks777/ai-for-developers-project-387/issues/7)) ([#9](https://github.com/frostiks777/ai-for-developers-project-387/issues/9)) ([5fb028d](https://github.com/frostiks777/ai-for-developers-project-387/commit/5fb028d757662a201bcac034110ea51bd4bbb2f4))
+
 ## [1.0.2](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.1...v1.0.2) (2026-10-02)
 
 
