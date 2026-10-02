@@ -3,8 +3,10 @@
 # Событие `pull_request` с типами opened/synchronize/reopened/ready_for_review —
 # агент разбирает каждый PR сам, по критериям из `prompt`.
 #
-# Права на замечания достаточно read-only: агент только комментирует.
-# Одобрять и мержит человек — у агента таких прав нет (и не должно быть).
+# Права: `issues: write` нужен для создания комментариев, хотя замечания
+# агента относятся к pull request — комментарий в PR идёт через issues API,
+# и с read-only токен GitHub отвечает 403 «Resource not accessible by
+# integration». Одобрять и мержить агент не может: таких прав здесь нет.
 
 name: opencode-review
 
@@ -15,7 +17,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
-  issues: read
+  issues: write
   id-token: write
 
 jobs:
