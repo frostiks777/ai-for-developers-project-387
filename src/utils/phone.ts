@@ -11,7 +11,10 @@ export function formatPhoneInput(input: string): string {
     return hasPlus ? '+' : ''
   }
 
-  const isRussian = digits.startsWith('7') || digits.startsWith('8')
+  // Ведущая 8 — российский trunk-префикс только в национальном формате.
+  // С плюсом 8 означает код страны (Япония, Корея, Вьетнам, Китай),
+  // и подстановка 7 уничтожила бы номер.
+  const isRussian = hasPlus ? digits.startsWith('7') : digits.startsWith('7') || digits.startsWith('8')
 
   if (!isRussian) {
     return (hasPlus ? '+' : '') + digits
