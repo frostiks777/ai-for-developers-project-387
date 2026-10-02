@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: calendar-slots-app
+    name: calendar-slots-387
     runtime: docker
     plan: free
     region: frankfurt
@@ -9,8 +9,9 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
     envVars:
-      # Строка подключения Neon (Postgres) приходит из Environment Group «DB»
-      - fromGroup: DB
+      # Строка подключения Neon (Postgres) приходит из Environment Group «DB-387»
+      # (у проекта 386 своя группа «DB» — не переиспользовать, иначе 387 писал бы в базу 386).
+      - fromGroup: DB-387
       - key: NODE_ENV
         value: production
       - key: PORT
@@ -23,4 +24,4 @@ services:
       # Environment Group (Render → Environment → Add). Здесь только напоминание:
       #   TURNSTILE_SITEKEY=0x4AAAA...
       #   TURNSTILE_SECRET_KEY=0x4AAAA...
-      #   TURNSTILE_ALLOWED_HOSTNAMES=calendar-slots-app.onrender.com
+      #   TURNSTILE_ALLOWED_HOSTNAMES=calendar-slots-387.onrender.com
