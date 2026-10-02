@@ -18,7 +18,7 @@ import { host } from '@/config/host'
 import { useActiveHost } from '@/hooks/use-active-host'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { useTimeFormat } from '@/hooks/use-time-format'
-import type { TimeSlot } from '@/types/booking'
+import type { CreatedBooking, TimeSlot } from '@/types/booking'
 import { buildIcs, downloadIcs, googleCalendarUrl } from '@/utils/calendar'
 import { addDays, startOfWeek } from '@/utils/dates'
 import { updateMyBookingTime } from '@/utils/my-bookings'
@@ -193,6 +193,26 @@ export default function ManageBookingPage({
   const durationMin = durationMinutes(booking.startAt, booking.endAt)
   const hostName = host.name
   const eventTitle = host.meetingTitle
+  const calendarData: { slot: TimeSlot; booking: CreatedBooking } | null =
+    result === 'moved'
+      ? {
+          slot: {
+            id: 0,
+            startAt: booking.startAt,
+            durationMin,
+            isBooked: true,
+          },
+          booking: {
+            id: booking.id,
+            name: booking.clientName,
+            phone: booking.clientPhone ?? null,
+            email: booking.clientEmail,
+            comment: booking.clientNotes ?? null,
+            createdAt: booking.createdAt,
+            cancelToken: booking.id,
+          },
+        }
+      : null
 
   const statusBadge =
     result === 'cancelled' || booking.status === BookingStatus.Cancelled ? (
@@ -353,7 +373,7 @@ export default function ManageBookingPage({
           </section>
 
           <section className="glass rounded-2xl p-5">
-            {result === 'moved' ? (
+            {calendarData ? (
               <>
                 <h2 className="font-serif text-[28px] font-semibold">Встреча перенесена</h2>
                 <p className="mt-2 text-[16px] font-semibold">
@@ -373,7 +393,13 @@ export default function ManageBookingPage({
                     asChild
                     className="h-12 rounded-xl bg-highlight text-highlight-foreground shadow-glow hover:bg-highlight/90"
                   >
-                    <a href="#" onClick={(event) => event.preventDefault()}>
+                    <a
+                      href={googleCalendarUrl(calendarData.booking, calendarData.slot, {
+                        title: eventTitle,
+                      })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Обновить в Google Календаре
                     </a>
                   </Button>
@@ -381,22 +407,10 @@ export default function ManageBookingPage({
                     variant="outline"
                     className="h-12 rounded-xl"
                     onClick={() => {
-                      const slot: TimeSlot = {
-                        id: 0,
-                        startAt: booking.startAt,
-                        durationMin,
-                        isBooked: true,
-                      }
-                      const created = {
-                        id: booking.id,
-                        name: booking.clientName,
-                        phone: booking.clientPhone ?? null,
-                        email: booking.clientEmail,
-                        comment: booking.clientNotes ?? null,
-                        createdAt: booking.createdAt,
-                        cancelToken: booking.id,
-                      }
-                      downloadIcs(`booking-${booking.id}.ics`, buildIcs(created, slot, { title: eventTitle }))
+                      downloadIcs(
+                        `booking-${booking.id}.ics`,
+                        buildIcs(calendarData.booking, calendarData.slot, { title: eventTitle }),
+                      )
                     }}
                   >
                     Скачать .ics

@@ -45,7 +45,11 @@ function mockFetch() {
     }
 
     if (url === '/api/v1/bookings/token-123/reschedule' && method === 'POST') {
-      return jsonResponse({ ...booking, startAt: newStart })
+      return jsonResponse({
+        ...booking,
+        startAt: newStart,
+        endAt: new Date(Date.parse(newStart) + 30 * 60 * 1000).toISOString(),
+      })
     }
 
     if (url === '/api/v1/bookings/token-123/cancel' && method === 'POST') {
@@ -97,6 +101,37 @@ describe('ManageBookingPage: перенос', () => {
       expect.stringContaining('/api/v1/bookings/token-123/reschedule'),
       expect.objectContaining({ method: 'POST' }),
     )
+  })
+
+  it('ведёт «Обновить в Google Календаре» на новое время встречи', async () => {
+    vi.stubGlobal('fetch', mockFetch())
+
+    const user = userEvent.setup()
+    renderPage('reschedule')
+
+    expect(await screen.findByText(/Текущее время:/)).toBeInTheDocument()
+
+    const movedLabel = new Intl.DateTimeFormat('ru-RU', {
+      timeZone: defaultTimeZone,
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(new Date(newStart))
+    await user.click(await screen.findByRole('button', { name: movedLabel }))
+    await user.click(screen.getByRole('button', { name: 'Перенести встречу' }))
+
+    const link = await screen.findByRole('link', { name: /Обновить в Google Календаре/ })
+    const href = link.getAttribute('href') ?? ''
+    const expectedStart = newStart.replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')
+    const expectedEnd = new Date(Date.parse(newStart) + 30 * 60 * 1000)
+      .toISOString()
+      .replace(/[-:]/g, '')
+      .replace(/\.\d{3}Z$/, 'Z')
+
+    expect(href).toContain('calendar.google.com/calendar/render')
+    expect(decodeURIComponent(href)).toContain(`dates=${expectedStart}/${expectedEnd}`)
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('показывает ошибку для недействительной ссылки', async () => {
