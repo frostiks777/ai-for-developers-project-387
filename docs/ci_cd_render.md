@@ -1,5 +1,9 @@
 # Деплой: Render.com + Neon
 
+> **Для проекта 387** актуальный пошаговый чек-лист со своими именем сервиса (`calendar-slots-387`),
+> базой Neon и группой `DB-387` — [`deploy-387.md`](deploy-387.md). Ниже описана общая механика; в
+> примерах остался URL старого стенда 386.
+
 Актуальная схема деплоя «Календарь звонков»: контейнер на **Render** (план free) + база в **Neon** (PostgreSQL). План Google Cloud Run из [`docs/archive/ci_cd.md`](archive/ci_cd.md) **не используется** — он остался как альтернатива.
 
 Конфигурация в репозитории: `render.yaml` (Blueprint), `Dockerfile` (multi-stage). Живой стенд: <https://calendar-slots-app.onrender.com>.

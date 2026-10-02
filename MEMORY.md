@@ -366,6 +366,11 @@
     - `MEMORY.md`: устаревший файловый снимок вынесен в `docs/archive/memory-file-tree-2026-09-24.md` (со списком изменений после него), версии зависимостей пересобраны по `package.json` (добавлены `@fastify/rate-limit`, `ajv-formats`, `yaml`, `lucide-react`), результаты проверок — 336/336 (56 файлов), «Что осталось» перестроено: открыто 3 пункта, закрытое — под заголовком «Закрыто ранее».
     - Проверки: `npm test` **336/336** (56 файлов); правки только в документации.
     - Продолжение — issue [#101](https://github.com/frostiks777/ai-for-developers-project-387/issues/101): README пересобран для наставника — одна строка плашек shields.io (React, TypeScript, Vite, Fastify, PostgreSQL, Tailwind, Docker, Vitest, Playwright), новый раздел «Продукты и сервисы» (Neon, Render, Brevo, Turnstile, cron-job.org, GitHub Actions, asciinema — везде бесплатные тарифы), «Куда смотреть в документации». Попутно исправлены фактические устаревания: «контакты видны только организатору» (неверно после ADR-0028), дефолты буферов (ADR-0027 — 0 и не двигают сетку), коды ошибок v1 (`UNAUTHORIZED` → `CAPTCHA_FAILED` 422 + `RATE_LIMITED` 429), «rate-limit/backoff» (backoff не реализован), прошедшие даты в curl-примерах, CAPTCHA в описании `POST .../bookings`.
+78. ✅ **Гайд подключения стека для 387** (2026-10-02) — [#8](https://github.com/frostiks777/ai-for-developers-project-387/issues/8):
+    - Новый `docs/deploy-387.md` — пошагово: отдельная БД Neon в проекте 386, Environment Group `DB-387`, Render Web Service `calendar-slots-387`, виджет Turnstile под `calendar-slots-387.onrender.com`, Brevo sender/API-ключ, переменные Render, cron-job.org (10 минут, `X-Reminders-Secret`), smoke-проверки и частые ошибки.
+    - `render.yaml`: `name: calendar-slots-app` → `calendar-slots-387`, `fromGroup: DB` → `DB-387` (иначе 387 писал бы в базу 386), обновлён hostname Turnstile.
+    - `README.md`: URL стенда, hostname Turnstile, Environment Group `DB-387`, cron «10 минут», ссылка на гайд; `.env.example` — комментарий с hostname 387; в `docs/ci_cd_render.md` и `docs/email-setup-brevo.md` добавлен указатель на `deploy-387.md` (там остался URL 386 как общая механика).
+    - Правки только в документации/конфиге, кода не касаются.
 
 ## Что осталось (следующие шаги)
 
