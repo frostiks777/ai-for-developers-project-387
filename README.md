@@ -40,7 +40,7 @@ asciinema upload demo.cast
 
 `scripts/demo.sh` проигрывает сквозной путь гостя через API: health → настройки хоста → слоты → бронь → конфликт `409` → отмена → слот снова свободен.
 
-Живое демо (Render, free-план — сервис засыпает после простоя): https://calendar-slots-app.onrender.com
+Живое демо (Render, free-план — сервис засыпает после простоя): https://calendar-slots-387.onrender.com
 
 ## Стек
 
@@ -57,11 +57,11 @@ asciinema upload demo.cast
 
 | Сервис | Зачем | Тариф / условия |
 |---|---|---|
-| [Neon](https://neon.tech) | PostgreSQL в проде | Free: база спит после 5 минут простоя, холодный старт — до секунды; `DATABASE_URL` из Environment Group `DB` |
+| [Neon](https://neon.tech) | PostgreSQL в проде | Free: база спит после 5 минут простоя, холодный старт — до секунды; `DATABASE_URL` из Environment Group `DB-387` |
 | [Render](https://render.com) | Хостинг контейнера (Docker) | Free: засыпает через 15 минут простоя, холодный старт до ~1 минуты; `render.yaml`, healthcheck `/health` |
 | [Brevo](https://brevo.com) | Транзакционные письма (HTTP API) | Free: 300 писем/день, нужен верифицированный sender; без `EMAIL_API_KEY` отправка — no-op |
 | [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) | CAPTCHA в публичной форме записи | Free: без лимитов на виджете; выключена, пока не задан `TURNSTILE_SECRET_KEY` |
-| [cron-job.org](https://cron-job.org) | Внешний запуск напоминаний | Free: `POST /api/internal/reminders` каждые 15 минут с секретом |
+| [cron-job.org](https://cron-job.org) | Внешний запуск напоминаний | Free: `POST /api/internal/reminders` каждые 10 минут с секретом |
 | GitHub Actions + [release-please](https://github.com/googleapis/release-please) | CI (lint, typecheck, test, build, e2e) и релизные PR по Conventional Commits | Бесплатно для публичного репозитория |
 | [asciinema](https://asciinema.org) / [PowerSession](https://github.com/Watfaq/PowerSession-rs) | Запись демо-сценария | — |
 
@@ -119,7 +119,7 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
 
 Панель организатора (`/dashboard` и `/admin/*`) и административные API — настройки доступности, типы встреч, блокировки, список броней — **открыты без логина** ([ADR-0028](docs/adr/0028-dashboard-access-without-login.md)). В проекте один заранее заданный владелец, а авторизация по спецификации курса не требуется, поэтому проверяющий открывает опубликованный календарь и сразу видит список встреч и управление типами событий.
 
-- **Демо-стенд:** `https://calendar-slots-app.onrender.com/dashboard` — логин и пароль не запрашиваются.
+- **Демо-стенд:** `https://calendar-slots-387.onrender.com/dashboard` — логин и пароль не запрашиваются.
 - Переменная `ADMIN_PASSWORD` больше не используется: если она осталась в окружении (в том числе в Environment Group на Render), сервер её игнорирует.
 - Публичные чтения для гостей (слоты, типы встреч, доступность) и создание брони — тоже открыты, как и раньше.
 
@@ -138,10 +138,10 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
   (в `.env`): `TURNSTILE_SITEKEY=1x00000000000000000000AA`,
   `TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA`.
 - **В Render:** Environment → `TURNSTILE_SITEKEY`, `TURNSTILE_SECRET_KEY`,
-  `TURNSTILE_ALLOWED_HOSTNAMES=calendar-slots-app.onrender.com` → Save & Deploy. Настройка виджета —
+  `TURNSTILE_ALLOWED_HOSTNAMES=calendar-slots-387.onrender.com` → Save & Deploy. Настройка виджета —
   [dash.cloudflare.com → Turnstile](https://dash.cloudflare.com) → Create a widget: режим **Managed**,
   вид **Visible**, Pre-clearance **Off**; на бесплатном плане нужно добавить хост
-  `calendar-slots-app.onrender.com` (иначе Cloudflare вернёт ошибку 400020).
+  `calendar-slots-387.onrender.com` (иначе Cloudflare вернёт ошибку 400020).
 
 **Rate-limit по IP** (`@fastify/rate-limit`, счётчики в памяти процесса): 20 записей/отмен/переносов в
 минуту, 300 публичных чтений, 600 запросов суммарно. При превышении — `429` с кодом `RATE_LIMITED`.
@@ -307,7 +307,7 @@ npm run test:e2e
 
 ## Деплой
 
-Docker-образ (multi-stage) + `render.yaml` для Render.com: план free, healthcheck `/health`, хост `0.0.0.0`, порт из `PORT`. Данные — PostgreSQL в Neon (`DATABASE_URL` из Environment Group `DB`); доступ к панели открыт без логина, `ADMIN_PASSWORD` не используется. Подробности — [`docs/ci_cd_render.md`](docs/ci_cd_render.md).
+Docker-образ (multi-stage) + `render.yaml` для Render.com: план free, healthcheck `/health`, хост `0.0.0.0`, порт из `PORT`. Данные — PostgreSQL в Neon (`DATABASE_URL` из Environment Group `DB-387`); доступ к панели открыт без логина, `ADMIN_PASSWORD` не используется. Подробности — [`docs/ci_cd_render.md`](docs/ci_cd_render.md), пошаговая настройка стенда 387 (Render + Neon + cron-job.org + Turnstile + Brevo) — [`docs/deploy-387.md`](docs/deploy-387.md).
 
 ---
 

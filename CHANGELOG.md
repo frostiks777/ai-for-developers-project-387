@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.1...v1.0.2) (2026-10-02)
+
+
+### Bug Fixes
+
+* escape RFC 5545 special chars in ics text values ([#11](https://github.com/frostiks777/ai-for-developers-project-387/issues/11)) ([1536a44](https://github.com/frostiks777/ai-for-developers-project-387/commit/1536a4425aac455620357a9edc998cf5a78214c4))
+* keep international 8x phone codes intact ([#14](https://github.com/frostiks777/ai-for-developers-project-387/issues/14)) ([9cc5c62](https://github.com/frostiks777/ai-for-developers-project-387/commit/9cc5c62c1d763f59091d13140e715acc88716c31))
+
 ## [1.0.1](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.0...v1.0.1) (2026-10-02)
 
 

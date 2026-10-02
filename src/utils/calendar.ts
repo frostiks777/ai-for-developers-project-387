@@ -18,6 +18,17 @@ function eventDetails(booking: Booking): string {
   return lines.join('\n')
 }
 
+// RFC 5545 §3.3.11: в TEXT-значениях экранируются `\`, `;`, `,` и перевод строки.
+// Порядок замен обязателен — обратный слэш обрабатывается первым, иначе
+// экранированные последовательности разъезжаются при обработке `;` и `,`.
+function escapeIcsText(value: string): string {
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/\n/g, '\\n')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+}
+
 interface CalendarEventOptions {
   title?: string
   now?: Date
@@ -45,8 +56,8 @@ export function buildIcs(booking: Booking, slot: TimeSlot, options: CalendarEven
     `DTSTAMP:${toUtcStamp(stamp)}`,
     `DTSTART:${toUtcStamp(startAt)}`,
     `DTEND:${toUtcStamp(endAt)}`,
-    `SUMMARY:${title}`,
-    `DESCRIPTION:${eventDetails(booking).replace(/\n/g, '\\n')}`,
+    `SUMMARY:${escapeIcsText(title)}`,
+    `DESCRIPTION:${escapeIcsText(eventDetails(booking))}`,
     'END:VEVENT',
     'END:VCALENDAR',
   ]
