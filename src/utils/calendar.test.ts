@@ -54,6 +54,28 @@ describe('buildIcs', () => {
 
     expect(ics).toContain('SUMMARY:Звонок-консультация')
   })
+
+  it('экранирует запятую, точку с запятой и обратный слэш в SUMMARY', () => {
+    const ics = buildIcs(booking, slot, { now: fixedNow, title: 'Аудит, часть 2; финал\\' })
+
+    expect(ics).toContain('SUMMARY:Аудит\\, часть 2\\; финал\\\\')
+    expect(ics).not.toContain('SUMMARY:Аудит, часть 2;')
+  })
+
+  it('экранирует спецсимволы RFC 5545 в DESCRIPTION', () => {
+    const tricky: Booking = {
+      ...booking,
+      name: 'Иван, Петров; тест\\',
+      comment: 'a,b;c\\d\nвторая строка',
+    }
+
+    const ics = buildIcs(tricky, slot, { now: fixedNow })
+
+    expect(ics).toContain('Имя: Иван\\, Петров\\; тест\\\\')
+    expect(ics).toContain('Комментарий: a\\,b\\;c\\\\d\\nвторая строка')
+    // Сырых спецсимволов внутри значений не осталось
+    expect(ics).not.toContain('Имя: Иван,')
+  })
 })
 
 describe('googleCalendarUrl', () => {
