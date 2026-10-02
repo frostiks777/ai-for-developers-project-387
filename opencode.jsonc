@@ -1,22 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Плагины в формате текущей версии opencode (1.18.32): ключ "plugin".
-  // opencode-notify — нативные уведомления ОС (Windows Toast / macOS
-  // Notification Center / Linux notify-send) с кнопками Accept/Reject, когда
-  // агенту нужно разрешение или он задаёт вопрос. Конфиг (необязательно):
-  // ~/.config/opencode/opencode-notify.json. npm-плагины ставятся Bun при старте.
   "plugin": ["opencode-notify"],
 
-  // Главная модель для основного агента — только бесплатная.
-  "model": "opencode/mimo-v2.6-flash-free",
+  // Меняем дефолтную модель на DeepSeek, чтобы она стала доступна в интерфейсе
+  "model": "deepseek/deepseek-v4.1-flash",
 
-  // КРИТИЧНО: все встроенные субагенты обязаны использовать ТОЛЬКО бесплатные модели.
-  // Это дефолтные модели; при запуске через subagent tool модель НЕ ДОЛЖНА
-  // переопределяться на платную — см. docs/model-usage.md и AGENTS.md.
-  "agents": {
-    // Исследовательский субагент (только чтение + webfetch).
-    // Permissions: нет edit/bash/task — чтобы случайно ничего не править.
+  // Исправлено: согласно схеме, ключ называется "agent" (не "agents").
+  // КРИТИЧНО: все субагенты используют ТОЛЬКО бесплатные модели —
+  // см. docs/model-usage.md и AGENTS.md.
+  "agent": {
     "explore": {
       "model": "opencode/muse-spark-1.3-contributor-free",
       "permission": {
@@ -33,21 +26,28 @@
         "external_directory": "deny"
       }
     },
-    // Универсальный субагент для реализации (полный доступ, без платных моделей).
     "general": {
       "model": "opencode/muse-spark-1.3-contributor-free"
     }
   },
 
-  // MCP-серверы. Сейчас подключён официальный shadcn MCP для работы
-  // с каталогом UI-компонентов (использует components.json в корне).
-  //
-  // ВАЖНО: пакет называется `shadcn`, MCP-сервер запускается подкомандой
-  // `mcp`: `npx -y shadcn@latest mcp`. Имя `@shadcn/ui/mcp` невалидно
-  // (npm: EINVALIDPACKAGENAME) — из-за него процесс падал с
-  // "MCP error -32000: Connection closed".
-  // Проверка: `npx -y shadcn@latest mcp --help`
-  // Подробнее — docs/mcp.md.
+  // Политики доступа к провайдерам (experimental.policies валиден по схеме).
+  "experimental": {
+    "continue_loop_on_deny": true,
+    "policies": [
+      {
+        "action": "provider.use",
+        "effect": "allow",
+        "resource": "deepseek"
+      },
+      {
+        "action": "provider.use",
+        "effect": "allow",
+        "resource": "opencode"
+      }
+    ]
+  },
+
   "mcp": {
     "shadcn": {
       "type": "local",
