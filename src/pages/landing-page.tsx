@@ -98,7 +98,7 @@ export default function LandingPage() {
         ]}
       />
 
-      <main className="mx-auto w-full max-w-[1140px] flex-1 px-4 py-10 lg:px-6 lg:py-16">
+      <main className="mx-auto w-full max-w-[1140px] flex-1 px-4 py-10 lg:px-6">
         <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[13px] text-muted-foreground">
@@ -160,11 +160,11 @@ export default function LandingPage() {
         </section>
 
         {eventTypes.length > 1 && (
-          <section className="mt-14">
+          <section className="mt-8">
             <h3 className="font-serif text-[24px] font-semibold leading-tight lg:text-[28px]">
               Форматы встречи
             </h3>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {eventTypes.map((type) => (
                 <Link
                   key={type.id}
@@ -182,7 +182,7 @@ export default function LandingPage() {
           </section>
         )}
 
-        <section className="mt-16">
+        <section className="mt-10">
           <h3 className="font-serif text-[24px] font-semibold leading-tight lg:text-[28px]">
             Как это работает
           </h3>
@@ -202,7 +202,7 @@ export default function LandingPage() {
           </ol>
         </section>
 
-        <section className="mt-14 flex flex-col items-start gap-4 rounded-card bg-surface p-8 lg:flex-row lg:items-center lg:justify-between">
+        <section className="mt-8 flex flex-col items-start gap-4 rounded-card bg-surface p-8 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="font-serif text-[22px] font-semibold leading-tight">
               Готовы выбрать время?
