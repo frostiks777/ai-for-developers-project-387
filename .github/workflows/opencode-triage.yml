@@ -19,6 +19,9 @@ permissions:
 
 jobs:
   triage:
+    # Только задачи, заведённые человеком: issue, открытое ботом (например,
+    # release-please), не должно будить агента и тратить минуты Actions.
+    if: github.event.sender.type != 'Bot' && github.event.issue.user.type != 'Bot'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
