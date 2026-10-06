@@ -33,6 +33,9 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  # Обязателен: без `use_github_token` экшен обменивает OIDC-токен на токен
+  # приложения opencode-agent, и права у агента настоящие, а не «none».
+  id-token: write
 
 jobs:
   opencode:
@@ -78,4 +81,3 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
-          use_github_token: true
