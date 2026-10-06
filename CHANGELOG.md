@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.3...v1.0.4) (2026-10-06)
+
+
+### Bug Fixes
+
+* **ci:** фильтр ботов и токен GitHub App для агента ([#17](https://github.com/frostiks777/ai-for-developers-project-387/issues/17)) ([#19](https://github.com/frostiks777/ai-for-developers-project-387/issues/19)) ([668776b](https://github.com/frostiks777/ai-for-developers-project-387/commit/668776b26afcc13184b1edc08f1592b97da0b0bf))
+
 ## [1.0.3](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.2...v1.0.3) (2026-10-02)
 
 
