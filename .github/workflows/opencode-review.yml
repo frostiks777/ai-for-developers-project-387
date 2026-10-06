@@ -3,12 +3,14 @@
 # Событие `pull_request` с типами opened/synchronize/reopened/ready_for_review —
 # агент разбирает каждый PR сам, по критериям из `prompt`.
 #
-# Права: комментарий в pull request создаётся через issues API, но право на
-# запись выдаётся именно за `pull-requests: write` — с одним лишь
-# `issues: write` токен раннера получает 403 «Resource not accessible by
-# integration» (проверено на run 37061060446). Держим оба, `issues: write`
-# нужен ещё и для реакций. Одобрять и мержить агент не может: таких прав
-# здесь нет.
+# Права: комментарий в pull request и реакция создаются токеном приложения
+# opencode-agent, а не токеном раннера. На токене раннера (`use_github_token: true`)
+# экшен видел `permission: none` для `github-actions[bot]` и падал на удалении
+# реакции — проверено на run 37064227451 (2026-10-06). Права на запись всё равно
+# нужны: агент оставляет замечания, одобрять и мержить не может — таких прав нет.
+#
+# `id-token: write` обязателен: по нему экшен обменивает OIDC-токен на токен
+# приложения.
 
 name: opencode-review
 
@@ -25,6 +27,13 @@ permissions:
 jobs:
   review:
     runs-on: ubuntu-latest
+    # Зависший прогон агента не должен держать раннер до дефолтных 360 минут.
+    timeout-minutes: 15
+    # Каждый push в PR отменяет предыдущий прогон ревью: старый не висит
+    # в pending и не блокирует чек устаревшим статусом.
+    concurrency:
+      group: opencode-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,7 +48,6 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
-          use_github_token: true
           prompt: |
             Проведи ревью этого pull request и оставь замечания комментариями
             от токена раннера. Не меняй код, не коммить, не мержи — только

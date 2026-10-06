@@ -8,7 +8,17 @@
 #                                    событием приходят путь к файлу, номер строки
 #                                    и окружающий diff, указывать их в тексте не нужно.
 #
-# Триггер срабатывает только на упоминании `/oc` или `/opencode`.
+# Триггер срабатывает на любой комментарий, а условие `if` пропускает работу дальше
+# только при выполнении трёх условий сразу:
+#   1. комментарий не от бота — иначе агент ответит на свой же ответ и получится
+#      петля (ответ агента цитирует текст пользователя, а значит может содержать
+#      `/oc` снова);
+#   2. автор — владелец, участник или контрибьютор: в открытом репозитории позвать
+#      агента может кто угодно с правом комментировать, а каждый вызов тратит
+#      минуты Actions и лимит провайдера, поэтому круг вызывающих ограничен;
+#   3. в тексте есть команда `/oc` или `/opencode`.
+# Набор команд оставлен дефолтным экшена (`/opencode`, `/oc`) — свой `mentions`
+# не задаём, потому что обе команды короткие и привычные.
 # Права шире, чем у автотриажа: `/oc fix` создаёт ветку и pull request.
 
 name: opencode
@@ -23,18 +33,38 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  # Обязателен: без `use_github_token` экшен обменивает OIDC-токен на токен
+  # приложения opencode-agent, и права у агента настоящие, а не «none».
+  id-token: write
 
 jobs:
   opencode:
     if: |
-      contains(github.event.comment.body, '/oc') ||
-      contains(github.event.comment.body, '/opencode')
+      github.event.sender.type != 'Bot' &&
+      github.event.comment.user.type != 'Bot' &&
+      (
+        contains(github.event.comment.author_association, 'OWNER') ||
+        contains(github.event.comment.author_association, 'MEMBER') ||
+        contains(github.event.comment.author_association, 'COLLABORATOR') ||
+        contains(github.event.comment.author_association, 'CONTRIBUTOR')
+      ) &&
+      (
+        contains(github.event.comment.body, '/oc') ||
+        contains(github.event.comment.body, '/opencode')
+      )
     runs-on: ubuntu-latest
+    # Зависший прогон агента не должен держать раннер до дефолтных 360 минут.
+    timeout-minutes: 15
+    # Один вызов агента на issue/PR: новый комментарий отменяет предыдущий
+    # прогон, чтобы ответы не наслаивались и не жгли минуты Actions.
+    concurrency:
+      group: opencode-${{ github.event.issue.number || github.event.pull_request.number }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-        
+
           # Для замечания к строке агенту нужен checkout ветки pull request,
           # иначе правки уйдут в ветку по умолчанию, а не в ту же.
           ref: >-
@@ -58,4 +88,3 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
-          use_github_token: true

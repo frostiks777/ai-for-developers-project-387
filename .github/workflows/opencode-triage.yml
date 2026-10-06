@@ -3,8 +3,9 @@
 # Событие `issues` не берёт инструкцию из комментария (его ещё нет),
 # поэтому `prompt` здесь обязателен — без него воркфлоу не запустится.
 #
-# Режим `use_github_token: true` — без установки GitHub App opencode-agent:
-# агент работает на переданном GITHUB_TOKEN и правах job ниже.
+# GitHub App `opencode-agent` установлен на репозиторий: агент работает на токене
+# приложения, который экшен получает обменом OIDC-токена (нужен `id-token: write`).
+# На токене раннера он видел `permission: none` и падал на удалении реакции.
 # Модель бесплатная (AGENTS.md, раздел «Модели»).
 
 name: opencode-triage
@@ -16,10 +17,21 @@ on:
 permissions:
   contents: read
   issues: write
+  # Обязателен: без `use_github_token` экшен обменивает OIDC-токен на токен
+  # приложения opencode-agent, и права у агента настоящие, а не «none».
+  id-token: write
 
 jobs:
   triage:
+    # Только задачи, заведённые человеком: issue, открытое ботом (например,
+    # release-please), не должно будить агента и тратить минуты Actions.
+    if: github.event.sender.type != 'Bot' && github.event.issue.user.type != 'Bot'
     runs-on: ubuntu-latest
+    # Зависший прогон агента не должен держать раннер до дефолтных 360 минут.
+    timeout-minutes: 15
+    concurrency:
+      group: opencode-triage-${{ github.event.issue.number }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,7 +45,6 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
-          use_github_token: true
           prompt: |
             Разбери эту задачу как инженер, который берёт её в работу. Репозиторий уже
             выкачан — читай код, ничего не меняй.
