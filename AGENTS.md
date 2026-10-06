@@ -139,6 +139,7 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 - `todo.md` — текущий roadmap и расхождения со спекой
 - `spec.md` — утверждённая спецификация (снимок Шага 2; реализация ушла вперёд, см. ADR)
 - `course-steps.md` — шаги курса и критерии приёмки
+- `course-github-agent.md` — требования уроков по агентному GitHub-процессу (issue → PR → ревью → расписание) и статус
 - `ci_cd_render.md` — руководство по бесплатному деплою на Render.com + Neon
 - `adr/` — Architecture Decision Records (см. `docs/adr/README.md`)
 - `mcp.md` — подключённые MCP-серверы и правила работы с ними
