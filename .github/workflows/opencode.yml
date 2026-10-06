@@ -53,6 +53,13 @@ jobs:
         contains(github.event.comment.body, '/opencode')
       )
     runs-on: ubuntu-latest
+    # Зависший прогон агента не должен держать раннер до дефолтных 360 минут.
+    timeout-minutes: 15
+    # Один вызов агента на issue/PR: новый комментарий отменяет предыдущий
+    # прогон, чтобы ответы не наслаивались и не жгли минуты Actions.
+    concurrency:
+      group: opencode-${{ github.event.issue.number || github.event.pull_request.number }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

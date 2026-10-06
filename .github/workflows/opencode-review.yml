@@ -27,6 +27,13 @@ permissions:
 jobs:
   review:
     runs-on: ubuntu-latest
+    # Зависший прогон агента не должен держать раннер до дефолтных 360 минут.
+    timeout-minutes: 15
+    # Каждый push в PR отменяет предыдущий прогон ревью: старый не висит
+    # в pending и не блокирует чек устаревшим статусом.
+    concurrency:
+      group: opencode-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
