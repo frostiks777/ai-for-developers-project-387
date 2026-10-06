@@ -3,8 +3,9 @@
 # Событие `issues` не берёт инструкцию из комментария (его ещё нет),
 # поэтому `prompt` здесь обязателен — без него воркфлоу не запустится.
 #
-# Режим `use_github_token: true` — без установки GitHub App opencode-agent:
-# агент работает на переданном GITHUB_TOKEN и правах job ниже.
+# GitHub App `opencode-agent` установлен на репозиторий: агент работает на токене
+# приложения, который экшен получает обменом OIDC-токена (нужен `id-token: write`).
+# На токене раннера он видел `permission: none` и падал на удалении реакции.
 # Модель бесплатная (AGENTS.md, раздел «Модели»).
 
 name: opencode-triage
@@ -16,6 +17,9 @@ on:
 permissions:
   contents: read
   issues: write
+  # Обязателен: без `use_github_token` экшен обменивает OIDC-токен на токен
+  # приложения opencode-agent, и права у агента настоящие, а не «none».
+  id-token: write
 
 jobs:
   triage:
@@ -36,7 +40,6 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
-          use_github_token: true
           prompt: |
             Разбери эту задачу как инженер, который берёт её в работу. Репозиторий уже
             выкачан — читай код, ничего не меняй.
