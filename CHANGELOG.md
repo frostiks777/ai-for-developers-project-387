@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.2...v1.1.3) (2026-10-07)
+
+
+### Bug Fixes
+
+* **ci:** output-path Lighthouse — это префикс имени файла, а не папка ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([ab03189](https://github.com/frostiks777/ai-for-developers-project-387/commit/ab0318911957897403dd07758590babd5322efa1))
+
 ## [1.1.2](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.1...v1.1.2) (2026-10-07)
 
 
