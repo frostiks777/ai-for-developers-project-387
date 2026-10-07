@@ -65,18 +65,19 @@ jobs:
           mkdir -p audit-report
           npx --yes lighthouse@12 --version
           set +e
+          # `--output-path` — это префикс имени файла, а не папка: без суффикса
+          # Lighthouse пишет `audit-report.report.json` в корень репозитория.
+          # Поэтому задаём `audit-report/report`, а дальше ищем файл по glob.
           npx --yes lighthouse@12 "$APP_URL" \
             --only-categories=performance,accessibility,best-practices,seo \
             --output=json \
             --output=html \
-            --output-path=./audit-report \
+            --output-path=./audit-report/report \
             --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage"
           code=$?
           set -e
           echo "lighthouse exit code: $code"
           ls -la audit-report || true
-          # При нескольких --output Lighthouse добавляет расширение к имени файла
-          # (`report.report.json`), поэтому ищем отчёт, а не гадаем с именем.
           report_json=$(ls audit-report/*.json 2>/dev/null | head -n 1)
           if [ -z "$report_json" ]; then
             echo "::error::Lighthouse не создал JSON-отчёт (exit code $code)"
