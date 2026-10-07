@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.1...v1.1.2) (2026-10-07)
+
+
+### Bug Fixes
+
+* **ci,agents:** диагностика Lighthouse и уведомления о согласовании PR ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([723c007](https://github.com/frostiks777/ai-for-developers-project-387/commit/723c00725398214a017e6721002641b6d55f5cc0))
+
 ## [1.1.1](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.0...v1.1.1) (2026-10-07)
 
 
