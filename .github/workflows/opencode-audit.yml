@@ -1,0 +1,185 @@
+# Регулярная проверка качества приложения агентом OpenCode (Шаг 5 курса).
+#
+# События:
+#   * `schedule`       — раз в сутки, 06:17 UTC (cron — не чаще одного запуска в сутки,
+#                       время не круглое, чтобы не совпадать с пиком GitHub Actions);
+#   * `workflow_dispatch` — ручной запуск из вкладки Actions.
+#
+# Адрес приложения — в Variables репозитория (`APP_URL`), а не в этом файле:
+# переезд стенда не должен требовать правки воркфлоу и попадать в историю коммитов.
+#
+# Права: агент не только читает — он заводит issue по находкам отчёта, поэтому
+# `issues: write` обязателен. `id-token: write` — обязателен: по нему экшен
+# обменивает OIDC-токен на токен GitHub App `opencode-agent` (на токене раннера
+# права агента были `permission: none`). Модель бесплатная (AGENTS.md, «Модели»).
+
+name: opencode-audit
+
+on:
+  schedule:
+    # 06:17 UTC = 09:17 Europe/Moscow. Раз в сутки — требование урока.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  # Обязателен: без `use_github_token` экшен обменивает OIDC-токен на токен
+  # приложения opencode-agent, и права у агента настоящие, а не «none».
+  id-token: write
+
+concurrency:
+  # Один аудит одновременно: ручной запуск не должен дублировать плановый.
+  group: opencode-audit
+  cancel-in-progress: false
+
+jobs:
+  lighthouse:
+    name: Lighthouse по стенду
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Проверить адрес стенда
+        run: |
+          if [ -z "$APP_URL" ]; then
+            echo "::error::Не задана переменная репозитория APP_URL (Settings → Secrets and variables → Actions → Variables)"
+            exit 1
+          fi
+          echo "APP_URL=$APP_URL"
+
+      - name: Установить Chrome
+        # На ubuntu-latest Chrome может отсутствовать или быть не тем каналом;
+        # lighthouse запускает именно системный Chrome, поэтому ставим явно.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          google-chrome --version
+
+      - name: Собрать отчёт Lighthouse
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+        run: |
+          mkdir -p audit-report
+          npx --yes lighthouse@12 "$APP_URL" \
+            --only-categories=performance,accessibility,best-practices,seo \
+            --output=json \
+            --output=html \
+            --output-path=./audit-report \
+            --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
+            --quiet
+          ls -la audit-report
+
+      - name: Свести отчёт в Markdown
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const r = JSON.parse(fs.readFileSync("audit-report/report.json", "utf8"));
+            const score = (c) => (c && c.score === null ? "n/a" : Math.round((c?.score ?? 0) * 100));
+            const cats = r.categories ?? {};
+            const lines = [
+              `# Lighthouse: ${process.env.APP_URL}`,
+              "",
+              `Дата: ${new Date().toISOString()}`,
+              "",
+              "| Категория | Балл | Порог |",
+              "|---|---|---|",
+              `| Производительность | ${score(cats.performance)} | 70 |`,
+              `| Доступность | ${score(cats.accessibility)} | 90 |`,
+              `| Лучшие практики | ${score(cats["best-practices"])} | 80 |`,
+              `| SEO | ${score(cats.seo)} | 80 |`,
+              "",
+              "## Метрики",
+              "",
+              "| Метрика | Значение |",
+              "|---|---|",
+            ];
+            for (const a of r.audits ?? []) {
+              if (a.score !== null && a.score < 0.9 && a.displayValue) {
+                lines.push(`| ${a.title} | ${a.displayValue} |`);
+              }
+            }
+            const failing = Object.values(r.audits ?? {}).filter((a) => a.score !== null && a.score < 0.5);
+            lines.push("", `## Провалы ниже 0.5: ${failing.length}`, "");
+            for (const a of failing) lines.push(`- **${a.title}** — ${a.description?.slice(0, 200) ?? ""}`);
+            const out = lines.join("\n");
+            fs.writeFileSync("audit-report/summary.md", out);
+            fs.writeFileSync("audit-report/summary.json", JSON.stringify({
+              url: process.env.APP_URL,
+              at: new Date().toISOString(),
+              scores: {
+                performance: score(cats.performance),
+                accessibility: score(cats.accessibility),
+                bestPractices: score(cats["best-practices"]),
+                seo: score(cats.seo),
+              },
+              failing: failing.map((a) => ({ id: a.id, title: a.title })),
+            }, null, 2));
+            console.log(out);
+          '
+
+      - name: Сохранить отчёт артефактом
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: audit-report/
+          retention-days: 30
+
+  audit:
+    name: Разбор отчёта агентом
+    # Отчёт собран — агент разбирает находки и заводит issue.
+    needs: lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Достаточно прочитать код и завести issue: коммитов агент не делает,
+          # а `contents: write` нужен воркфлоу по требованию урока.
+          persist-credentials: false
+
+      - name: Скачать отчёт
+        uses: actions/download-artifact@v4
+        with:
+          name: lighthouse-report
+          path: audit-report
+
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        with:
+          model: opencode/mimo-v2.6-flash-free
+          prompt: |
+            Разбери отчёт Lighthouse по приложению-календарю. Репозиторий уже выкачан,
+            отчёт лежит в файле `audit-report/summary.md` — прочитай его первым делом.
+
+            Заведи **один** issue по находкам, которые действительно стоит исправлять.
+            Ориентируйся на пороги из отчёта: производительность ниже 70, доступность
+            ниже 90, лучшие практики или SEO ниже 80.
+
+            Что делать:
+            1. Выдели находки, которые относятся к коду этого репозитория (настройки
+               сборки, шрифты, картинки, мета-теги, размер бандла, доступность разметки).
+               Находки на стороне хостинга или CDN в отдельный раздел «вне нашего контроля».
+            2. **Не** заводи issue ради микрооптимизаций и ради вещей, которые не
+               воспроизводятся из отчёта. Если находка ниже порога — не заводи issue,
+               просто напиши это в теле.
+            3. В issue напиши: что замеряем (число и порог), где это в коде
+               (`путь/файл:строка`), почему это важно гостю, и что считается исправлением.
+            4. Перед заведением issue проверь через `gh issue list`, не заводил ли уже
+               кто-то такое — дубли не создавай, а допиши в существующий.
+
+            Не правь код: это регулярная проверка, а не реализация.
+
+      - name: Опубликовать сводку в логе прогона
+        run: |
+          {
+            echo "## Регулярная проверка Lighthouse"
+            echo
+            cat audit-report/summary.md
+          } >> "$GITHUB_STEP_SUMMARY"

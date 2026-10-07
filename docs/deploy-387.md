@@ -20,15 +20,15 @@
 |---|---|
 | GitHub-репозиторий | `frostiks777/ai-for-developers-project-387` |
 | Render Web Service | `calendar-slots-387` |
-| Публичный URL | `https://calendar-slots-387.onrender.com` |
+| Публичный URL | `https://ai-for-developers-project-387-pm97.onrender.com` |
 | Render Environment Group | `DB-387` |
 | База Neon | отдельная БД в **существующем проекте 386** (не новая копия данных) |
-| Turnstile-виджет | `Call Calendar 387`, хост `calendar-slots-387.onrender.com` |
+| Turnstile-виджет | `Call Calendar 387`, хост `ai-for-developers-project-387-pm97.onrender.com` |
 | cron-job.org | `POST .../api/internal/reminders` каждые 10 минут |
 | Brevo | общий аккаунт с 386 (sender и API-ключ можно переиспользовать) |
 
 Итог: два изолированных стенда — 386 (`calendar-slots-app.onrender.com`) и 387
-(`calendar-slots-387.onrender.com`) — не мешают друг другу.
+(`ai-for-developers-project-387-pm97.onrender.com`) — не мешают друг другу.
 
 ### Что понадобится
 
@@ -121,7 +121,7 @@ Environment Group — это «общий мешок» переменных, к�
    - подключите группу `DB-387` (кнопка **Add from Group**).
 4. **Create Web Service**.
 
-После первого успешного деплоя появится URL `https://calendar-slots-387.onrender.com`.
+После первого успешного деплоя появится URL `https://ai-for-developers-project-387-pm97.onrender.com`.
 Проверьте, что он открывается: `GET /health` → `{"status":"ok"}`.
 
 ---
@@ -133,7 +133,7 @@ Environment Group — это «общий мешок» переменных, к�
 1. Откройте <https://dash.cloudflare.com/4181d1db54e1f7e0219de629f1d3a841/turnstile>.
 2. **Add widget** / **Create a widget** и заполните:
    - **Widget name**: `Call Calendar 387`;
-   - **Hostnames**: добавьте `calendar-slots-387.onrender.com`
+   - **Hostnames**: добавьте `ai-for-developers-project-387-pm97.onrender.com`
      (при желании — `localhost` для локальной проверки);
    - **Widget Mode**: `Managed`;
    - **Appearance**: `Visible`;
@@ -170,14 +170,14 @@ Brevo у 386 уже настроен, и аккаунт общий, поэтом
 |---|---|---|
 | `TURNSTILE_SITEKEY` | Site Key из шага 4 | отдаётся гостю в настройках хоста |
 | `TURNSTILE_SECRET_KEY` | Secret Key из шага 4 | **пока не задан — CAPTCHA выключена** |
-| `TURNSTILE_ALLOWED_HOSTNAMES` | `calendar-slots-387.onrender.com` | сверка домена ответа Cloudflare |
+| `TURNSTILE_ALLOWED_HOSTNAMES` | `ai-for-developers-project-387-pm97.onrender.com` | сверка домена ответа Cloudflare |
 | `EMAIL_API_KEY` | ключ Brevo (v3) | пока пусто — письма не отправляются |
 | `EMAIL_FROM` | `Календарь звонков <sender@example.com>` | подтверждённый sender |
 | `EMAIL_REPLY_TO` | почта организатора | Reply-To писем гостю |
 | `ORGANIZER_EMAIL` | почта организатора | получатель писем о бронях; пусто — не шлём |
 | `REMINDER_LEAD_MINUTES` | `1440` | напоминание за 24 часа |
 | `REMINDERS_SECRET` | случайная строка (см. ниже) | включает `POST /api/internal/reminders` |
-| `APP_ORIGIN` | `https://calendar-slots-387.onrender.com` | ссылки в письмах |
+| `APP_ORIGIN` | `https://ai-for-developers-project-387-pm97.onrender.com` | ссылки в письмах |
 
 Сгенерировать `REMINDERS_SECRET` локально:
 
@@ -204,7 +204,7 @@ openssl rand -hex 32
 1. Войдите на <https://console.cron-job.org>.
 2. **Create cronjob** и заполните:
    - **Title**: `Calendar 387 reminders`;
-   - **URL**: `https://calendar-slots-387.onrender.com/api/internal/reminders`;
+   - **URL**: `https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders`;
    - **Schedule**: `Every 10 minutes`;
    - **Request method**: `POST`;
    - **Advanced → Custom headers**: `X-Reminders-Secret` = значение `REMINDERS_SECRET` из шага 6.
@@ -220,15 +220,15 @@ openssl rand -hex 32
 
 ```bash
 # 1. Живость
-curl.exe -i https://calendar-slots-387.onrender.com/health
+curl.exe -i https://ai-for-developers-project-387-pm97.onrender.com/health
 # 200 {"status":"ok"}
 
 # 2. Настройки хоста: site key отдаётся только когда задан TURNSTILE_SECRET_KEY
-curl.exe https://calendar-slots-387.onrender.com/api/v1/hosts/default/settings
+curl.exe https://ai-for-developers-project-387-pm97.onrender.com/api/v1/hosts/default/settings
 
 # 3. Endpoint напоминаний: без секрета → 401, с секретом → 200 {"sent":N}
-curl.exe -i -X POST https://calendar-slots-387.onrender.com/api/internal/reminders
-curl.exe -i -X POST https://calendar-slots-387.onrender.com/api/internal/reminders \
+curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders
+curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders \
   -H "X-Reminders-Secret: ВАШ_REMINDERS_SECRET"
 ```
 

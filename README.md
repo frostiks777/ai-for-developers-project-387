@@ -40,7 +40,7 @@ asciinema upload demo.cast
 
 `scripts/demo.sh` проигрывает сквозной путь гостя через API: health → настройки хоста → слоты → бронь → конфликт `409` → отмена → слот снова свободен.
 
-Живое демо (Render, free-план — сервис засыпает после простоя): https://calendar-slots-387.onrender.com
+Живое демо (Render, free-план — сервис засыпает после простоя): https://ai-for-developers-project-387-pm97.onrender.com
 
 ## Стек
 
@@ -119,7 +119,7 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
 
 Панель организатора (`/dashboard` и `/admin/*`) и административные API — настройки доступности, типы встреч, блокировки, список броней — **открыты без логина** ([ADR-0028](docs/adr/0028-dashboard-access-without-login.md)). В проекте один заранее заданный владелец, а авторизация по спецификации курса не требуется, поэтому проверяющий открывает опубликованный календарь и сразу видит список встреч и управление типами событий.
 
-- **Демо-стенд:** `https://calendar-slots-387.onrender.com/dashboard` — логин и пароль не запрашиваются.
+- **Демо-стенд:** `https://ai-for-developers-project-387-pm97.onrender.com/dashboard` — логин и пароль не запрашиваются.
 - Переменная `ADMIN_PASSWORD` больше не используется: если она осталась в окружении (в том числе в Environment Group на Render), сервер её игнорирует.
 - Публичные чтения для гостей (слоты, типы встреч, доступность) и создание брони — тоже открыты, как и раньше.
 
@@ -138,10 +138,10 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
   (в `.env`): `TURNSTILE_SITEKEY=1x00000000000000000000AA`,
   `TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA`.
 - **В Render:** Environment → `TURNSTILE_SITEKEY`, `TURNSTILE_SECRET_KEY`,
-  `TURNSTILE_ALLOWED_HOSTNAMES=calendar-slots-387.onrender.com` → Save & Deploy. Настройка виджета —
+  `TURNSTILE_ALLOWED_HOSTNAMES=ai-for-developers-project-387-pm97.onrender.com` → Save & Deploy. Настройка виджета —
   [dash.cloudflare.com → Turnstile](https://dash.cloudflare.com) → Create a widget: режим **Managed**,
   вид **Visible**, Pre-clearance **Off**; на бесплатном плане нужно добавить хост
-  `calendar-slots-387.onrender.com` (иначе Cloudflare вернёт ошибку 400020).
+  `ai-for-developers-project-387-pm97.onrender.com` (иначе Cloudflare вернёт ошибку 400020).
 
 **Rate-limit по IP** (`@fastify/rate-limit`, счётчики в памяти процесса): 20 записей/отмен/переносов в
 минуту, 300 публичных чтений, 600 запросов суммарно. При превышении — `429` с кодом `RATE_LIMITED`.
