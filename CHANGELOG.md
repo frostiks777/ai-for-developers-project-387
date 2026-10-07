@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.4...v1.1.5) (2026-10-07)
+
+
+### Bug Fixes
+
+* **ci:** checkout в job lighthouse — нужен scripts/lighthouse-summary.mjs ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([012ade7](https://github.com/frostiks777/ai-for-developers-project-387/commit/012ade71fdb291dfe56bda9c547909a0eaf183ec))
+
 ## [1.1.4](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.3...v1.1.4) (2026-10-07)
 
 
