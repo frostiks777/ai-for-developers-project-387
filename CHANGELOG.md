@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.0...v1.1.1) (2026-10-07)
+
+
+### Bug Fixes
+
+* **ci:** искать JSON-отчёт Lighthouse по glob, а не по имени файла ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([787aabb](https://github.com/frostiks777/ai-for-developers-project-387/commit/787aabb6ea956a6a4f0e264f9a00a3a1a651109f))
+* **ci:** отступ шага в opencode-audit.yml и glob-поиск JSON-отчёта ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([3522805](https://github.com/frostiks777/ai-for-developers-project-387/commit/35228054b7fd356c43249911087a31973739c086))
+
 ## [1.1.0](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.4...v1.1.0) (2026-10-07)
 
 
