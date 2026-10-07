@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.4...v1.1.0) (2026-10-07)
+
+
+### Features
+
+* **ci:** регулярная проверка Lighthouse по расписанию ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([b8b8c6f](https://github.com/frostiks777/ai-for-developers-project-387/commit/b8b8c6fa0ccd02da5ff37e30bc53d170e62f602e))
+
+
+### Bug Fixes
+
+* **ci,agents:** APP_URL в env проверки и уведомления всегда в оба канала ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([baa35c2](https://github.com/frostiks777/ai-for-developers-project-387/commit/baa35c2c97c83386131729d9ba7bb8defd849dda))
+
 ## [1.0.4](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.0.3...v1.0.4) (2026-10-06)
 
 
