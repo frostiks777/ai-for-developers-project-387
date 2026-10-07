@@ -40,6 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Нужен ради `scripts/lighthouse-summary.mjs`; коммитить тут нечего.
+          persist-credentials: false
+
       - name: Проверить адрес стенда
         env:
           APP_URL: ${{ vars.APP_URL }}
