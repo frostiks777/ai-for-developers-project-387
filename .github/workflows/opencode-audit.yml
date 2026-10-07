@@ -58,7 +58,7 @@ jobs:
           sudo apt-get install -y google-chrome-stable
           google-chrome --version
 
-      - name: Собрать отчёт Lighthouse
+- name: Собрать отчёт Lighthouse
         env:
           APP_URL: ${{ vars.APP_URL }}
         run: |
@@ -70,15 +70,33 @@ jobs:
             --output-path=./audit-report \
             --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
             --quiet
+          # При нескольких --output Lighthouse добавляет расширение к имени файла
+          # (`report.report.json`), поэтому ищем отчёт, а не гадаем с именем.
           ls -la audit-report
+          report_json=$(ls audit-report/*.json 2>/dev/null | head -n 1)
+          if [ -z "$report_json" ]; then
+            echo "::error::Lighthouse не создал JSON-отчёт в audit-report/"
+            exit 1
+          fi
+          echo "Отчёт: $report_json"
 
-      - name: Свести отчёт в Markdown
+- name: Свести отчёт в Markdown
         env:
           APP_URL: ${{ vars.APP_URL }}
         run: |
           node -e '
             const fs = require("node:fs");
-            const r = JSON.parse(fs.readFileSync("audit-report/report.json", "utf8"));
+            const path = require("node:path");
+            const dir = "audit-report";
+            const reportJson = fs
+              .readdirSync(dir)
+              .filter((f) => f.endsWith(".json") && f !== "summary.json")
+              .map((f) => path.join(dir, f))[0];
+            if (!reportJson) {
+              console.error("JSON-отчёт Lighthouse не найден в " + dir);
+              process.exit(1);
+            }
+            const r = JSON.parse(fs.readFileSync(reportJson, "utf8"));
             const score = (c) => (c && c.score === null ? "n/a" : Math.round((c?.score ?? 0) * 100));
             const cats = r.categories ?? {};
             const lines = [
