@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.3...v1.1.4) (2026-10-07)
+
+
+### Bug Fixes
+
+* **ci:** сводка Lighthouse отдельным скриптом ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23)) ([c5b8010](https://github.com/frostiks777/ai-for-developers-project-387/commit/c5b801098c8b08d1a8ee16803ef02dae30917c1b))
+
 ## [1.1.3](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.2...v1.1.3) (2026-10-07)
 
 
