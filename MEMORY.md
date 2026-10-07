@@ -1,44 +1,35 @@
 # MEMORY.md — Состояние проекта «Календарь звонков»
 
-## ⏸ Продолжить: автотриаж задач агентом OpenCode (2026-10-01)
+## ▶ Продолжить: Шаг 5 курса — регулярная задача по расписанию (2026-10-07)
 
-Шаг курса «Issue → разбор агентом → автотриаж» **начат, не закончен**. Триаж ещё отрабатывает
-на [issue #4](https://github.com/frostiks777/ai-for-developers-project-387/issues/4).
+Хвосты Шага 3 закрыты ([#22](https://github.com/frostiks777/ai-for-developers-project-387/issues/22), issue
+[#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3) закрыт). Единственный **не начатый**
+шаг курса по требованиям [`docs/course-github-agent.md`](docs/course-github-agent.md) — **Шаг 5**.
 
-**Сделано:**
-- Репозиторий 386 → 387 перенесён (merge `d9e04f6`, ссылки `98a540a`, релиз `v1.0.0`).
-  Все прогоны зелёные: локально lint/typecheck/build + 336/336 тестов, на GitHub `CI` и `hexlet-check`.
-- Права Actions в 387 исправлены через API: было `default_workflow_permissions: read` +
-  `can_approve_pull_request_reviews: false` → `write` / `true`. Без этого `release-please`
-  падал с «GitHub Actions is not permitted to create or approve pull requests».
-- Скилл `plan-small-feature` → `.agents/skills/plan-small-feature/SKILL.md` (коммит `e1b9059`,
-  issue [#2](https://github.com/frostiks777/ai-for-developers-project-387/issues/2) закрыт);
-  `AGENTS.md` синхронизирован (счётчик 84 директории, скилл в списке и в порядке применения).
-- Воркфлоу автотриажа: `.github/workflows/opencode-triage.yml` (`issues: [opened]` + `prompt`)
-  и `.github/workflows/opencode.yml` (`issue_comment` на `/oc`). Коммит `3e5bf2f`,
-  issue [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3).
-  Оба в режиме `use_github_token: true` (без GitHub App), модель `opencode/mimo-v2.6-flash-free`,
-  секрет `OPENCODE_API_KEY` создан из локального `auth.json`.
+**Сделано в этой сессии (2026-10-07):**
+1. **Фильтр событий от ботов в `.github/workflows/opencode-review.yml`** — добавлен `if: github.event.sender.type != 'Bot' && github.event.pull_request.user.type != 'Bot'`. Чинит красный прогон на PR от `release-please` (run `37064227451`). Теперь все три opencode-воркфлоу отсекают ботов.
+2. **`docs/roadmap.md`** — отдельный документ-плана развития (требование Шага 1): шесть фич и четыре бага, каждый пункт сформулирован как жалоба пользователя без готового решения. Подробный бэклог с историей остался в `docs/todo.md`.
+3. **Синхронизация документации**: `AGENTS.md` (новый раздел «Агент в GitHub (Actions)» с таблицей воркфлоу, `roadmap.md` в списке доков), `docs/mcp.md` (граница с GitHub-процессом), `docs/todo.md` (актуальный план от 2026-10-06), `docs/course-github-agent.md` (статус-таблица по всем шести шагам), issue #3 закрыт.
+4. **Единый скрипт уведомлений `scripts/notify.mjs` + скилл `notify`** — по просьбе пользователя: одно событие уходит в **один** канал (Telegram по умолчанию, Windows-тост как запасной, `--channel both` осознанно), повторы гасятся по ключу `--kind` с окном 10 минут, `--wait <секунды>` ждёт апрув в `decisions.jsonl`. Раньше уведомления слались двумя разными командами, и одно событие могло уйти и в чат, и тостом. Работает: `notify.mjs` и дедупликация проверены вживую.
+5. **Telegram-мост в 387 поднят**: папка `telegram-bot/` была скопирована из проекта 386, но бот не работал (`bot.mjs` не запущен). Перезапущен с **новым токеном бота** (пользователь заменил, чтобы не конфликтовать с 386 — там старый), pid 3812, `.bot.pid` обновлён. Команды бота отправлены и ответ пользователя получен (`/ping`, «Ok»).
 
-**Не закончено (начать с этого):**
-1. **Дождаться триажа на #4.** Run `36917958351`, job `triage` — `in_progress` на момент
-   остановки, комментариев в issue ещё 0. Проверить: `gh run view 36917958351 -R
-   frostiks777/ai-for-developers-project-387` и `gh issue view 4 -R ...`. Если упал —
-   смотреть лог, чаще всего неверное имя секрета или модель.
-2. **Сравнить два разбора** (требование шага): автоматический триаж на `issues` против ручного
-   `/oc explain` в комментарии. Зафиксировать, какой точнее и почему.
-3. **Дописать в #4 итоговую постановку** — что считается исправлением. Критерии уже есть
-   в теле issue, но итоговую формулировку должен предложить разбор агента.
-4. **Закрыть #3** после зелёного триажа.
-5. **Синхронизировать документацию**: `docs/mcp.md` и `AGENTS.md` (раздел про агентов) не
-   упоминают автотриаж; `docs/todo.md` — не отражает новый шаг.
-6. **План развития** (`docs/roadmap.md`) не создан. Согласовано: фичи 1 и 2 слить в одну
-   (отступы лендинга + анимации MagicUI). Остальные кандидаты — фича «ссылка на звонок в типе
-   встречи», фича «гости получают `.ics`-приглашение», баг «гонка брони → 500 вместо 409».
-   Issue #4 покрывает первую фичу. Email-уведомления как пункт плана **не подходят** —
-   они уже реализованы (`server/email.ts`, `server/notifications.ts`, ADR-0026).
+**Проверки:** `npm run lint` ✅ 0 ошибок, `npm run typecheck` ✅, `npm test` ✅ **342/342** (56 файлов).
 
-> Дата последнего обновления: 2026-09-30 ([#100](https://github.com/frostiks777/ai-for-developers-project-387/issues/100) — актуализация документации: выполненные планы перенесены в [`docs/archive/`](docs/archive/README.md) с `README`-каноном, битые ссылки исправлены, `MEMORY.md` и `docs/todo.md` пересобраны; прогон 336/336 тестов). До этого: 2026-09-29 — закрыты [#97](https://github.com/frostiks777/ai-for-developers-project-387/issues/97) «отменённые брони держат слоты вне сетки» и [#99](https://github.com/frostiks777/ai-for-developers-project-387/issues/99) «апгрейд `@fastify/static` 8.3.0 → 10.1.5», [ADR-0029](docs/adr/0029-audit-fastify-static-upgrade-deferred.md) обновлён; ревью #88–#93 закрыто; email-уведомления [#83](https://github.com/frostiks777/ai-for-developers-project-387/issues/83), [ADR-0026](docs/adr/0026-email-notifications.md). Открытых issues нет.
+**Не сделано (начать с этого):**
+1. **Шаг 5 курса** — воркфлоу `.github/workflows/opencode-audit.yml`:
+   - события `schedule` (cron **не чаще раза в сутки**, только UTC) + `workflow_dispatch`;
+   - `prompt` обязателен (событие `schedule` не даёт инструкции);
+   - права `contents: write`, `pull-requests: write`, `issues: write` **вместе** с `id-token: write`;
+   - адрес приложения — в **Variables** репозитория (`APP_URL`), не вписан в воркфлоу;
+   - отчёт проверки сохраняется **артефактом** или публикуется в задаче;
+   - по находкам отчёта заводится минимум один issue;
+   - прогон вручную (`workflow_dispatch`) должен быть зелёным.
+   Требования дословно — в разделе «Шаг 5» файла `docs/course-github-agent.md`.
+2. **Шаг 6 курса** — финальная проверка интеграции: ADR по решению `share` и `mentions` (публикация сессий необратима для уже опубликованных), таблица воркфлоу в `README.md`, самооценка «с первого прохода / итерации», ревизия прав по воркфлоу.
+3. **Шаг 4** — сверить конкретные PR/замечания (🟡 в статус-таблице: оба вида замечаний в PR не подтверждены явно).
+4. Продуктовый backlog — `docs/roadmap.md` (регистрация и аккаунты → интеграции с календарями → повторяющиеся события → аналитика).
+
+> Дата последнего обновления: 2026-10-07 (#22). До этого: 2026-10-06 — [#17](https://github.com/frostiks777/ai-for-developers-project-387/issues/17) (фильтр ботов, переход на токен GitHub App) и [#18](https://github.com/frostiks777/ai-for-developers-project-387/issues/18) (сбор требований уроков в `docs/course-github-agent.md`).
 > Все шаги курса закрыты. Продуктовый backlog — `docs/todo.md` («Backlog продукта»): уведомления ✅, далее регистрация/аккаунты, интеграции с календарями, повторяющиеся события, аналитика.
 > **Итог ревью проверяющего (2026-09-29):** все шесть замечаний оформлены как issues [#88](https://github.com/frostiks777/ai-for-developers-project-387/issues/88)–[#93](https://github.com/frostiks777/ai-for-developers-project-387/issues/93) и **закрыты**: #88 (панель без логина, [ADR-0028](docs/adr/0028-dashboard-access-without-login.md)), #89 (сетка слотов 30 мин, [ADR-0027](docs/adr/0027-slot-grid-step-independent-of-buffers.md)), #90 (CI на каждый push), #91 (npm audit), #92 (Conventional Commits), #93 (привязка коммитов к issue).
 

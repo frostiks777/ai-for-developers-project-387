@@ -58,7 +58,7 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 │   ├── main.tsp       # TypeSpec-контракт (источник истины для API v1)
 │   └── tspconfig.yaml
 ├── e2e/               # Playwright: сквозной сценарий гостя + конфликт слотов
-├── scripts/           # dev-all.mjs, api-generate.mjs, demo.sh, notify.ps1
+├── scripts/           # dev-all.mjs, api-generate.mjs, demo.sh, notify.mjs (уведомления), notify.ps1 (тост)
 ├── docs/              # Документация проекта
 │   ├── architecture.md
 │   ├── conventions.md
@@ -137,6 +137,7 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 - `model-usage.md` — правила использования бесплатных моделей для субагентов
 - `code_artifact.md` — ТЗ и логика реализации (спека Hexlet)
 - `todo.md` — текущий roadmap и расхождения со спекой
+- `roadmap.md` — план развития приложения (фичи и баги для разбора агентом; требование урока «план развития»)
 - `spec.md` — утверждённая спецификация (снимок Шага 2; реализация ушла вперёд, см. ADR)
 - `course-steps.md` — шаги курса и критерии приёмки
 - `course-github-agent.md` — требования уроков по агентному GitHub-процессу (issue → PR → ревью → расписание) и статус
@@ -179,23 +180,42 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 OpenCode-скилы — повторно используемые workflow, которые агент подгружает через `skill` tool по триггер-фразам в `description`.
 
 - Расположение: `.agents/skills/<name>/SKILL.md`. Одна директория на скил + YAML frontmatter (`name`, `description` обязательны, `description` ≤ 1024 символов).
-- Всего 84 директории: ~12 проектных процессных + upstream-набор (mattpocock/skills, tech-leads-club, tlc-*, архитектурные и т.д.). Полный список — `ls .agents/skills/`, манифест — `skills-lock.json`.
+- Всего 85 директорий: ~13 проектных процессных + upstream-набор (mattpocock/skills, tech-leads-club, tlc-*, архитектурные и т.д.). Полный список — `ls .agents/skills/`, манифест — `skills-lock.json`.
 - Проектные скилы:
   - `apply-design` — внедрение редизайна v1 (история, этапы 1–7).
   - `apply-design-v2` — внедрение редизайна v2 («Мята и солнце») по `docs/design/v2/implementation-plan.md` (этапы 0–13).
   - `commit-push` — workflow для коммита и пуша (lint + typecheck + тесты → Conventional Commits → push).
   - `interview` — задаёт 3–7 уточняющих вопросов до начала работы над нетривиальной задачей.
+  - `notify` — уведомления пользователю и запрос апрува через `scripts/notify.mjs`: одно событие — один канал (Telegram, иначе тост), подавление дублей по `--kind`, `--wait` ждёт решение из `decisions.jsonl`.
   - `plan` — превращает задачу в атомарный пронумерованный чек-лист с проверками.
   - `plan-small-feature` — read-only разбор небольшой продуктовой доработки: текущее поведение, путь данных UI → правило, факты отдельно от предположений, влияние, инварианты, риски, нецели, проверка.
   - `ponytail` — принудительная проверка «можно ли решить без нового кода/зависимости/абстракции».
   - `tdd` — сначала failing-тест, потом минимум кода для зелёного, потом рефакторинг.
-  - `telegram-bridge` — личный Telegram-мост согласований (`telegram-bot/`, в `.gitignore`): отправка через `notify.mjs`, решения из `decisions.jsonl`.
+  - `telegram-bridge` — личный Telegram-мост согласований (`telegram-bot/`, в `.gitignore`): команды бота, свободные вопросы в `inbox.jsonl`, автозапуск. Отправка — через скилл `notify`.
   - `verify` — финальный прогон `lint`/`typecheck`/`test`/`build` перед отметкой задачи как «готово».
 - Чтобы добавить новый скил: создать `.agents/skills/<имя>/SKILL.md`; имя в frontmatter должно совпадать с именем директории.
 - В этом проекте используем **только** `.agents/skills/`. `.opencode/skills/` и `.claude/skills/` больше не применять.
 - Порядок применения процессных скиллов: `interview` → (`plan-small-feature` для небольших продуктовых доработок) → `plan` → (`ponytail` по ситуации) → (`tdd` по ситуации) → `verify` → `commit-push`.
 - Подробнее — https://opencode.ai/docs/skills/.
 
+
+## Агент в GitHub (Actions)
+
+Агент работает не только локально: тот же `AGENTS.md` читают воркфлоу в `.github/workflows/`.
+Требования уроков и статус по шагам — [`docs/course-github-agent.md`](docs/course-github-agent.md).
+
+| Воркфлоу | Событие | Права | Назначение |
+|---|---|---|---|
+| `opencode.yml` | `issue_comment`, `pull_request_review_comment` (`types: [created]`) | `contents/pull-requests/issues: write`, `id-token: write` | Ручной вызов: комментарий `/oc explain` / `/oc fix`; условие — автор не бот, `author_association` из списка, в тексте есть команда |
+| `opencode-triage.yml` | `issues` (`types: [opened]`) | `contents: read`, `issues: write`, `id-token: write` | Автотриаж новой задачи: разбор комментарием в issue (причина → файлы → путь → что считается исправлением) |
+| `opencode-review.yml` | `pull_request` (`opened, synchronize, reopened, ready_for_review`) | `contents: read`, `pull-requests/issues: write`, `id-token: write` | Ревью PR; PR от ботов не запускают воркфлоу |
+| `ci.yml` | `push`, `pull_request` | по умолчанию | lint + typecheck + test + build (+ e2e отдельным job) |
+| `release-please.yml` | `push` в `main`, `pull_request` | стандартные | Версия и changelog из Conventional Commits |
+
+- Токен — GitHub App `opencode-agent` через обмен OIDC-токена: обязателен `id-token: write`, `use_github_token` не задаём (на токене раннера права агента были `permission: none`).
+- `persist-credentials: false` — везде, кроме `opencode.yml`: без токена в `.git/config` `git push` агента падает. В `opencode.yml` перед запуском агента задаётся git-ident (`opencode-agent[bot]`) — иначе коммит падает с `Author identity unknown`.
+- `hexlet-check.yml` **не редактировать** (автопроверка Хекслета).
+- Ключ модели — только в Secrets (`OPENCODE_API_KEY`), модель бесплатная (`AGENTS.md` → «Модели»).
 
 ## Agent behavior
 - **Задачи и баги — только через GitHub Issue (обязательно).** Любая новая задача, фича или баг до начала работы оформляется Issue (`gh issue create`, методология — [`docs/agents/issue-tracker.md`](docs/agents/issue-tracker.md)); в коммит-сообщении указывается номер (`(#NN)`), после пуша Issue закрывается. Баги — с меткой `bug`; chore-подобные задачи (документация, рефакторинг, зависимости без изменения поведения) создаются **без** метки типа — метки `chore` в репозитории нет, описание — в теле Issue. Единственное исключение — однострочные механические правки без изменения поведения.
@@ -231,32 +251,33 @@ OpenCode-скилы — повторно используемые workflow, ко
 - **Деструктивные операции** (`rm -rf`, `git push --force-with-lease`, перезапись `MEMORY.md`, удаление ADR) — всегда показывать diff/dry-run и ждать подтверждения.
 - **Секреты:** никогда не писать токены/ключи/пароли в код или коммиты. Использовать `.env` + `.env.example` (последний — в репо, первый — в `.gitignore`, что уже сделано).
 
-## Notifications to the user (Windows toast)
+## Уведомления пользователю
 
-Пользователь просит уведомлять его системным тостом **только в двух случаях** (не «просто так»):
-1. **Нужно решение пользователя** — агент упёрся в вопрос/выбор/блокер и ждёт ответа (вопрос через `question(...)`, неоднозначность, красная проверка после двух итераций и т.п.).
-2. **Успешный релиз в git** — сделан push, CI/деплой «взлетел», задача доведена до конца и запушена.
+Пользователь просит уведомлять его **только в трёх случаях** (не «просто так»):
+1. **Старт работы над задачей** — коротко: что делаю, номер issue.
+2. **Нужно решение пользователя** — агент упёрся в вопрос/выбор/блокер и ждёт ответа (вопрос через `question(...)`, неоднозначность, красная проверка после двух итераций и т.п.).
+3. **Успешный релиз в git** — сделан push, CI/деплой «взлетел», задача доведена до конца и запущена.
 
-Отправка выполняется скриптом `scripts/notify.ps1` (требуется UTF-8 **с BOM**, иначе PowerShell 5.1 ломает кириллицу).
+**Единственный способ слать уведомления — `scripts/notify.mjs`** (скилл `notify`). Один вызов = одно событие в один канал:
 
-Запуск:
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/notify.ps1 "Заголовок" "Текст"
+```bash
+node scripts/notify.mjs "Заголовок" "Текст" --kind start
+node scripts/notify.mjs "Нужно решение" "Делаем X?" --kind blocker --id q123 --wait 600
 ```
 
-Правила:
-- **Не слать на каждый шаг** и не слать просто так — только случаи 1 и 2 выше.
-- **Старт работы над задачей** тостом не уведомляется — для него есть обязательное уведомление в Telegram-чат (см. «Telegram-мост»).
-- Текст — короткий, по-русски, без секретов.
-- Скрипт использует WinRT-тип `Windows.UI.Notifications` — его видит только `powershell.exe` (5.1); `pwsh` 7 без projection падает с «Unable to find type».
+- **Канал по умолчанию один:** Telegram, если мост доступен, иначе Windows-тост (`--channel both` — только осознанно, по прямой просьбе).
+- **Дубли подавляются:** ключ `--kind` (`start` / `blocker` / `release` / `info`) + окно 10 минут; повтор гасится, код выхода `3`.
+- **`--wait <секунды>` ждёт апрув** в `telegram-bot/decisions.jsonl`; код `2` = решения нет (не выдумывать, спросить в чате или повторить с новым `--id`).
+- Текст — короткий, по-русски, **без секретов** (токены, `DATABASE_URL`, `ADMIN_PASSWORD`, `OPENCODE_API_KEY`).
+- Напрямую `telegram-bot/notify.mjs` и `scripts/notify.ps1` **не вызывать** — минует дедупликацию.
+
+Подробности — скилл `notify`; устройство моста и команды бота — скилл `telegram-bridge`.
 
 ## Telegram-мост (согласования с телефона)
 
-Личный мост в `telegram-bot/` (в `.gitignore`, в git не коммитится). Полный workflow — в скилле `telegram-bridge` (`.agents/skills/telegram-bridge/SKILL.md`).
+Личный мост в `telegram-bot/` (в `.gitignore`, в git не коммитится). Отправка — только через `scripts/notify.mjs` (см. «Уведомления пользователю»). Устройство и команды — в скилле `telegram-bridge` (`.agents/skills/telegram-bridge/SKILL.md`).
 
-- Отправка: `node telegram-bot/notify.mjs "Заголовок" "Текст"`; вопрос с кнопками ✅/⛔: добавить `--id <qid>`.
 - Слушать ответы: `node telegram-bot/bot.mjs` (long-polling); решения падают в `telegram-bot/decisions.jsonl` (последняя строка с нужным `qid`).
 - Команды с телефона: `/ping`, `/status`, `/approve <id>`, `/deny <id>` (меню регистрируется через `node telegram-bot/setup-menu.mjs`).
 - Свободные вопросы пользователя из TG: `node telegram-bot/unread.mjs` (что без ответа) → ответить в чате → продублировать через `node telegram-bot/reply.mjs "текст"`.
-- Автозапуск: `.opencode/plugins/telegram-autostart.js` поднимает `bot.mjs` и шлёт уведомления по событиям сессии (`session.idle` — «Агент закончил», `session.error` — «Ошибка сессии»). Тумблер в `.env`: `TELEGRAM_NOTIFY=on|off` (по умолчанию `off`). Антиспам: не чаще раза в минуту на тип события.
-- **Обязательные случаи:** (1) **старт работы над задачей** — короткое «Начинаю работу: <задача, #issue>» перед первым действием по задаче; (2) блокер/решение; (3) успешный релиз. Секреты в чат не слать.
+- Автозапуск: `.opencode/plugins/telegram-autostart.js` поднимает `bot.mjs` и шлёт уведомления по событиям сессии (`session.idle` — «Агент закончил», `session.error` — «Ошибка сессии»). Тумблер в `telegram-bot/.env`: `TELEGRAM_NOTIFY=on|off` (по умолчанию `off`). Антиспам: не чаще раза в минуту на тип события.

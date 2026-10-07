@@ -26,6 +26,11 @@ permissions:
 
 jobs:
   review:
+    # Только pull request, заведённые человеком. PR от ботов (release-please,
+    # Dependabot) не должны будить агента и тратить минуты Actions: на таком PR
+    # он всё равно не может выполнить запись и падает — проверено на run
+    # 37064227451 (PR #16 от `app/github-actions`, 2026-10-06).
+    if: github.event.sender.type != 'Bot' && github.event.pull_request.user.type != 'Bot'
     runs-on: ubuntu-latest
     # Зависший прогон агента не должен держать раннер до дефолтных 360 минут.
     timeout-minutes: 15
