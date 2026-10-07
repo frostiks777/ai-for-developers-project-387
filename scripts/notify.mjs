@@ -1,27 +1,31 @@
-// notify.mjs — единая точка уведомления пользователя: Telegram, Windows-тост,
-// запрос апрува с кнопками и ожидание решения.
+// notify.mjs — уведомления пользователю: Telegram **и** Windows-тост, запрос апрува
+// с кнопками и ожидание решения.
 //
-// Зачем один скрипт: раньше уведомления слались двумя разными командами
-// (`telegram-bot/notify.mjs` и `scripts/notify.ps1`), и агент мог отправить одно
-// и то же событие дважды — в чат и тостом. Здесь канал выбирается один раз
-// (по умолчанию Telegram, тост — запасной), а повторы гасятся по ключу события.
+// Почему оба канала: пользователь просит получать уведомление всегда — и в чат, и тостом
+// (Telegram работает с телефона, тост — когда он за компьютером). Каналы разные люди
+// смотрят по-разному, одно и то же событие в них не путается. Отключить один канал явно:
+// `--channel telegram` или `--channel toast`.
+//
+// Что осталось от дублирования внутри одного канала: повтор того же события гасится по
+// ключу `--kind` с окном в 10 минут (код выхода `3`) — иначе «уведомил дважды подряд»
+// превращается в спам.
 //
 // Использование:
 //   node scripts/notify.mjs "Заголовок" "Текст"
 //   node scripts/notify.mjs "Нужно решение" "Делаем X?" --id q123 --wait 900
-//   node scripts/notify.mjs "Релиз" "CI зелёный" --kind release --channel both
+//   node scripts/notify.mjs "Релиз" "CI зелёный" --kind release
 //
 // Флаги:
-//   --kind <start|blocker|release|info>  ключ дедупликации (по умолчанию info)
+//   --kind <start|blocker|release|info>  ключ подавления повторов (по умолчанию info)
 //   --id <qid>                          вопрос с кнопками ✅/⛔ в Telegram
 //   --wait <секунды>                    ждать решения в decisions.jsonl до ответа
-//   --channel auto|telegram|toast|both  auto (по умолчанию): telegram, если доступен, иначе toast
+//   --channel both|telegram|toast       both (по умолчанию): оба канала
 //   --gap <минуты>                      окно подавления повторов (по умолчанию 10)
 //   --force                             отправить, даже если такой ключ уже слали
 //
-// Выход: 0 — отправлено (или решение получено), 1 — ошибка отправки,
-//        2 — решение не получено за отчётное время, 3 — подавлено как дубль.
-// Ноль зависимостей, Windows и Linux одинаково.
+// Выход: 0 — отправлено (или решение получено), 1 — Telegram не отправил,
+//        2 — решение не получено за отведённое время, 3 — подавлено как дубль.
+// Ноль зависимостей; на не-Windows тост просто пропускается.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -32,7 +36,7 @@ const scriptDir = dirname(fileURLToPath(import.meta.url));
 const projectDir = resolve(scriptDir, '..');
 const botDir = join(projectDir, 'telegram-bot');
 
-// Состояние дедупликации — рядом с мостом, а если его нет (чистая копия репозитория),
+// Состояние подавления — рядом с мостом, а если его нет (чистая копия репозитория),
 // во временном каталоге: в git оно попасть не должно ни при каких условиях.
 const statePath = existsSync(botDir)
   ? join(botDir, '.notify-state.json')
@@ -85,7 +89,7 @@ const title = positional[0] ?? 'Календарь звонков';
 const message = positional[1] ?? '';
 const kind = typeof flags.kind === 'string' ? flags.kind : 'info';
 const qid = typeof flags.id === 'string' ? flags.id : undefined;
-const channel = typeof flags.channel === 'string' ? flags.channel : 'auto';
+const channel = typeof flags.channel === 'string' ? flags.channel : 'both';
 const gapMin = typeof flags.gap === 'string' ? Number(flags.gap) : DEFAULT_GAP_MIN;
 const force = flags.force === true || flags.force === 'true';
 const waitSec = typeof flags.wait === 'string' ? Number(flags.wait) : 0;
@@ -132,6 +136,8 @@ if (!force && last && Date.now() - last < gapMin * MINUTE) {
 
 // --- отправка --------------------------------------------------------------
 
+// Каналы по умолчанию оба (`--channel both`), но отсутствие канала не должно
+// ронять отправку: без моста уходит тост, без Windows — Telegram.
 const tgReady = telegramReady();
 const useTelegram =
   channel === 'both' || channel === 'telegram' || (channel === 'auto' && tgReady);

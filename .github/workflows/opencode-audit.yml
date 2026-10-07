@@ -41,6 +41,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Проверить адрес стенда
+        env:
+          APP_URL: ${{ vars.APP_URL }}
         run: |
           if [ -z "$APP_URL" ]; then
             echo "::error::Не задана переменная репозитория APP_URL (Settings → Secrets and variables → Actions → Variables)"

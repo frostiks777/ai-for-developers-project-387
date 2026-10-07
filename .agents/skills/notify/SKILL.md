@@ -1,25 +1,27 @@
 ---
 name: notify
-description: Use when the agent must tell the user something or get a decision from them — «уведоми пользователя», «нужно решение», «спроси апрув», «дождись ответа», «отправь в телеграм», «покажи тост». Sends through scripts/notify.mjs — one event, one channel (Telegram by default, Windows toast as fallback, both only with --channel both), suppresses repeats, waits for the decision in decisions.jsonl. Use for every user notification instead of calling notify.mjs / notify.ps1 directly. Triggers on notify, уведомление, апрув, approve, спросить пользователя.
+description: Use when the agent must tell the user something or get a decision from them — «уведоми пользователя», «нужно решение», «спроси апрув», «дождись ответа», «отправь в телеграм», «покажи тост». Sends through scripts/notify.mjs — always both channels (Telegram and Windows toast), suppresses repeats of the same event, waits for the decision in decisions.jsonl. Use for every user notification instead of calling notify.mjs / notify.ps1 directly. Triggers on notify, уведомление, апрув, approve, спросить пользователя.
 ---
 
 # notify
 
 Единая точка связи с пользователем: уведомление, вопрос с апрувом, ожидание ответа.
-Один вызов — одно событие в один канал.
+Одно событие уходит в **оба канала** — Telegram и Windows-тост.
 
 ## Почему один скрипт, а не две команды
 
 Раньше уведомления слались двумя способами — `telegram-bot/notify.mjs` и `scripts/notify.ps1`.
-Агент мог отправить одно и то же событие дважды: и в чат, и тостом. Пользователь получал
-дубль и не понимал, что это два разных события или одно.
+Правило «в какой канал слать» жило в голове агента, и оно расходилось: то в чат, то тостом,
+то оба сразу без причины. Пользователь просит уведомления **всегда в оба канала** — они
+смотрят разные источники (телефон и компьютер), и одно и то же событие в них не путается.
 
-`scripts/notify.mjs` закрывает три проблемы:
+`scripts/notify.mjs` убирает решение из головы агента:
 
 | Проблема | Как решает скрипт |
 |---|---|
-| Дубль в двух каналах | По умолчанию **один** канал: Telegram, если мост доступен, иначе тост. `--channel both` — осознанно и явно |
-| Дубль одного события | Ключ события (`--kind`) с окном подавления 10 минут: повтор гасится, код выхода `3` |
+| «В какой канал слать?» — решение каждый раз разное | По умолчанию **оба** канала: Telegram + тост. Отключить один явно: `--channel telegram` / `--channel toast` |
+| Два вызова подряд на одно и то же событие | Ключ события (`--kind`) с окном подавления 10 минут: повтор гасится, код выхода `3` |
+| Один канал недоступен (нет моста, не Windows) | Пропускает этот канал и отправляет второй, а не падает |
 | Агент «забыл» дождаться ответа | `--wait <секунды>` ждёт строку с `qid` в `telegram-bot/decisions.jsonl` |
 
 ## Как отправить уведомление
@@ -28,7 +30,8 @@ description: Use when the agent must tell the user something or get a decision f
 node scripts/notify.mjs "Заголовок" "Текст" --kind <start|blocker|release|info>
 ```
 
-`--kind` — ключ дедупликации, выбирай по смыслу события:
+Уведомление уходит **и в Telegram, и тостом** — отдельного выбора канала не нужно.
+`--kind` — ключ подавления повторов, выбирай по смыслу события:
 
 - `start` — старт работы над задачей;
 - `blocker` — упёрся в вопрос, без пользователя не двинуться;
@@ -72,16 +75,15 @@ node scripts/notify.mjs "Нужно решение" "Короткий вопро
 
 ## Каналы
 
-`--channel auto` (по умолчанию) | `telegram` | `toast` | `both`
+`--channel both` (по умолчанию) | `telegram` | `toast`
 
-- `auto` — Telegram, если есть `telegram-bot/` с `.env` и живым `.bot.pid`; иначе Windows-тост.
-- `toast` — принудительно `scripts/notify.ps1` (нужен UTF-8 BOM в файле, иначе PowerShell 5.1 ломает кириллицу).
-- `both` — оба канала осознанно. Оправдано только когда пользователь просил «и в чат, и тостом».
+- `both` — **всегда оба канала**: Telegram (`telegram-bot/notify.mjs`, нужен `.env` и живой `.bot.pid`) и Windows-тост (`scripts/notify.ps1`, требуется UTF-8 BOM в файле, иначе PowerShell 5.1 ломает кириллицу). Отсутствие одного канала не мешает второму: недоступный пропускается молча.
+- `telegram` / `toast` — отключить один канал. Осознанно, когда канал заведомо недоступен или пользователь просил только одно.
 
 ## Запрещено
 
-- Вызывать `telegram-bot/notify.mjs` и `scripts/notify.ps1` напрямую — только `scripts/notify.mjs`, иначе теряется дедупликация.
-- Дублировать одно событие в два канала без `--channel both`.
+- Вызывать `telegram-bot/notify.mjs` и `scripts/notify.ps1` напрямую — только `scripts/notify.mjs`, иначе теряется подавление повторов.
+- Отключать канал без причины (`--channel telegram` / `--channel toast`) — по умолчанию оба, всегда.
 - Выдумывать решение пользователя, если строки с `qid` нет в `telegram-bot/decisions.jsonl`.
 - Класть `telegram-bot/` (`.env`, `*.jsonl`, `.bot.pid`, `.notify-state.json`) в git — папка уже в `.gitignore`.
 
