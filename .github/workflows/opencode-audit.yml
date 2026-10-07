@@ -63,20 +63,27 @@ jobs:
           APP_URL: ${{ vars.APP_URL }}
         run: |
           mkdir -p audit-report
+          npx --yes lighthouse@12 --version
+          set +e
           npx --yes lighthouse@12 "$APP_URL" \
             --only-categories=performance,accessibility,best-practices,seo \
             --output=json \
             --output=html \
             --output-path=./audit-report \
-            --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
-            --quiet
+            --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage"
+          code=$?
+          set -e
+          echo "lighthouse exit code: $code"
+          ls -la audit-report || true
           # При нескольких --output Lighthouse добавляет расширение к имени файла
           # (`report.report.json`), поэтому ищем отчёт, а не гадаем с именем.
-          ls -la audit-report
           report_json=$(ls audit-report/*.json 2>/dev/null | head -n 1)
           if [ -z "$report_json" ]; then
-            echo "::error::Lighthouse не создал JSON-отчёт в audit-report/"
+            echo "::error::Lighthouse не создал JSON-отчёт (exit code $code)"
             exit 1
+          fi
+          if [ "$code" != "0" ]; then
+            echo "::warning::Lighthouse завершился с кодом $code, но отчёт есть — используем его"
           fi
           echo "Отчёт: $report_json"
 
