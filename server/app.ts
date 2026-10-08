@@ -145,6 +145,19 @@ export async function buildApp(): Promise<FastifyInstance> {
     scheduleLazyReminderCheck()
   })
 
+  // Повторные слеши в пути приводим к одному (#45). Ссылка из письма с
+  // APP_ORIGIN, оканчивающимся на «/», приходила как «//booking/<token>/reschedule»,
+  // и @fastify/static отвечал на неё 403 — мимо SPA-fallback, поэтому гость видел
+  // JSON вместо приложения. Query-строку не трогаем: «//» в параметрах законен.
+  app.addHook('onRequest', async (request) => {
+    const [pathname, query] = (request.raw.url ?? '').split('?', 2)
+    const normalized = pathname?.replace(/\/{2,}/g, '/')
+
+    if (normalized && normalized !== pathname) {
+      request.raw.url = query === undefined ? normalized : `${normalized}?${query}`
+    }
+  })
+
 
   const minNoticeMs = async (hostId: string) =>
     (await loadAvailabilityRules(hostId)).minNoticeMin * 60 * 1000
@@ -1137,9 +1150,14 @@ export async function buildApp(): Promise<FastifyInstance> {
   if (existsSync(distDir)) {
     await app.register(fastifyStatic, { root: distDir, prefix: '/' })
 
-    // SPA fallback: любой GET вне /api отдаёт index.html
+    // SPA fallback: любой GET/HEAD вне /api отдаёт index.html. HEAD нужен для
+    // предварительной загрузки ссылок из писем (#45).
     app.setNotFoundHandler((request, reply) => {
-      if (request.raw.method === 'GET' && !request.url.startsWith('/api')) {
+      const isPageRequest =
+        (request.raw.method === 'GET' || request.raw.method === 'HEAD') &&
+        !request.url.startsWith('/api')
+
+      if (isPageRequest) {
         return reply.sendFile('index.html')
       }
 
