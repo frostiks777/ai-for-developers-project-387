@@ -122,7 +122,9 @@ Environment Group — это «общий мешок» переменных, к�
 4. **Create Web Service**.
 
 После первого успешного деплоя появится URL `https://ai-for-developers-project-387-pm97.onrender.com`.
-Проверьте, что он открывается: `GET /health` → `{"status":"ok"}`.
+Проверьте, что он открывается: `GET /health` → `{"status":"ok","captchaEnabled":false}`. До шага 4
+(Cloudflare Turnstile) `captchaEnabled: false` — ожидаемо; после задания `TURNSTILE_SECRET_KEY` в
+среде проверьте поле ещё раз — так пропущенный ключ заметен сразу, а не по потоку спам-броней (#38).
 
 ---
 
