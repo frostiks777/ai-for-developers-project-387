@@ -101,6 +101,7 @@
 - [x] **Шаг 3, T1–T7** (реализация): миграции, типы встреч, диапазоны доступности, слоты по типу/дате, жизненный цикл брони, отмена/перенос по публичному id v1; фронт переведён на сгенерированный SDK ([#25](https://github.com/frostiks777/ai-for-developers-project-387/issues/25)) — ручной `src/api/client.ts` удалён, добавлены `src/api/sdk.ts` (клиент + `call()`/`ApiError`) и `src/api/mappers.ts`
 
 - [x] **«Мои встречи» на устройстве** — [ADR-0019](adr/0019-my-bookings-on-device.md): бронь сохраняется в `localStorage`, страница `/my` с отменой/переносом и удалением; вкладка в шапке на всех публичных страницах. Закрывает сценарий «гость не скопировал ссылку».
+- [x] **Актуализация с проектом 386** ([#35](https://github.com/frostiks777/ai-for-developers-project-387/issues/35)): перенесены правки 386 #102/#103. Гость видит только сетку доступности — `selectFutureSlots` отдаёт лишь слоты из `generateSlotStartsFromRanges(now, settings)`, исторические встречи вне сетки (:20/:40) скрыты гостю, но остаются в панели организатора и блокируют пересекающиеся окна ([ADR-0030](adr/0030-guest-sees-only-availability-grid.md)). Убраны устаревшие комментарии про Basic Auth (`server/app.ts`, `src/components/app-header.tsx`). Тесты: `server/slot-regeneration.test.ts` (сценарий #97 переписан + новый про историческую встречу), `server/dashboard.test.ts` (`createFutureSlot` берёт свободный слот из сетки).
 
 ## Осталось
 
