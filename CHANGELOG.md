@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.6...v1.1.7) (2026-10-08)
+
+
+### Bug Fixes
+
+* **server:** /health отдаёт captchaEnabled, пропавший ключ капчи виден без логов ([#38](https://github.com/frostiks777/ai-for-developers-project-387/issues/38)) ([#40](https://github.com/frostiks777/ai-for-developers-project-387/issues/40)) ([1d51d2f](https://github.com/frostiks777/ai-for-developers-project-387/commit/1d51d2f42d9da24673cc4dd76feeabf375631f45))
+
 ## [1.1.6](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.5...v1.1.6) (2026-10-08)
 
 
