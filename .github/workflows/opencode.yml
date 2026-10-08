@@ -88,3 +88,8 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
+          # Репозиторий открытый, а дефолт opencode для публичных репозиториев —
+          # `share: true`: сессия агента публикуется по ссылке. В сессии попадает
+          # вывод команд и куски кода, поэтому решение зафиксировано явно:
+          # публикации нет (Шаг 6 урока, docs/course-github-agent.md).
+          share: false

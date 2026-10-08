@@ -19,9 +19,11 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
+  # Только чтение репозитория: агент читает diff, код и связанную задачу.
   contents: read
+  # Единственная запись воркфлоу — замечания в pull request.
   pull-requests: write
-  issues: write
+  # `issues: write` здесь не нужен: воркфлоу не пишет в задачи, только в PR.
   id-token: write
 
 jobs:
@@ -53,6 +55,9 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
+          # Решение по `share` (Шаг 6 урока): ревью не публикуется, хотя дефолт
+          # opencode для публичного репозитория — `share: true`.
+          share: false
           prompt: |
             Проведи ревью этого pull request и оставь замечания комментариями
             от токена раннера. Не меняй код, не коммить, не мержи — только
