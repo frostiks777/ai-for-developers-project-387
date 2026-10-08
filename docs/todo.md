@@ -40,7 +40,7 @@
 - ✅ Страница владельца со встречами всех типов в одном списке (`/dashboard`, `GET /api/v1/hosts/:slug/bookings`)
 - ✅ API по контракту: OpenAPI из TypeSpec → клиентский SDK + серверные артефакты (`api/main.tsp`, `docs/openapi/openapi.yaml`, `src/api/generated/`, `server/generated/api-types.ts`, `npm run api:generate`)
 - ✅ Окно записи 14 дней, слоты по 30 минут (`ADR-0004`)
-- ✅ Docker-образ, авто-старт, порт из `PORT`, ссылка в `README.md` (`render.yaml`, `calendar-slots-app.onrender.com`)
+- ✅ Docker-образ, авто-старт, порт из `PORT`, ссылка в `README.md` (`render.yaml` — сервис `calendar-slots-387`, URL `ai-for-developers-project-387-pm97.onrender.com`)
 
 ### Проверяемость
 

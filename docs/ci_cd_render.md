@@ -6,7 +6,7 @@
 
 Актуальная схема деплоя «Календарь звонков»: контейнер на **Render** (план free) + база в **Neon** (PostgreSQL). План Google Cloud Run из [`docs/archive/ci_cd.md`](archive/ci_cd.md) **не используется** — он остался как альтернатива.
 
-Конфигурация в репозитории: `render.yaml` (Blueprint), `Dockerfile` (multi-stage). Живой стенд: <https://calendar-slots-app.onrender.com>.
+Конфигурация в репозитории: `render.yaml` (Blueprint), `Dockerfile` (multi-stage). Живой стенд проекта **387**: <https://ai-for-developers-project-387-pm97.onrender.com> (сервис Render — `calendar-slots-387`). Значения для 386 оставлены в примерах ниже как исторические — источник истины по 387 — [`deploy-387.md`](deploy-387.md).
 
 ## 1. Архитектура деплоя
 
@@ -32,14 +32,14 @@
 | `ORGANIZER_EMAIL` | почта организатора | получатель писем о новых бронях/отменах; пусто — не шлём |
 | `REMINDER_LEAD_MINUTES` | `1440` | напоминание за 24 часа до встречи |
 | `REMINDERS_SECRET` | случайная строка | включает `POST /api/internal/reminders`; не задан — endpoint отвечает `404` |
-| `APP_ORIGIN` | `https://calendar-slots-app.onrender.com` | базовый origin для ссылок в письмах (fallback — `RENDER_EXTERNAL_URL`) |
+| `APP_ORIGIN` | `https://ai-for-developers-project-387-pm97.onrender.com` | базовый origin для ссылок в письмах (fallback — `RENDER_EXTERNAL_URL`) |
 | `TURNSTILE_SITEKEY` / `TURNSTILE_SECRET_KEY` / `TURNSTILE_ALLOWED_HOSTNAMES` | ключи Cloudflare Turnstile | включают CAPTCHA ([ADR-0025](adr/0025-captcha-and-rate-limit.md)) |
 
 ## 3. Создание сервиса вручную (если Blueprint не подошёл)
 
 1. <https://dashboard.render.com> → **Sign in with GitHub**.
 2. **New +** → **Web Service** → подключить репозиторий.
-3. Параметры: `Name: calendar-slots-app`, `Region: Frankfurt (EU Central)`, `Branch: main`, `Root Directory: пусто`, `Runtime: Docker`, `Instance Type: Free`.
+3. Параметры: `Name: calendar-slots-387`, `Region: Frankfurt (EU Central)`, `Branch: main`, `Root Directory: пусто`, `Runtime: Docker`, `Instance Type: Free`.
 4. **Environment Variables**: `NODE_ENV=production`, `PORT=10000`, `DATABASE_URL=<строка Neon>`. Пароль организатора не нужен — панель открыта ([ADR-0028](adr/0028-dashboard-access-without-login.md)).
 5. **Create Web Service** — Render соберёт образ из `Dockerfile` и начнёт деплой по каждому пушу в `main` (`autoDeploy: true`).
 6. Healthcheck — `GET /health` (в Blueprint: `healthCheckPath: /health`).

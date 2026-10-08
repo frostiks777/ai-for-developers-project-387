@@ -64,7 +64,7 @@
 
 ## Шаг 4. Render: задать переменные окружения
 
-1. Render Dashboard → ваш сервис `calendar-slots-app` → **Environment**.
+1. Render Dashboard → ваш сервис `calendar-slots-387` → **Environment**.
 2. Добавьте переменные (значения — свои):
 
 | Key | Значение | Пример |
@@ -75,7 +75,7 @@
 | `ORGANIZER_EMAIL` | получатель писем организатору; пусто — не слать | `calendar.slots@gmail.com` |
 | `REMINDER_LEAD_MINUTES` | за сколько минут напоминать | `1440` (24 часа) |
 | `REMINDERS_SECRET` | случайный секрет для внешнего cron (см. ниже) | `a1b2…` |
-| `APP_ORIGIN` | адрес стенда для ссылок в письмах | `https://calendar-slots-app.onrender.com` |
+| `APP_ORIGIN` | адрес стенда для ссылок в письмах | `https://ai-for-developers-project-387-pm97.onrender.com` |
 
 3. **Save Changes** — Render перезапустит сервис (это и есть деплой новых настроек).
 
@@ -97,7 +97,7 @@ openssl rand -hex 32
 
 ## Шаг 5. Проверить на живом стенде
 
-**a) Письмо гостю.** Откройте `https://calendar-slots-app.onrender.com/book/default`, запишитесь на
+**a) Письмо гостю.** Откройте `https://ai-for-developers-project-387-pm97.onrender.com/book/default`, запишитесь на
 свободный слот, указав **свой реальный email**. Через несколько секунд проверьте почту (и папку
 «Спам»). Если `ORGANIZER_EMAIL` задан — второе письмо придёт организатору о новой брони.
 
@@ -105,10 +105,10 @@ openssl rand -hex 32
 
 ```bash
 # без секрета → 401
-curl.exe -i -X POST https://calendar-slots-app.onrender.com/api/internal/reminders
+curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders
 
 # с секретом → 200 {"sent":N}
-curl.exe -i -X POST https://calendar-slots-app.onrender.com/api/internal/reminders \
+curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders \
   -H "X-Reminders-Secret: ВАШ_REMINDERS_SECRET"
 ```
 
@@ -128,7 +128,7 @@ curl.exe -i -X POST https://calendar-slots-app.onrender.com/api/internal/reminde
 1. Зарегистрируйтесь на https://console.cron-job.org/signup и подтвердите email.
 2. **Create cronjob** и заполните:
    - **Title**: `Calendar reminders`;
-   - **URL**: `https://calendar-slots-app.onrender.com/api/internal/reminders`;
+   - **URL**: `https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders`;
    - **Schedule**: every **10 minutes** (предустановка «Every 10 minutes»);
    - **Request method**: `POST` (тело запроса можно оставить пустым — endpoint принимает любой `Content-Type`);
    - включите **Advanced** → **Custom headers** → добавьте заголовок

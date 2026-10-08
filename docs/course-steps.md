@@ -114,7 +114,7 @@
 Статус: `[x] выполнено` (2026-09-23):
 - `Dockerfile` — multi-stage, `CMD ["npm", "run", "start"]`.
 - `server/index.ts:15` — `PORT` (`process.env.PORT || 3000`), host `0.0.0.0`.
-- Публичная ссылка: `https://calendar-slots-app.onrender.com` (`README.md`), `render.yaml` (branch `main`, autoDeploy).
+- Публичная ссылка: `https://ai-for-developers-project-387-pm97.onrender.com` (`README.md`, Variables `APP_URL`), `render.yaml` (сервис `calendar-slots-387`, branch `main`, autoDeploy).
 - Осталось опционально: подключить Render MCP для автоматизации выката.
 
 ---

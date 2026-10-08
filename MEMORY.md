@@ -1,6 +1,6 @@
 # MEMORY.md — Состояние проекта «Календарь звонков»
 
-## ▶ Продолжить: Шаг 5 курса — регулярная задача по расписанию (2026-10-07)
+## ▶ Продолжить: остаток курса (Шаг 4 🟡, Шаг 6 ❌) и открытые issues (2026-10-08)
 
 Хвосты Шага 3 закрыты ([#22](https://github.com/frostiks777/ai-for-developers-project-387/issues/22), issue
 [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3) закрыт). Единственный **не начатый**
@@ -13,24 +13,25 @@
 4. **Единый скрипт уведомлений `scripts/notify.mjs` + скилл `notify`** — по просьбе пользователя: одно событие уходит в **один** канал (Telegram по умолчанию, Windows-тост как запасной, `--channel both` осознанно), повторы гасятся по ключу `--kind` с окном 10 минут, `--wait <секунды>` ждёт апрув в `decisions.jsonl`. Раньше уведомления слались двумя разными командами, и одно событие могло уйти и в чат, и тостом. Работает: `notify.mjs` и дедупликация проверены вживую.
 5. **Telegram-мост в 387 поднят**: папка `telegram-bot/` была скопирована из проекта 386, но бот не работал (`bot.mjs` не запущен). Перезапущен с **новым токеном бота** (пользователь заменил, чтобы не конфликтовать с 386 — там старый), pid 3812, `.bot.pid` обновлён. Команды бота отправлены и ответ пользователя получен (`/ping`, «Ok»).
 
-**Проверки:** `npm run lint` ✅ 0 ошибок, `npm run typecheck` ✅, `npm test` ✅ **342/342** (56 файлов).
+**Проверки (2026-10-07):** `npm run lint` ✅ 0 ошибок, `npm run typecheck` ✅, `npm test` ✅ **342/342** (56 файлов).
 
-**Не сделано (начать с этого):**
-1. **Шаг 5 курса** — воркфлоу `.github/workflows/opencode-audit.yml`:
-   - события `schedule` (cron **не чаще раза в сутки**, только UTC) + `workflow_dispatch`;
-   - `prompt` обязателен (событие `schedule` не даёт инструкции);
-   - права `contents: write`, `pull-requests: write`, `issues: write` **вместе** с `id-token: write`;
-   - адрес приложения — в **Variables** репозитория (`APP_URL`), не вписан в воркфлоу;
-   - отчёт проверки сохраняется **артефактом** или публикуется в задаче;
-   - по находкам отчёта заводится минимум один issue;
-   - прогон вручную (`workflow_dispatch`) должен быть зелёным.
-   Требования дословно — в разделе «Шаг 5» файла `docs/course-github-agent.md`.
-2. **Шаг 6 курса** — финальная проверка интеграции: ADR по решению `share` и `mentions` (публикация сессий необратима для уже опубликованных), таблица воркфлоу в `README.md`, самооценка «с первого прохода / итерации», ревизия прав по воркфлоу.
-3. **Шаг 4** — сверить конкретные PR/замечания (🟡 в статус-таблице: оба вида замечаний в PR не подтверждены явно).
-4. Продуктовый backlog — `docs/roadmap.md` (регистрация и аккаунты → интеграции с календарями → повторяющиеся события → аналитика).
+**Продвижение 2026-10-08 — Шаги курса 1–3 и 5 закрыты:**
+1. **Шаг 5 закрыт** ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23) → `closed`): `.github/workflows/opencode-audit.yml` (Lighthouse по `APP_URL` из Variables, cron ≤ 1/сутки, `workflow_dispatch`, prompt с порогами, `upload-artifact`, модель бесплатная). Ручной прогон [`37679021588`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37679021588) — success, плановый [`37785913750`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37785913750) — success; отчёт в артефакте `audit-report/`; по находкам заведён [#30](https://github.com/frostiks777/ai-for-developers-project-387/issues/30).
+2. **Хвосты Шага 3 закрыты** ([#22](https://github.com/frostiks777/ai-for-developers-project-387/issues/22) → `closed`): фильтр ботов в `opencode-review.yml:33`, #3 закрыт, `docs/roadmap.md` создан, доки синхронизированы.
 
-> Дата последнего обновления: 2026-10-07 (#22). До этого: 2026-10-06 — [#17](https://github.com/frostiks777/ai-for-developers-project-387/issues/17) (фильтр ботов, переход на токен GitHub App) и [#18](https://github.com/frostiks777/ai-for-developers-project-387/issues/18) (сбор требований уроков в `docs/course-github-agent.md`).
-> Все шаги курса закрыты. Продуктовый backlog — `docs/todo.md` («Backlog продукта»): уведомления ✅, далее регистрация/аккаунты, интеграции с календарями, повторяющиеся события, аналитика.
+**Открытые задачи трекера (2026-10-08):**
+1. **#30** (баг, `bug`) — SEO: `index.html` без `meta description`, нет `public/robots.txt`, SPA fallback (`server/app.ts:1106`) отдаёт HTML на `/robots.txt` → 29 ошибок `robots-txt`, балл 82/80. Спека и критерии в теле issue.
+2. **#33** (chore) — адрес стенда 387 вместо 386 в `docs/ci_cd_render.md` и `docs/course-steps.md`.
+3. **PR #32** открыт — только `audit-report/*` от планового аудита, ждёт мержа человеком.
+4. **Метки трекера:** ни одна issue не несёт state-метки (`ready-for-agent` и т. п.) — см. `docs/agents/triage-labels.md`.
+
+**Осталось по курсу (начать с этого):**
+1. **Шаг 4** (🟡 в статус-таблице `docs/course-github-agent.md`) — подтвердить явно, что в PR есть и замечания ревьюера, и ответы на них; сейчас оба вида замечаний явно не подтверждены.
+2. **Шаг 6** (❌) — финальная проверка интеграции: ADR по решению `share` и `mentions` (публикация сессий необратима для уже опубликованных), таблица воркфлоу в `README.md`, самооценка «с первого прохода / итерации», ревизия прав по воркфлоу.
+3. Продуктовый backlog — `docs/roadmap.md` (регистрация и аккаунты → интеграции с календарями → повторяющиеся события → аналитика).
+
+> Дата последнего обновления: 2026-10-08 (#33 — синхронизация адреса стенда и этого раздела; #22 и #23 закрыты). До этого: 2026-10-07 — #22 (хвосты Шага 3), 2026-10-06 — [#17](https://github.com/frostiks777/ai-for-developers-project-387/issues/17) (фильтр ботов, переход на токен GitHub App) и [#18](https://github.com/frostiks777/ai-for-developers-project-387/issues/18) (сбор требований уроков в `docs/course-github-agent.md`).
+> Из шести шагов агентного урока закрыты 1, 2, 3 и 5; Шаг 4 — 🟡, Шаг 6 — ❌ (статус-таблица в `docs/course-github-agent.md`). Продуктовый backlog — [`docs/roadmap.md`](docs/roadmap.md): уведомления ✅, далее регистрация/аккаунты, интеграции с календарями, повторяющиеся события, аналитика.
 > **Итог ревью проверяющего (2026-09-29):** все шесть замечаний оформлены как issues [#88](https://github.com/frostiks777/ai-for-developers-project-387/issues/88)–[#93](https://github.com/frostiks777/ai-for-developers-project-387/issues/93) и **закрыты**: #88 (панель без логина, [ADR-0028](docs/adr/0028-dashboard-access-without-login.md)), #89 (сетка слотов 30 мин, [ADR-0027](docs/adr/0027-slot-grid-step-independent-of-buffers.md)), #90 (CI на каждый push), #91 (npm audit), #92 (Conventional Commits), #93 (привязка коммитов к issue).
 
 > **Актуальный стек:** PostgreSQL (Neon) + Drizzle ORM (`pg`), PGlite в тестах и локальном dev без `DATABASE_URL`; миграции — идемпотентный `server/db/migrate.ts` при старте сервера; контракт — TypeSpec `api/main.tsp` → OpenAPI + клиентский SDK (`src/api/generated/`) + серверные типы (`server/generated/api-types.ts`); фронт ходит в API через `src/api/sdk.ts` (ручной `src/api/client.ts` удалён на Шаге 3, T7).
@@ -360,7 +361,7 @@
 78. ✅ **Гайд подключения стека для 387** (2026-10-02) — [#8](https://github.com/frostiks777/ai-for-developers-project-387/issues/8):
     - Новый `docs/deploy-387.md` — пошагово: отдельная БД Neon в проекте 386, Environment Group `DB-387`, Render Web Service `calendar-slots-387`, виджет Turnstile под `calendar-slots-387.onrender.com`, Brevo sender/API-ключ, переменные Render, cron-job.org (10 минут, `X-Reminders-Secret`), smoke-проверки и частые ошибки.
     - `render.yaml`: `name: calendar-slots-app` → `calendar-slots-387`, `fromGroup: DB` → `DB-387` (иначе 387 писал бы в базу 386), обновлён hostname Turnstile.
-    - `README.md`: URL стенда, hostname Turnstile, Environment Group `DB-387`, cron «10 минут», ссылка на гайд; `.env.example` — комментарий с hostname 387; в `docs/ci_cd_render.md` и `docs/email-setup-brevo.md` добавлен указатель на `deploy-387.md` (там остался URL 386 как общая механика).
+    - `README.md`: URL стенда, hostname Turnstile, Environment Group `DB-387`, cron «10 минут», ссылка на гайд; `.env.example` — комментарий с hostname 387; в `docs/ci_cd_render.md` и `docs/email-setup-brevo.md` добавлен указатель на `deploy-387.md`. Позже (2026-10-08, #33) оставшиеся в этих двух файлах примеры с URL 386 заменены на фактический стенд 387, `Name: calendar-slots-387`, а раздел «Продолжить» выше — переписан.
     - Правки только в документации/конфиге, кода не касаются.
 
 ## Что осталось (следующие шаги)
