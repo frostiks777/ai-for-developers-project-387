@@ -221,9 +221,10 @@ openssl rand -hex 32
 ## Шаг 8. Проверка стенда
 
 ```bash
-# 1. Живость
+# 1. Живость + признак капчи: captchaEnabled: true — TURNSTILE_SECRET_KEY задан (шаг 4);
+#    false — ключ пропал из среды, публичная запись сейчас без защиты (#38)
 curl.exe -i https://ai-for-developers-project-387-pm97.onrender.com/health
-# 200 {"status":"ok"}
+# 200 {"status":"ok","captchaEnabled":true}
 
 # 2. Настройки хоста: site key отдаётся только когда задан TURNSTILE_SECRET_KEY
 curl.exe https://ai-for-developers-project-387-pm97.onrender.com/api/v1/hosts/default/settings

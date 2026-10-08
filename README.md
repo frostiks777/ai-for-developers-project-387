@@ -213,7 +213,7 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
 
 ```bash
 curl http://127.0.0.1:3000/health
-# {"status":"ok"}
+# {"status":"ok","captchaEnabled":false}
 
 curl http://127.0.0.1:3000/api/v1/hosts/default/slots
 # {"slots":[{"id":1,"startAt":"2026-09-24T07:00:00.000Z","durationMin":30,"isBooked":false}]}
