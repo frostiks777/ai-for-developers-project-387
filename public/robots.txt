@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Служебные и гостевые маршруты не индексируем: панель организатора открыта без логина (ADR-0028),
+# ссылки отмены и переноса встречи — по одноразовому токену.
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /cancel/
+Disallow: /reschedule/
