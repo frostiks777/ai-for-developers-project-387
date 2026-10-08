@@ -1,8 +1,8 @@
 {
   "url": "https://ai-for-developers-project-387-pm97.onrender.com",
-  "at": "2026-10-07T20:03:17.111Z",
+  "at": "2026-10-08T13:39:04.625Z",
   "scores": {
-    "performance": 92,
+    "performance": 82,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 82
@@ -15,6 +15,13 @@
   },
   "belowThreshold": [],
   "failing": [
+    {
+      "id": "mainthread-work-breakdown",
+      "title": "Minimize main-thread work",
+      "score": 0,
+      "displayValue": "2.1 s",
+      "description": "Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this. [Learn how to minimize main-thread work](https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/)"
+    },
     {
       "id": "unused-javascript",
       "title": "Reduce unused JavaScript",
@@ -46,9 +53,16 @@
     {
       "id": "max-potential-fid",
       "title": "Max Potential First Input Delay",
-      "score": 0.14,
-      "displayValue": "420 ms",
+      "score": 0.03,
+      "displayValue": "620 ms",
       "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task. [Learn more about the Maximum Potential First Input Delay metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/)."
+    },
+    {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.5,
+      "displayValue": "600 ms",
+      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more about the Total Blocking Time metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/)."
     },
     {
       "id": "render-blocking-insight",
@@ -58,17 +72,10 @@
       "description": "Requests are blocking the page's initial render, which may delay LCP. [Deferring or inlining](https://web.dev/learn/performance/understanding-the-critical-path#render-blocking_resources) can move these network requests out of the critical path."
     },
     {
-      "id": "total-blocking-time",
-      "title": "Total Blocking Time",
-      "score": 0.83,
-      "displayValue": "260 ms",
-      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more about the Total Blocking Time metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/)."
-    },
-    {
       "id": "first-contentful-paint",
       "title": "First Contentful Paint",
-      "score": 0.87,
-      "displayValue": "1.9 s",
+      "score": 0.84,
+      "displayValue": "2.0 s",
       "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more about the First Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint/)."
     }
   ]
