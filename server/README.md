@@ -16,11 +16,13 @@ npm run server:dev
 
 ```bash
 curl http://localhost:3000/health
-# {"status":"ok","captchaEnabled":true}
+# {"status":"ok","captchaEnabled":false}
 ```
 
-`captchaEnabled` — машиночитаемый признак того, что CAPTCHA включена (`TURNSTILE_SECRET_KEY`
-задан). В production при `captchaEnabled: false` публичная запись не защищена от ботов: приложение
+Локально и в тестах `TURNSTILE_SECRET_KEY` не задан, поэтому вывод именно такой. `captchaEnabled`
+— машиночитаемый признак того, что CAPTCHA включена: `true` будет только на стенде/деплое с
+заданным `TURNSTILE_SECRET_KEY` (проверить: `echo $TURNSTILE_SECRET_KEY`). В production при
+`captchaEnabled: false` публичная запись не защищена от ботов: приложение
 печатает предупреждение при старте, но не падает — жёсткий падёж отклонён в
 [ADR-0025](../docs/adr/0025-captcha-and-rate-limit.md). Скрипт проверки стенда может смотреть это
 поле, чтобы заметить пропавший ключ без разбора логов деплоя.
