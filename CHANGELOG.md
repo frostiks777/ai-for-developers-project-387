@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.8](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.7...v1.1.8) (2026-10-08)
+
+
+### Bug Fixes
+
+* **email:** логировать результат отправки и битую конфигурацию EMAIL_FROM ([#43](https://github.com/frostiks777/ai-for-developers-project-387/issues/43)) ([5e7fd7c](https://github.com/frostiks777/ai-for-developers-project-387/commit/5e7fd7c9f07514e071fc91bbf9731bbb1216c8de))
+
 ## [1.1.7](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.6...v1.1.7) (2026-10-08)
 
 
