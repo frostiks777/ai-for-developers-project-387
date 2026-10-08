@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.9](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.8...v1.1.9) (2026-10-08)
+
+
+### Bug Fixes
+
+* **server:** схлопывать повторные слеши в путях и отдавать index.html на HEAD ([#45](https://github.com/frostiks777/ai-for-developers-project-387/issues/45)) ([1adc11c](https://github.com/frostiks777/ai-for-developers-project-387/commit/1adc11c8826f0944629bebbb470fd6b770f40dd1))
+
 ## [1.1.8](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.7...v1.1.8) (2026-10-08)
 
 
