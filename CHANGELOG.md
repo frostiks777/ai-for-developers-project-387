@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.6](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.5...v1.1.6) (2026-10-08)
+
+
+### Bug Fixes
+
+* **seo:** meta description в index.html и public/robots.txt ([#30](https://github.com/frostiks777/ai-for-developers-project-387/issues/30)) ([d79ac83](https://github.com/frostiks777/ai-for-developers-project-387/commit/d79ac837fa0ad55f7ed18696424a73963b20ad50))
+* **server:** гость видит только сетку доступности; чистка комментариев Basic Auth ([#35](https://github.com/frostiks777/ai-for-developers-project-387/issues/35)) ([ad1880b](https://github.com/frostiks777/ai-for-developers-project-387/commit/ad1880b5f6199738c044c18577243c0318774cbe))
+
 ## [1.1.5](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.4...v1.1.5) (2026-10-07)
 
 
