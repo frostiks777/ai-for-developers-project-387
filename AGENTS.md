@@ -195,6 +195,7 @@ OpenCode-скилы — повторно используемые workflow, ко
   - `verify` — финальный прогон `lint`/`typecheck`/`test`/`build` перед отметкой задачи как «готово».
 - Чтобы добавить новый скил: создать `.agents/skills/<имя>/SKILL.md`; имя в frontmatter должно совпадать с именем директории.
 - В этом проекте используем **только** `.agents/skills/`. `.opencode/skills/` и `.claude/skills/` больше не применять.
+- Дополнительно **глобально** (в `~/.config/opencode/opencode.jsonc`) подключён плагин `superpowers@git+https://github.com/obra/superpowers.git` (V1-синтаксис — ключ `plugin`). Он добавляет свои скиллы (`brainstorming`, `writing-plans`, `executing-plans`, `test-driven-development`, `systematic-debugging`, `subagent-driven-development`, `requesting-code-review`, `finishing-a-development-branch`, `using-git-worktrees`, `verification-before-completion` и др.). При смысловом пересечении с проектными скиллами (например, `brainstorming` ↔ `interview`, `writing-plans` ↔ `plan`, TDD) приоритет — у проектных из `.agents/skills/`.
 - Порядок применения процессных скиллов: `interview` → (`plan-small-feature` для небольших продуктовых доработок) → `plan` → (`ponytail` по ситуации) → (`tdd` по ситуации) → `verify` → `commit-push`.
 - Подробнее — https://opencode.ai/docs/skills/.
 

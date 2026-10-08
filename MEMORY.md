@@ -159,7 +159,7 @@
       - `AGENTS.md`: добавлен `opencode/big-pickle` в список бесплатных ID.
       - `opencode.jsonc`, архивный `ai-tuning-plan.md`: без изменений (sync #1 уже закрыл `mimo-v2.5-free → v2.6`).
       - Сводная статистика: **133 модели всего, 17 бесплатных, 116 платных**.
-15. ⚠️ **Плагин superpowers — в репозитории НЕ подключён.** Запись 2026-09-25 утверждала, что в `opencode.jsonc` добавлен ключ `plugins: ["superpowers@git+…"]`; фактически в конфиге ключ **`plugin`** со значением `["opencode-notify"]` (уведомления opencode), а `obra/superpowers` отсутствует. Процессные скиллы работают из `.agents/skills/` — этого достаточно. Если superpowers понадобится: добавить в `plugin` (синтаксис плагинов opencode 1.18.x — `plugin`, не `plugins`) и проверить `skill`-лист.
+15. ✅ **Плагин superpowers — подключён глобально** (2026-10-08). В `~/.config/opencode/opencode.jsonc` добавлен ключ `plugin: ["superpowers@git+https://github.com/obra/superpowers.git"]` (синтаксис opencode 1.18.x — `plugin`, не `plugins`). Проверено: плагин грузится без ошибок, `skill`-лист содержит скиллы superpowers (`brainstorming`, `writing-plans`, `test-driven-development`, `systematic-debugging`, `using-superpowers` и др.). Ранее (2026-09-25) запись ошибочно утверждала, что в `opencode.jsonc` добавлен `plugins`; фактически ключ не был добавлен. Проектные процессные скиллы по-прежнему работают из `.agents/skills/` — при смысловом пересечении приоритет у них.
 16. ✅ Обязательный email ([ADR-0002](docs/adr/0002-zod-api-validation.md)):
     - zod 4: `server/validation.ts` + зеркало `src/lib/validation.ts`
     - форма: поле Email, inline-ошибка «Неверный email», submit заблокирован
