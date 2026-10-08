@@ -213,7 +213,7 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
 
 ```bash
 curl http://127.0.0.1:3000/health
-# {"status":"ok"}
+# {"status":"ok","captchaEnabled":false}
 
 curl http://127.0.0.1:3000/api/v1/hosts/default/slots
 # {"slots":[{"id":1,"startAt":"2026-09-24T07:00:00.000Z","durationMin":30,"isBooked":false}]}
@@ -308,6 +308,43 @@ npm run test:e2e
 ## Деплой
 
 Docker-образ (multi-stage) + `render.yaml` для Render.com: план free, healthcheck `/health`, хост `0.0.0.0`, порт из `PORT`. Данные — PostgreSQL в Neon (`DATABASE_URL` из Environment Group `DB-387`); доступ к панели открыт без логина, `ADMIN_PASSWORD` не используется. Подробности — [`docs/ci_cd_render.md`](docs/ci_cd_render.md), пошаговая настройка стенда 387 (Render + Neon + cron-job.org + Turnstile + Brevo) — [`docs/deploy-387.md`](docs/deploy-387.md).
+
+## Агент в GitHub: воркфлоу
+
+Агент OpenCode работает в этом репозитории не только локально: четыре воркфлоу в `.github/workflows/` вызывают его по событиям GitHub. Ключ провайдера модели — в Secrets (`OPENCODE_API_KEY`), в файлах репозитория его нет.
+
+| Воркфлоу | Событие | Как запускается | Права | Модель | Где смотреть прогоны |
+|---|---|---|---|---|---|
+| [`opencode.yml`](.github/workflows/opencode.yml) | `issue_comment`, `pull_request_review_comment` (`types: [created]`) | Комментарий с командой `/oc` или `/opencode` от владельца/участника/контрибьютора | `contents: write`, `pull-requests: write`, `issues: write`, `id-token: write` | `opencode/mimo-v2.6-flash-free` (бесплатная) | вкладка **Actions**, запуск `opencode`; ответ агента — в том же issue/PR |
+| [`opencode-triage.yml`](.github/workflows/opencode-triage.yml) | `issues` (`types: [opened]`) | Автоматически на любой новой задаче, заведённой человеком | `contents: read`, `issues: write`, `id-token: write` | та же | **Actions** → `opencode-triage`; разбор — комментарий в задаче |
+| [`opencode-review.yml`](.github/workflows/opencode-review.yml) | `pull_request` (`opened`, `synchronize`, `reopened`, `ready_for_review`) | Автоматически на PR, открытом человеком (PR ботов и `release-please` отсекаются) | `contents: read`, `pull-requests: write`, `id-token: write` | та же | **Actions** → `opencode-review`; замечания — комментарии в PR |
+| [`opencode-audit.yml`](.github/workflows/opencode-audit.yml) | `schedule` (cron `17 6 * * *`, не чаще раза в сутки) + `workflow_dispatch` | По расписанию и вручную из вкладки **Actions** | `contents: write`, `pull-requests: write`, `issues: write`, `id-token: write` | та же | **Actions** → `opencode-audit`; отчёт — артефакт `lighthouse-report`, находки — в issue |
+
+Общие решения по этим воркфлоу:
+
+- **`id-token: write` везде**: без него экшен не может обменять OIDC-токен на токен GitHub App `opencode-agent`, и права агента были бы `permission: none` (проверено на прогоне `37064227451`).
+- **Команды вызова (`mentions`)** оставлены дефолтными — `/opencode` и `/oc`: обе короткие и совпадают с тем, чем этот проект пользовался с первого урока, поэтому свой список не даёт ничего, кроме расхождения с документацией. Список команд, которым зовут агента, ограничен `author_association` (владелец/участник/контрибьютор): в открытом репозитории иначе любой мог бы комментарием потратить минуты Actions.
+- **Решение по `share` — `false` во всех четырёх воркфлоу.** Дефолт opencode для публичного репозитория — `share: true`, то есть сессия агента публикуется по ссылке; в сессии видны вывод команд и фрагменты кода, поэтому публикация выключена явно.
+- **Боты отсекаются везде** условием `if: …user.type != 'Bot'`: иначе агент отвечает на свой же ответ (в ответе цитируется текст с `/oc`) и получается петля.
+- **`persist-credentials: false`** везде, кроме `opencode.yml`: без extraheader в `.git/config` любой `git push` агента падает, а именно этот воркфлоу коммитит и открывает PR.
+- Требования урока и статус шагов — [`docs/course-github-agent.md`](docs/course-github-agent.md).
+
+### Самооценка работы с агентом
+
+**Закрылось с первого прохода:**
+
+- Автотриаж новых задач: разбор жалобы «между блоками слишком много воздуха» получился точным с первого раза, критерии приёмки из разбора взяли в issue как есть (прогон `36917958351`).
+- Регулярная проверка по расписанию (Lighthouse): ручной и плановый прогоны зелёные, находки превратились в задачу #30, а правка по ней — в PR #31 с тестами.
+- Задачи на документацию и синхронизацию с прошлым проектом (#33–#35): формулировка «что именно должно совпадать с фактами» оказалась достаточной.
+
+**Потребовало итераций:**
+
+- Права токена: на токене раннера у агента было `permission: none`, и он падал на удалении реакции — понадобился переход на GitHub App с обменом OIDC-токена.
+- Петля на своём же ответе: фильтр событий от ботов пришлось добавить отдельно в каждом воркфлоу, причём дважды — сначала в авторевью, потом в автотриаже.
+- Авторинг коммитов в CI: без `git ident` коммит падал с `Author identity unknown`, без `persist-credentials` — push падал с `could not read Username`.
+- Замер Lighthouse: `--output-path` оказался префиксом имени файла, а не папкой — на это ушло три прогона, пока отчёт не стал артефактом.
+
+Общий вывод: агент хорошо работает там, где критерий проверяем (тест, порог, ссылка на файл), и требует итераций там, где критерий размыт («понятно без пересказа»). Проверка человеком остаётся обязательной: автотриаж даёт черновик постановки, ревью — замечания без правок, решение по фиксации всегда за владельцем репозитория.
 
 ---
 

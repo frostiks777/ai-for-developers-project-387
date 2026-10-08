@@ -133,6 +133,9 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
           model: opencode/mimo-v2.6-flash-free
+          # Решение по `share` (Шаг 6 урока): разбор отчёта не публикуется,
+          # хотя дефолт opencode для публичного репозитория — `share: true`.
+          share: false
           prompt: |
             Разбери отчёт Lighthouse по приложению-календарю. Репозиторий уже выкачан,
             отчёт лежит в файле `audit-report/summary.md` — прочитай его первым делом.
