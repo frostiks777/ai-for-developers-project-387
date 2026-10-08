@@ -165,6 +165,33 @@ describe('письма по событиям брони', () => {
   })
 })
 
+// Регрессия #43: ошибка отправки проглатывалась, и в логах сервиса не было
+// ни слова о том, что Brevo отклонил письмо.
+describe('наблюдаемость отправки', () => {
+  it('ошибка провайдера попадает в лог сервиса', async () => {
+    const warn = vi.spyOn(app.log, 'warn')
+
+    fetchMock.mockResolvedValue(json({ code: 'invalid_parameter', message: 'Sender not found' }, 400))
+
+    const { response } = await book()
+
+    expect(response.statusCode).toBe(201)
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('400'))
+
+    warn.mockRestore()
+  })
+
+  it('успешная отправка попадает в лог сервиса', async () => {
+    const info = vi.spyOn(app.log, 'info')
+
+    await book()
+
+    expect(info).toHaveBeenCalledWith(expect.stringContaining('подтверждение'))
+
+    info.mockRestore()
+  })
+})
+
 describe('напоминания (ADR-0026)', () => {
   it('ленивая проверка шлёт напоминание один раз', async () => {
     const slot = (await freeSlots()).find((item) => item.available)

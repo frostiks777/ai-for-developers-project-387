@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { appOrigin, isEmailEnabled, sendEmail } from './email'
+import { appOrigin, emailConfigIssue, isEmailEnabled, sendEmail } from './email'
 import { env } from './env'
 
 type FetchCall = [string, { method: string; headers: Record<string, string>; body: string }]
@@ -90,6 +90,18 @@ describe('email через Brevo HTTP API', () => {
     expect(result.ok).toBe(false)
   })
 
+  it('ошибка провайдера содержит код и текст ответа Brevo', async () => {
+    fetchMock.mockResolvedValueOnce(
+      json({ code: 'invalid_parameter', message: 'Sender not found' }, 400),
+    )
+
+    const result = await sendEmail(message)
+
+    expect(result.ok).toBe(false)
+    expect(result).toMatchObject({ error: expect.stringContaining('400') })
+    expect(result).toMatchObject({ error: expect.stringContaining('Sender not found') })
+  })
+
   it('сетевой сбой не бросает исключение', async () => {
     fetchMock.mockRejectedValueOnce(new Error('network'))
 
@@ -110,5 +122,48 @@ describe('appOrigin', () => {
 
     env.RENDER_EXTERNAL_URL = undefined
     expect(appOrigin()).toBe(`http://localhost:${env.PORT}`)
+  })
+
+  it('срезает хвостовой слэш, чтобы ссылки в письмах не содержали //', () => {
+    env.APP_ORIGIN = 'https://app.example.com/'
+    env.RENDER_EXTERNAL_URL = 'https://render.example.com//'
+
+    expect(appOrigin()).toBe('https://app.example.com')
+
+    env.APP_ORIGIN = undefined
+    expect(appOrigin()).toBe('https://render.example.com')
+  })
+})
+
+// Регрессия #43: EMAIL_FROM содержал URL репозитория вместо адреса, Brevo
+// отвечал 400, а ошибка проглатывалась — письма просто не приходили.
+describe('диагностика конфигурации', () => {
+  it('выключенная отправка без ключа — не проблема конфигурации, а режим no-op', () => {
+    env.EMAIL_API_KEY = undefined
+    env.EMAIL_FROM = 'Календарь звонков <sender@example.com>'
+
+    expect(emailConfigIssue()).toContain('EMAIL_API_KEY')
+  })
+
+  it('сообщает, что не задан EMAIL_FROM', () => {
+    env.EMAIL_API_KEY = 'test-key'
+    env.EMAIL_FROM = undefined
+
+    expect(emailConfigIssue()).toBe('не задан EMAIL_FROM')
+  })
+
+  it('видит EMAIL_FROM без email (например, URL вместо адреса)', () => {
+    env.EMAIL_API_KEY = 'test-key'
+    env.EMAIL_FROM = 'Календарь звонков <https://github.com/frostiks777/example>'
+
+    expect(emailConfigIssue()).toContain('EMAIL_FROM')
+    expect(emailConfigIssue()).toContain('email')
+  })
+
+  it('корректная конфигурация — проблем нет', () => {
+    env.EMAIL_API_KEY = 'test-key'
+    env.EMAIL_FROM = 'Календарь звонков <sender@example.com>'
+
+expect(emailConfigIssue()).toBeNull()
   })
 })

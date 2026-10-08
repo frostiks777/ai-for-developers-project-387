@@ -18,9 +18,14 @@ export type SendEmailResult = { ok: true; skipped?: boolean } | { ok: false; err
 
 export const isEmailEnabled = (): boolean => Boolean(env.EMAIL_API_KEY)
 
-// Базовый origin для абсолютных ссылок в письмах.
+// Базовый origin для абсолютных ссылок в письмах. Хвостовой слэш срезается,
+// иначе ссылки в письмах собираются с «//» (регрессия #43).
+const normalizeOrigin = (origin: string): string => origin.replace(/\/+$/, '')
+
 export const appOrigin = (): string =>
-  env.APP_ORIGIN ?? env.RENDER_EXTERNAL_URL ?? `http://localhost:${env.PORT}`
+  normalizeOrigin(
+    env.APP_ORIGIN ?? env.RENDER_EXTERNAL_URL ?? `http://localhost:${env.PORT}`,
+  )
 
 // "Имя <email@example.com>" → { name, email }; простая строка — только email.
 const parseSender = (from: string): { name?: string; email: string } => {
@@ -31,6 +36,47 @@ const parseSender = (from: string): { name?: string; email: string } => {
   }
 
   return { email: from.trim() }
+}
+
+// Текст ошибки из тела ответа Brevo: без него в логах было видно только
+// «Brevo API 400» — и причину приходилось искать вручную (#43).
+const providerErrorDetail = async (response: Response): Promise<string> => {
+  const fallback = `Brevo API ${response.status}`
+
+  try {
+    const body: unknown = await response.json()
+
+    if (typeof body !== 'object' || body === null) {
+      return fallback
+    }
+
+    const { code, message } = body as { code?: unknown; message?: unknown }
+    const parts = [code, message].filter(
+      (value): value is string => typeof value === 'string' && value.length > 0,
+    )
+
+    return parts.length > 0 ? `${fallback}: ${parts.join(' — ').slice(0, 200)}` : fallback
+  } catch {
+    return fallback
+  }
+}
+
+// Причина, по которой отправка не сработает. `null` — конфигурация пригодна.
+// Возвращается строкой, чтобы вызывающий код залогировал её одним предупреждением.
+export const emailConfigIssue = (): string | null => {
+  if (!isEmailEnabled()) {
+    return 'не задан EMAIL_API_KEY — отправка выключена (no-op, ADR-0026)'
+  }
+
+  if (!env.EMAIL_FROM) {
+    return 'не задан EMAIL_FROM'
+  }
+
+  if (!parseSender(env.EMAIL_FROM).email.includes('@')) {
+    return `EMAIL_FROM не содержит email-адрес отправителя: «${env.EMAIL_FROM}» — Brevo отклонит такое письмо (400 invalid sender)`
+  }
+
+  return null
 }
 
 // Ошибка отправки никогда не бросается наружу: письмо не должно ломать бронь.
@@ -63,7 +109,7 @@ export const sendEmail = async (message: EmailMessage): Promise<SendEmailResult>
     })
 
     if (!response.ok) {
-      return { ok: false, error: `Brevo API ${response.status}` }
+      return { ok: false, error: await providerErrorDetail(response) }
     }
 
     return { ok: true }

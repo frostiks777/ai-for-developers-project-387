@@ -20,11 +20,12 @@ import {
   findSlotByStartAt,
   rescheduleBookingV1,
 } from './bookings-v1'
-import { isEmailEnabled } from './email'
+import { emailConfigIssue, isEmailEnabled } from './email'
 import {
   notifyBookingCancelled,
   notifyBookingConfirmed,
   notifyBookingRescheduled,
+  setEmailLogger,
 } from './notifications'
 import { scheduleLazyReminderCheck, sendDueReminders } from './reminders'
 import { loadAvailabilitySettings, saveAvailabilitySettings } from './availability-settings'
@@ -122,6 +123,8 @@ export async function buildApp(): Promise<FastifyInstance> {
     trustProxy: true,
   })
 
+  setEmailLogger(app.log)
+
   // Лимиты задаются на конкретных маршрутах (global: false), кроме общего
   // предохранителя, который нужен на всех путях, включая несуществующие.
   await app.register(rateLimit, {
@@ -206,6 +209,15 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   if (env.NODE_ENV === 'production' && !isEmailEnabled()) {
     app.log.warn('Email-уведомления выключены: не задан EMAIL_API_KEY (ADR-0026).')
+  }
+
+  // Непригодная конфигурация отправки — тоже повод сказать об этом на старте:
+  // раньше письма молча уходили «в никуда» (Brevo отвечал 400, ошибка гасилась)
+  // и в логах не оставалось следов (#43).
+  const emailIssue = emailConfigIssue()
+
+  if (env.NODE_ENV === 'production' && emailIssue) {
+    app.log.warn(`Email-уведомления не будут отправляться: ${emailIssue} (ADR-0026).`)
   }
 
   // Слоты хоста в будущем с признаком занятости, отсортированные по startAt.

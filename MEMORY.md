@@ -2,6 +2,8 @@
 
 ## ▶ Продолжить: остаток курса (Шаг 4 🟡, Шаг 6 ❌) и открытые issues (2026-10-08)
 
+> **Сессия 2026-10-08 — email-уведомления [#43](https://github.com/frostiks777/ai-for-developers-project-387/issues/43).** Письма не приходили ни гостю, ни организатору. Причина найдена экспериментально (A/B-тест через Brevo API): **`EMAIL_FROM` содержал URL репозитория вместо email** (`<https://github.com/frostiks777/ai-for-developers-project-386>`) — Brevo отвечал `400`, а `safely()` в `server/notifications.ts` глотал ошибку, поэтому в логах не было следов. Второй кандидат (неверифицированный `sender@…onrender.com` → `201`, но без доставки) и третий (DMARC для `gmail.com`) проверены и сняты: Gmail письма принимает. Фикс: локальный `.env` исправлен на `Календарь звонков <andrey.petrushin90@gmail.com>`, доставка подтверждена (письмо в «Входящих»). В коде: `emailConfigIssue()` + предупреждение на старте, `deliver()` логирует результат каждой отправки (адреса в лог не пишутся), текст ошибки Brevo в логе, `appOrigin()` срезает хвостовой слэш. Проверки: lint ✅, typecheck ✅, тесты 353/353 ✅. **Не сделано человеком:** задать `EMAIL_FROM` в Render Environment для `calendar-slots-387` и **сменить API-ключ Brevo** (он попал в вывод диагностики в чат).
+
 Хвосты Шага 3 закрыты ([#22](https://github.com/frostiks777/ai-for-developers-project-387/issues/22), issue
 [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3) закрыт). Единственный **не начатый**
 шаг курса по требованиям [`docs/course-github-agent.md`](docs/course-github-agent.md) — **Шаг 5**.
