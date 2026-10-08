@@ -62,3 +62,4 @@
 | [0027](0027-slot-grid-step-independent-of-buffers.md) | Шаг сетки слотов не зависит от буферов; буферы — фильтр занятости | Accepted | 2026-09-29 |
 | [0028](0028-dashboard-access-without-login.md) | Доступ к панели организатора без логина | Accepted | 2026-09-29 |
 | [0029](0029-audit-fastify-static-upgrade-deferred.md) | Аудит зависимостей и апгрейд `@fastify/static` 8.3.0 → 10.1.5 | Accepted | 2026-09-29 |
+| [0030](0030-guest-sees-only-availability-grid.md) | Гость видит только сетку доступности; встречи вне сетки скрыты, но блокируют окна | Accepted | 2026-10-06 |

@@ -1,11 +1,11 @@
 // @vitest-environment node
+import { eq } from 'drizzle-orm'
 import type { FastifyInstance } from 'fastify'
 
 import type { AvailabilityRules } from './availability'
 import { buildApp } from './app'
 import { db } from './db'
 import { bookings, slots } from './db/schema'
-import { getDefaultHostId } from './test-helpers'
 import type { Booking, BookingWithSlot, CreatedBooking, TimeSlot } from './types'
 
 let app: FastifyInstance
@@ -24,17 +24,18 @@ afterEach(async () => {
   await db.delete(bookings)
 })
 
-async function createFutureSlot(offsetHours = 3) {
-  return (
-    await db
-      .insert(slots)
-      .values({
-        hostId: await getDefaultHostId(),
-        startAt: new Date(Date.now() + offsetHours * 60 * 60 * 1000).toISOString(),
-        durationMin: 30,
-      })
-      .returning()
-  )[0]
+// Гость видит только сетку настроек доступности, поэтому берём существующий
+// свободный слот из неё: слоты вне сетки в выдаче отсутствуют
+async function createFutureSlot(offsetIndex = 0) {
+  const all = (await app.inject({ method: 'GET', url: '/api/slots' })).json<TimeSlot[]>()
+  const free = all.filter((slot) => !slot.isBooked)
+  const slot = free[offsetIndex]
+
+  if (!slot) {
+    throw new Error('В тестовой БД не хватило свободных слотов сетки')
+  }
+
+  return (await db.select().from(slots).where(eq(slots.id, slot.id)))[0]
 }
 
 describe('GET /api/bookings + DELETE /api/bookings/:id', () => {
@@ -167,8 +168,8 @@ describe('перенос брони по токену', () => {
   })
 
   it('переносит бронь на другой слот и освобождает старый', async () => {
-    const firstSlot = await createFutureSlot(3)
-    const secondSlot = await createFutureSlot(5)
+    const firstSlot = await createFutureSlot(0)
+    const secondSlot = await createFutureSlot(1)
 
     const created = await app.inject({
       method: 'POST',
@@ -192,8 +193,8 @@ describe('перенос брони по токену', () => {
   })
 
   it('отвечает 409, если целевой слот уже занят', async () => {
-    const firstSlot = await createFutureSlot(3)
-    const takenSlot = await createFutureSlot(5)
+    const firstSlot = await createFutureSlot(0)
+    const takenSlot = await createFutureSlot(1)
 
     await app.inject({
       method: 'POST',

@@ -7,7 +7,7 @@ import { loadAvailabilitySettings } from './availability-settings'
 import { db } from './db'
 import { bookings, eventTypes, slots } from './db/schema'
 import { getDefaultHostId } from './test-helpers'
-import type { TimeSlot } from './types'
+import type { BookingWithSlot, TimeSlot } from './types'
 
 let app: FastifyInstance
 
@@ -88,7 +88,7 @@ async function resaveSettings(): Promise<void> {
 }
 
 describe('Отменённая бронь не закрепляет слот (#97)', () => {
-  it('слот вне сетки с отменённой бронью исчезает из календаря после пересохранения', async () => {
+  it('слот вне сетки с отменённой бронью удаляется из таблицы при пересохранении', async () => {
     const hostId = await getDefaultHostId()
     const startAt = await freeOffGridStart()
 
@@ -99,10 +99,15 @@ describe('Отменённая бронь не закрепляет слот (#9
 
     await addBooking(hostId, slot.id, startAt, 'cancelled')
 
-    // До пересохранения слот висит в таблице и отдаётся гостю как свободный.
-    const before = await app.inject({ method: 'GET', url: '/api/slots' })
+    // До пересохранения слот ещё висит в таблице, но гостю уже не виден:
+    // вне сетки он не выдаётся в любом случае.
+    const before = await db.select({ id: slots.id }).from(slots).where(eq(slots.startAt, startAt))
 
-    expect(before.json<TimeSlot[]>().map((s) => s.startAt)).toContain(startAt)
+    expect(before).toHaveLength(1)
+
+    const guestBefore = await app.inject({ method: 'GET', url: '/api/slots' })
+
+    expect(guestBefore.json<TimeSlot[]>().map((s) => s.startAt)).not.toContain(startAt)
 
     await resaveSettings()
 
@@ -138,6 +143,47 @@ describe('Отменённая бронь не закрепляет слот (#9
     const rows = await db.select({ id: slots.id }).from(slots).where(eq(slots.startAt, startAt))
 
     expect(rows).toHaveLength(1)
+  })
+})
+
+describe('Историческая встреча вне сетки не видна гостю', () => {
+  it('скрывает слот вне сетки, блокирует пересекающееся окно и остаётся в панели организатора', async () => {
+    const hostId = await getDefaultHostId()
+    const gridSlots = (await app.inject({ method: 'GET', url: '/api/slots' })).json<TimeSlot[]>()
+    const gridSlot = gridSlots.find((slot) => !slot.isBooked)
+
+    expect(gridSlot).toBeDefined()
+
+    // Встреча, забронированная до фикса сетки: старт на 10 минут позже
+    // получасового шага, минуты :10/:40 (ADR-0027).
+    const offGridStart = new Date(new Date(gridSlot!.startAt).getTime() + 10 * 60_000).toISOString()
+
+    const [offGridSlot] = await db
+      .insert(slots)
+      .values({ hostId, startAt: offGridStart, durationMin: 30 })
+      .returning()
+
+    await addBooking(hostId, offGridSlot.id, offGridStart, 'confirmed')
+
+    const guest = (await app.inject({ method: 'GET', url: '/api/slots' })).json<TimeSlot[]>()
+    const guestStarts = guest.map((slot) => slot.startAt)
+
+    expect(guestStarts).not.toContain(offGridStart)
+    // Пересекающееся получасовое окно занято исторической встречей
+    expect(guestStarts).not.toContain(gridSlot!.startAt)
+    expect(guest.every((slot) => new Date(slot.startAt).getUTCMinutes() % 30 === 0)).toBe(true)
+
+    const v1 = (
+      await app.inject({ method: 'GET', url: '/api/v1/hosts/default/slots' })
+    ).json<{ slots: { startAt: string }[] }>()
+
+    expect(v1.slots.map((slot) => slot.startAt)).not.toContain(offGridStart)
+
+    const owner = (await app.inject({ method: 'GET', url: '/api/bookings' })).json<
+      BookingWithSlot[]
+    >()
+
+    expect(owner.some((booking) => booking.startAt === offGridStart)).toBe(true)
   })
 })
 

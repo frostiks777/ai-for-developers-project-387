@@ -11,8 +11,9 @@ interface AppHeaderProps {
   tabs?: { to: string; label: string; active: boolean }[]
 }
 
-// Панель организатора закрыта серверным Basic-auth. Переход в неё должен быть
-// полной навигацией (обычный <a>), иначе SPA-роутинг обойдёт запрос пароля.
+// Панель организатора открыта без логина (ADR-0028), но на маршруты панели
+// (/dashboard, /admin/*) переходим полной навигацией — обычным <a>: страница
+// панели всегда грузится свежей с сервера, без клиентских кэшей SPA.
 const isAdminRoute = (to: string) =>
   to === '/dashboard' || to === '/admin' || to.startsWith('/admin/')
 

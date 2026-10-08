@@ -28,7 +28,11 @@ import {
 } from './notifications'
 import { scheduleLazyReminderCheck, sendDueReminders } from './reminders'
 import { loadAvailabilitySettings, saveAvailabilitySettings } from './availability-settings'
-import { conflictsWithBuffers, defaultAvailabilityRules } from './availability'
+import {
+  conflictsWithBuffers,
+  defaultAvailabilityRules,
+  generateSlotStartsFromRanges,
+} from './availability'
 import {
   createEventType,
   deleteEventType,
@@ -145,13 +149,13 @@ export async function buildApp(): Promise<FastifyInstance> {
   // Окно записи хоста: [now + minNotice, now + horizonDays]. Границы задаются
   // здесь, а не только материализацией слотов, иначе горизонт держится лишь
   // тем, что слоты заранее созданы ровно на него (#97).
-  const bookingWindow = async (hostId: string) => {
+  const bookingWindow = async (hostId: string, now: Date) => {
     const { minNoticeMin, horizonDays } = await loadAvailabilityRules(hostId)
-    const now = Date.now()
+    const from = now.getTime() + minNoticeMin * 60 * 1000
 
     return {
-      from: new Date(now + minNoticeMin * 60 * 1000).toISOString(),
-      to: new Date(now + horizonDays * 24 * 60 * 60 * 1000).toISOString(),
+      from: new Date(from).toISOString(),
+      to: new Date(now.getTime() + horizonDays * 24 * 60 * 60 * 1000).toISOString(),
     }
   }
 
@@ -202,10 +206,18 @@ export async function buildApp(): Promise<FastifyInstance> {
   // Слоты хоста в будущем с признаком занятости, отсортированные по startAt.
   // Слоты, пересекающиеся с ручными блокировками или с буферами вокруг
   // подтверждённых встреч, не выдаются (#89).
-  const selectFutureSlots = async (hostId: string): Promise<TimeSlot[]> => {
+  // Гостю отдаётся только сетка, заданная текущими настройками доступности:
+  // слоты, оставшиеся от старых правил (ADR-0027), отдельными элементами
+  // календаря не показываются, даже если закреплены подтверждённой встречей.
+  // Такая встреча остаётся в панели организатора, а её интервал входит в
+  // busyIntervals и блокирует пересекающиеся получасовые окна.
+  const selectFutureSlots = async (hostId: string, timeZone: string): Promise<TimeSlot[]> => {
+    const now = new Date()
     const blocks = await listBlockIntervals(hostId)
     const busy = await busyIntervals(hostId)
-    const window = await bookingWindow(hostId)
+    const window = await bookingWindow(hostId, now)
+    const settings = await loadAvailabilitySettings(hostId, timeZone)
+    const gridStarts = new Set(generateSlotStartsFromRanges(now, settings))
 
     const rows = await db
       .select({
@@ -226,6 +238,7 @@ export async function buildApp(): Promise<FastifyInstance> {
       .orderBy(slots.startAt)
 
     return rows
+      .filter((row) => gridStarts.has(row.startAt))
       .map((row) => ({
         id: row.id,
         startAt: row.startAt,
@@ -261,7 +274,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   app.get('/api/slots', async (): Promise<TimeSlot[]> => {
     const host = await defaultHost()
 
-    return host ? selectFutureSlots(host.id) : []
+    return host ? selectFutureSlots(host.id, host.timezone) : []
   })
 
   // Список броней дефолтного хоста с данными слота (панель организатора), по времени начала
@@ -536,7 +549,8 @@ export async function buildApp(): Promise<FastifyInstance> {
     timeZone: host.timezone,
   })
 
-  // Список хостов (админ-маршрут под Basic-auth)
+  // Список хостов: публичное чтение — по нему гость резолвит активного
+  // организатора (ADR-0021), авторизации в проекте нет (ADR-0028)
   app.get('/api/v1/hosts', async () => {
     const rows = await db.select().from(hosts).orderBy(hosts.createdAt)
 
@@ -657,7 +671,7 @@ export async function buildApp(): Promise<FastifyInstance> {
       durationMin = eventType.durationMin
     }
 
-    const slots = (await selectFutureSlots(host.id))
+    const slots = (await selectFutureSlots(host.id, host.timezone))
       .filter((slot) => !date || dateKeyInZone(slot.startAt, timeZone) === date)
       .map((slot) => ({
         id: slot.id,
@@ -791,7 +805,8 @@ export async function buildApp(): Promise<FastifyInstance> {
   })
 
   // ── API v1: брони ────────────────────────────────────────────────────
-  // Список броней закрыт Basic-auth (ADR-0022, см. requiresAdminAuth)
+  // Список броней открыт: гейт панели снят (ADR-0028), п. 1 ADR-0022 заменён.
+  // Служит панели организатора; в гостевом календаре не используется
   app.get('/api/v1/hosts/:slug/bookings', async (request, reply) => {
     const { slug } = request.params as { slug: string }
     const host = await findHost(slug)
@@ -1095,7 +1110,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   })
 
   // /events перенесена в панель (ADR-0022). Редирект серверный, а не <Navigate>:
-  // вход в панель возможен только полной навигацией, иначе браузер не спросит пароль.
+  // панель открывается полной навигацией, и клиентский редирект её бы не загрузил.
   app.get('/events', (_request, reply) => reply.redirect('/admin/bookings', 302))
 
   // В продакшене Fastify отдаёт собранный Vite-фронтенд из dist/
