@@ -72,6 +72,12 @@ const payload = (slot: Slot, captchaToken?: string) => ({
 })
 
 describe('CAPTCHA выключена по умолчанию (dev/test/e2e)', () => {
+  it('GET health сообщает captchaEnabled=false', async () => {
+    const response = await app.inject({ method: 'GET', url: '/health' })
+
+    expect(response.json()).toEqual({ status: 'ok', captchaEnabled: false })
+  })
+
   it('GET settings сообщает required=false и siteKey=null', async () => {
     const response = await app.inject({ method: 'GET', url: '/api/v1/hosts/default/settings' })
 
@@ -97,6 +103,14 @@ describe('CAPTCHA выключена по умолчанию (dev/test/e2e)', ()
 })
 
 describe('CAPTCHA включена (задан TURNSTILE_SECRET_KEY)', () => {
+  it('GET health сообщает captchaEnabled=true', async () => {
+    enableCaptcha()
+
+    const response = await app.inject({ method: 'GET', url: '/health' })
+
+    expect(response.json()).toEqual({ status: 'ok', captchaEnabled: true })
+  })
+
   it('GET settings отдаёт site key', async () => {
     enableCaptcha()
 

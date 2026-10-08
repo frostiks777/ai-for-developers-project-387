@@ -188,14 +188,19 @@ export async function buildApp(): Promise<FastifyInstance> {
   // MVP: единственный хост (дефолтный организатор)
   const defaultHost = async () => (await db.select().from(hosts).limit(1))[0]
 
-  app.get('/health', () => ({ status: 'ok' }))
+  // captchaEnabled в ответе — машиночитаемый сигнал «защита включена». Об этом
+  // поле, а не о логе, может узнать мониторинг: предупреждение при старте
+  // теряется в выводе деплоя (#38). Значение читается на каждый запрос,
+  // поэтому тест может включить капту перестановкой env (см. captcha.test.ts).
+  app.get('/health', () => ({ status: 'ok', captchaEnabled: isCaptchaEnabled() }))
 
   // CAPTCHA выключена, пока не задан TURNSTILE_SECRET_KEY. В продакшене это
   // почти наверняка ошибка конфигурации — предупреждаем громко, но не падаем
-  // (тем же приёмом, что и для ADMIN_PASSWORD в ADR-0017).
+  // (тем же приёмом, что и для ADMIN_PASSWORD в ADR-0017; жёсткий падёж
+  // отклонён в ADR-0025, решение оттуда не переигрываем).
   if (env.NODE_ENV === 'production' && !isCaptchaEnabled()) {
     app.log.warn(
-      'CAPTCHA выключена: не задан TURNSTILE_SECRET_KEY. Публичная запись брони не защищена от ботов (ADR-0025).',
+      'CAPTCHA выключена: не задан TURNSTILE_SECRET_KEY. Публичная запись брони не защищена от ботов (ADR-0025). Проверьте GET /health → captchaEnabled: false.',
     )
   }
 

@@ -12,12 +12,18 @@ npm run server:dev
 
 ## Эндпоинты
 
-### `GET /health` — проверка живости
+### `GET /health` — проверка живости и состояние защиты
 
 ```bash
 curl http://localhost:3000/health
-# {"status":"ok"}
+# {"status":"ok","captchaEnabled":true}
 ```
+
+`captchaEnabled` — машиночитаемый признак того, что CAPTCHA включена (`TURNSTILE_SECRET_KEY`
+задан). В production при `captchaEnabled: false` публичная запись не защищена от ботов: приложение
+печатает предупреждение при старте, но не падает — жёсткий падёж отклонён в
+[ADR-0025](../docs/adr/0025-captcha-and-rate-limit.md). Скрипт проверки стенда может смотреть это
+поле, чтобы заметить пропавший ключ без разбора логов деплоя.
 
 ### `GET /api/slots` — список слотов (отсортирован по `startAt`)
 

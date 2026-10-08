@@ -182,7 +182,7 @@ npm run start        # http://127.0.0.1:3000 (API + статика из dist/)
 
 | Метод | Путь | Описание |
 |---|---|---|
-| `GET` | `/health` | проверка живости |
+| `GET` | `/health` | проверка живости; `captchaEnabled` — включена ли защита от ботов |
 | `GET` | `/api/v1/hosts` | список организаторов (публичное чтение) |
 | `GET` | `/api/v1/hosts/:slug/settings` | настройки хоста (`slug`, `name`, `timeZone`; `404` — неизвестный хост) |
 | `GET` | `/api/v1/hosts/:slug/slots` | слоты хоста; `?date=YYYY-MM-DD`, `?eventTypeId=` |

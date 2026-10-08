@@ -60,11 +60,13 @@ async function createFutureSlot() {
 }
 
 describe('GET /health', () => {
-  it('отвечает 200 со статусом ok', async () => {
+  it('отвечает 200 со статусом ok и признаком включения капчи', async () => {
     const response = await app.inject({ method: 'GET', url: '/health' })
 
     expect(response.statusCode).toBe(200)
-    expect(response.json()).toEqual({ status: 'ok' })
+    // В тестах TURNSTILE_SECRET_KEY не задан: защита выключена, и это видно
+    // машиночитаемо, а не только по логу на старте (#38).
+    expect(response.json()).toEqual({ status: 'ok', captchaEnabled: false })
   })
 })
 
