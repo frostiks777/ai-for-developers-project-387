@@ -1,11 +1,11 @@
 {
   "url": "https://ai-for-developers-project-387-pm97.onrender.com",
-  "at": "2026-10-08T13:39:04.625Z",
+  "at": "2026-10-10T12:40:34.786Z",
   "scores": {
-    "performance": 82,
+    "performance": 83,
     "accessibility": 100,
     "best-practices": 100,
-    "seo": 82
+    "seo": 100
   },
   "thresholds": {
     "performance": 70,
@@ -19,8 +19,15 @@
       "id": "mainthread-work-breakdown",
       "title": "Minimize main-thread work",
       "score": 0,
-      "displayValue": "2.1 s",
+      "displayValue": "2.3 s",
       "description": "Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this. [Learn how to minimize main-thread work](https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/)"
+    },
+    {
+      "id": "largest-contentful-paint-element",
+      "title": "Largest Contentful Paint element",
+      "score": 0,
+      "displayValue": "2,620 ms",
+      "description": "This is the largest contentful element painted within the viewport. [Learn more about the Largest Contentful Paint element](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)"
     },
     {
       "id": "unused-javascript",
@@ -28,20 +35,6 @@
       "score": 0,
       "displayValue": "Est savings of 52 KiB",
       "description": "Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. [Learn how to reduce unused JavaScript](https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/)."
-    },
-    {
-      "id": "meta-description",
-      "title": "Document does not have a meta description",
-      "score": 0,
-      "displayValue": null,
-      "description": "Meta descriptions may be included in search results to concisely summarize page content. [Learn more about the meta description](https://developer.chrome.com/docs/lighthouse/seo/meta-description/)."
-    },
-    {
-      "id": "robots-txt",
-      "title": "robots.txt is not valid",
-      "score": 0,
-      "displayValue": "29 errors found",
-      "description": "If your robots.txt file is malformed, crawlers may not be able to understand how you want your website to be crawled or indexed. [Learn more about robots.txt](https://developer.chrome.com/docs/lighthouse/seo/invalid-robots-txt/)."
     },
     {
       "id": "network-dependency-tree-insight",
@@ -53,16 +46,9 @@
     {
       "id": "max-potential-fid",
       "title": "Max Potential First Input Delay",
-      "score": 0.03,
-      "displayValue": "620 ms",
+      "score": 0.13,
+      "displayValue": "440 ms",
       "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task. [Learn more about the Maximum Potential First Input Delay metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/)."
-    },
-    {
-      "id": "total-blocking-time",
-      "title": "Total Blocking Time",
-      "score": 0.5,
-      "displayValue": "600 ms",
-      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more about the Total Blocking Time metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/)."
     },
     {
       "id": "render-blocking-insight",
@@ -74,9 +60,30 @@
     {
       "id": "first-contentful-paint",
       "title": "First Contentful Paint",
-      "score": 0.84,
-      "displayValue": "2.0 s",
+      "score": 0.68,
+      "displayValue": "2.5 s",
       "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more about the First Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint/)."
+    },
+    {
+      "id": "speed-index",
+      "title": "Speed Index",
+      "score": 0.7,
+      "displayValue": "4.7 s",
+      "description": "Speed Index shows how quickly the contents of a page are visibly populated. [Learn more about the Speed Index metric](https://developer.chrome.com/docs/lighthouse/performance/speed-index/)."
+    },
+    {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.78,
+      "displayValue": "310 ms",
+      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more about the Total Blocking Time metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/)."
+    },
+    {
+      "id": "largest-contentful-paint",
+      "title": "Largest Contentful Paint",
+      "score": 0.87,
+      "displayValue": "2.6 s",
+      "description": "Largest Contentful Paint marks the time at which the largest text or image is painted. [Learn more about the Largest Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/)"
     }
   ]
 }
