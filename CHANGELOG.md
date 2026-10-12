@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.10](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.9...v1.1.10) (2026-10-12)
+
+
+### Performance Improvements
+
+* **frontend:** preload шрифтов и lazy-маршруты вместо общего бандла ([#50](https://github.com/frostiks777/ai-for-developers-project-387/issues/50)) ([#53](https://github.com/frostiks777/ai-for-developers-project-387/issues/53)) ([fa69a0f](https://github.com/frostiks777/ai-for-developers-project-387/commit/fa69a0fe041f667bf5ff965a0a741460e10d8a57))
+
 ## [1.1.9](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.8...v1.1.9) (2026-10-08)
 
 
