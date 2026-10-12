@@ -10,6 +10,55 @@
       name="description"
       content="Онлайн-запись на звонок с организатором: выберите свободное время в календаре, оставьте имя и email — встреча подтвердится сразу, ссылка на напоминание придёт на почту."
     />
+    <!--
+      Критические шрифты: preload убирает ожидание CSS перед запросом woff2
+      (Lighthouse: цепочка HTML → CSS → шрифты, issue #50). Имена стабильные —
+      assetFileNames в vite.config.ts не хэширует .woff2. Набор: подмножества
+      latin + cyrillic, начертания, реально встречающиеся на первом экране.
+      Полный список и проверка ссылок — src/fonts-preload.test.ts.
+    -->
+    <link
+      rel="preload"
+      href="/assets/fonts/golos-text-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/golos-text-cyrillic-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/golos-text-latin-600-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/golos-text-cyrillic-600-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/lora-latin-600-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/lora-cyrillic-600-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <script>
       try {
         var t = localStorage.getItem('call-calendar-theme')

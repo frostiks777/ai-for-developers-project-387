@@ -18,6 +18,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
+        // Шрифты получают стабильные имена без хэша: preload-ссылки в index.html
+        // пишутся вручную и должны пережить пересборку (Lighthouse: критическая
+        // цепочка HTML → CSS → woff2, issue #50). Остальные ассеты хэшируются.
+        assetFileNames: (asset) =>
+          asset.names?.some((name) => name.endsWith('.woff2'))
+            ? 'assets/fonts/[name][extname]'
+            : 'assets/[name]-[hash][extname]',
         manualChunks(id) {
           if (!id.includes('node_modules')) {
             return

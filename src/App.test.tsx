@@ -105,4 +105,13 @@ describe('App', () => {
     const dateKey = toDateKeyInZone(new Date(slot.startAt), defaultTimeZone)
     expect(await screen.findByRole('button', { name: dateKey })).toBeInTheDocument()
   })
+
+  // Страницы, кроме лендинга, грузятся через React.lazy: если Suspense или
+  // импорт сломаются, маршрут не отрисуется (issue #50)
+  it('лениво загруженный маршрут /my рендерится', async () => {
+    vi.stubGlobal('fetch', mockFetch())
+    renderApp('/my')
+
+    expect(await screen.findByRole('heading', { name: /Мои встречи/i })).toBeInTheDocument()
+  })
 })
