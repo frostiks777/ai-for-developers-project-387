@@ -161,6 +161,12 @@
       - `AGENTS.md`: добавлен `opencode/big-pickle` в список бесплатных ID.
       - `opencode.jsonc`, архивный `ai-tuning-plan.md`: без изменений (sync #1 уже закрыл `mimo-v2.5-free → v2.6`).
       - Сводная статистика: **133 модели всего, 17 бесплатных, 116 платных**.
+    - **Sync #3 (2026-10-12, [#52](https://github.com/frostiks777/ai-for-developers-project-387/issues/52)):** пересборка каталога через `opencode models <provider>` (CLI 1.19.0) + `models.dev/api.json`. Каталог вырос до **412 моделей** (31 opencode + 379 openrouter + 2 deepseek). Обновлено:
+      - `docs/model-usage.md`: бесплатные opencode — **7** вместо 5, добавлены `space-bunny-free` и `nemotron-3-ultra-free`; добавлены контекст и reasoning-варианты; пересобрана таблица OpenRouter (14 моделей с `:free`, с предупреждением что суффикс не гарантирует нулевую цену); поправлен ключ конфига `"agents"` → `"agent"`.
+      - **`step-5-preview`:** `opencode/step-5-preview-free` есть в `models.dev` (0/0, 1M контекст, effort low/medium/high), но **отсутствует в `opencode models opencode` и падает с `UnknownError`** при прямом прогоне (3 попытки). Недоступна. Вариант `openrouter/stepfun/step-5-preview` — **платная** (1/2.7 USD за 1M), запрещена.
+      - `AGENTS.md`: список бесплатных ID расширен до 7 + правило проверки через `opencode models opencode`.
+      - `opencode.jsonc`: без изменений — дефолт субагентов `opencode/muse-spark-1.3-contributor-free` остаётся актуальным.
+      - **Вывод:** в каталоге `models.dev` бывают анонсы, которых провайдер не отдаёт — перед использованием модели проверять выдачу CLI, а не только каталог.
 15. ✅ **Плагин superpowers — подключён глобально** (2026-10-08). В `~/.config/opencode/opencode.jsonc` добавлен ключ `plugin: ["superpowers@git+https://github.com/obra/superpowers.git"]` (синтаксис opencode 1.18.x — `plugin`, не `plugins`). Проверено: плагин грузится без ошибок, `skill`-лист содержит скиллы superpowers (`brainstorming`, `writing-plans`, `test-driven-development`, `systematic-debugging`, `using-superpowers` и др.). Ранее (2026-09-25) запись ошибочно утверждала, что в `opencode.jsonc` добавлен `plugins`; фактически ключ не был добавлен. Проектные процессные скиллы по-прежнему работают из `.agents/skills/` — при смысловом пересечении приоритет у них.
 16. ✅ Обязательный email ([ADR-0002](docs/adr/0002-zod-api-validation.md)):
     - zod 4: `server/validation.ts` + зеркало `src/lib/validation.ts`

@@ -120,10 +120,13 @@ Hexlet "AI for Developers" course project: **Календарь звонков**
 - Дефолтная модель субагентов задана в `opencode.jsonc` и является бесплатной
 - Если нужно явно указать модель — используйте только бесплатные ID (провайдер `opencode`; полный список и OpenRouter — в [`docs/model-usage.md`](docs/model-usage.md)):
   - `opencode/muse-spark-1.3-contributor-free`
+  - `opencode/space-bunny-free`
   - `opencode/ling-3.0-flash-fin-free`
+  - `opencode/nemotron-3-ultra-free`
   - `opencode/nemotron-3.5-lightning-free`
   - `opencode/mimo-v2.6-flash-free`
   - `opencode/big-pickle`
+- Перед использованием проверяйте, что модель есть в выдаче: `opencode models opencode` (в каталоге есть недоступные анонсы, напр. `step-5-preview-free`)
 - **Запрещено**: `anthropic/*`, `openai/*` и любые другие платные модели для субагентов
 - Подробнее: `docs/model-usage.md`
 

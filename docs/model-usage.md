@@ -11,19 +11,25 @@
 
 ## Бесплатные модели (актуальный срез)
 
-Дефолтный провайдер проекта — **`opencode`** (Hexlet Students / OpenCode). Ниже — все его активные бесплатные модели на момент последней сверки (`tools.opencode.models({ query: "free" })`).
+Дефолтный провайдер проекта — **`opencode`** (Hexlet Students / OpenCode). Ниже — все его активные бесплатные модели.
 
-| ID модели                                  | Название                     | Статус | Variants (reasoning)             |
-|--------------------------------------------|------------------------------|--------|----------------------------------|
-| `opencode/mimo-v2.6-flash-free`            | MiMo V2.6 Flash Free         | active | —                                |
-| `opencode/muse-spark-1.3-contributor-free` | Muse Spark 1.3 Free          | active | minimal, low, medium, high, xhigh |
-| `opencode/ling-3.0-flash-fin-free`         | Ling 3.0 Flash Fin Free      | active | —                                |
-| `opencode/nemotron-3.5-lightning-free`     | Nemotron 3.5 Lightning Free  | active | —                                |
-| `opencode/big-pickle`                      | Big Pickle                   | active | —                                |
+**Срез: 2026-10-12.** Источники: `opencode models opencode` (CLI 1.19.0) — список реально доступных моделей; `https://models.dev/api.json` — цены, контекст, reasoning-варианты.
 
-**Всего в opencode:** 18 моделей, **5 бесплатных**.
+| ID модели                                  | Название                     | Контекст | Variants (reasoning)             |
+|--------------------------------------------|------------------------------|----------|----------------------------------|
+| `opencode/muse-spark-1.3-contributor-free` | Muse Spark 1.3 Free          | 1M       | minimal, low, medium, high, xhigh |
+| `opencode/space-bunny-free`                | Space Bunny Free             | 1M       | low, medium, high, xhigh, max   |
+| `opencode/nemotron-3-ultra-free`           | Nemotron 3 Ultra Free        | 1M       | —                                |
+| `opencode/nemotron-3.5-lightning-free`     | Nemotron 3.5 Lightning Free  | 262k     | —                                |
+| `opencode/ling-3.0-flash-fin-free`         | Ling 3.0 Flash Fin Free      | 262k     | toggle (вкл/выкл reasoning)      |
+| `opencode/mimo-v2.6-flash-free`            | MiMo-V2.6-Flash Free         | 200k     | —                                |
+| `opencode/big-pickle`                      | Big Pickle                   | 200k     | —                                |
 
-Цена: вход и выход — **0 USD** за все бесплатные модели. Кэш read/write — 0 USD. Это относится и к OpenRouter-моделям ниже.
+**Всего в opencode:** 31 модель, **7 бесплатных**.
+
+Цена: вход и выход — **0 USD** за все семь бесплатных моделей (cost = 0/0/0 по `models.dev`).
+
+> Проверять наличие модели перед использованием: `opencode models opencode | Select-String free`. Модель может быть в `models.dev`, но не отдаваться провайдером (см. `step-5-preview-free` ниже).
 
 ### Как указывать variant
 
@@ -37,66 +43,71 @@ opencode/muse-spark-1.3-contributor-free#medium
 
 ### Notes (динамика каталога)
 
-- `opencode/mimo-v2.5-free` был удалён из каталога и заменён на `opencode/mimo-v2.6-flash-free` — обновите все упоминания, если встретите старый ID. История замен зафиксирована в [`MEMORY.md`](../MEMORY.md), раздел «Исправленные ошибки».
-- `opencode/muse-spark-1.3-contributor-free` — единственная модель провайдера `opencode` с настраиваемыми reasoning-уровнями (`minimal`…`xhigh`); удобно для тонкой настройки качества vs скорости.
-- **Не бесплатные** модели провайдера `opencode` (для справки, запрещены для субагентов): `deepseek-v4.1-flash`, `muse-spark-1.3`, `glm-5.3-flash`, `qwen3.8-flash`, `glm-5.3`, `grok-4.6`, `kimi-k3`, `kimi-k2.7-code`, `minimax-m3`, `deepseek-v4-pro`, `grok-build-0.1`, `qwen3.6-plus`, `qwen3.5-plus`.
+- `opencode/mimo-v2.5-free` — удалён из каталога, заменён на `opencode/mimo-v2.6-flash-free` (sync #1).
+- `opencode/muse-spark-1.3-contributor-free` и `opencode/space-bunny-free` — единственные модели провайдера с настраиваемыми reasoning-уровнями через effort; у остальных либо фиксированный reasoning, либо toggle (`ling-3.0-flash-fin-free`).
+- **Не бесплатные** модели провайдера `opencode` (справочно, запрещены для субагентов): `deepseek-v4-flash`, `deepseek-v4-flash-vision-exp`, `deepseek-v4-pro`, `deepseek-v4.1-flash`, `glm-5.1`, `glm-5.2`, `glm-5.3`, `glm-5.3-flash`, `grok-4.5`, `grok-4.6`, `grok-4.7`, `grok-build-0.1`, `kimi-k2.5`, `kimi-k2.6`, `kimi-k2.7-code`, `kimi-k3`, `minimax-m2.5`, `minimax-m2.7`, `minimax-m3`, `muse-spark-1.2`, `muse-spark-1.3`, `qwen3.5-plus`, `qwen3.6-plus`, `qwen3.8-flash`.
+
+### `step-5-preview` — анонсирована, но недоступна
+
+| Модель | Цена (1M токенов) | Статус |
+|--------|-------------------|--------|
+| `opencode/step-5-preview-free` | 0 / 0 | ❌ **недоступна** |
+| `openrouter/stepfun/step-5-preview` | input 1 USD / output 2.7 USD | ❌ платная |
+
+`opencode/step-5-preview-free` присутствует в `models.dev` (контекст 1M, effort `low|medium|high`, вход text/image/video), но:
+
+- её **нет** в выдаче `opencode models opencode`;
+- прямой прогон `opencode run -m opencode/step-5-preview-free "say OK"` падает с `UnknownError: Unexpected server error` (проверено 3 раза, в т.ч. с суффиксом `#medium`).
+
+**Вывод:** не использовать, пока модель не появится в `opencode models opencode` и не пройдёт пробный прогон. Вариант через OpenRouter платный — для субагентов запрещён.
 
 ## Дополнительный бесплатный провайдер: OpenRouter (справочно)
 
-В каталоге помимо `opencode` доступен провайдер **`openrouter`** с бесплатными моделями. По умолчанию проект **не использует** их (дефолт привязан к `opencode` в `opencode.jsonc`), но перечислим их здесь для полноты картины и как запасной вариант. Все модели ниже — **active**, cost = 0.
+В каталоге помимо `opencode` доступен провайдер **`openrouter`** с моделями-роутерами и бесплатным free-tier. По умолчанию проект **не использует** их (дефолт привязан к `opencode` в `opencode.jsonc`) — ниже справочно.
 
-**Всего в openrouter:** 115 моделей, **12 бесплатных**.
+**Всего в openrouter:** 379 моделей, **14 с суффиксом `:free`**.
 
-### Бесплатные модели (универсальные)
+> ⚠️ Суффикс `:free` в каталоге openrouter **не гарантирует нулевую стоимость**: у части моделей в `models.dev` указана ненулевая цена (например `thinkingmachines/inkling` — 1/4.05 USD, `nvidia/nemotron-3-ultra-550b-a55b:free` — 0.6/2.4 USD). Если модель пойдёт в прод-конфиг — проверять цену по факту, а не по суффиксу.
 
-| ID                                                  | Название                   | Variants              |
-|-----------------------------------------------------|----------------------------|-----------------------|
-| `openrouter/inclusionai/ling-3.0-flash-vl:free`     | Ling 3.0 Flash VL          | none, thinking        |
-| `openrouter/nex-agi/nex-n2.5-mini:free`             | Nex-N2.5-Mini              | none, medium, high    |
-| `openrouter/dots-studio/dots-3-note-preview:free`   | Dots3-Note Preview         | none, thinking        |
-| `openrouter/nvidia/nemotron-3.5-lightning:free`     | Nemotron 3.5 Lightning     | none, thinking        |
-| `openrouter/liquid/lfm-2.5-2.6b:free`               | LFM2.5-2.6B                | —                     |
-| `openrouter/poolside/laguna-s-2.1:free`             | Laguna S 2.1               | none, thinking        |
-| `openrouter/cohere/north-mini-code:free`            | North Mini Code            | none, thinking        |
+### Текущие бесплатные (`:free`)
 
-### Бесплатные модели-роутеры (auto-routing к free upstream)
+| ID                                                  | Цена (1M, по models.dev) |
+|-----------------------------------------------------|--------------------------|
+| `openrouter/apodex/apodex-1.1-mini:free`            | н/д                      |
+| `openrouter/cohere/north-mini-code:free`           | н/д                      |
+| `openrouter/dots-studio/dots-3-note-preview:free`  | н/д                      |
+| `openrouter/liquid/lfm-2.5-2.6b:free`              | н/д                      |
+| `openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free` | н/д          |
+| `openrouter/nvidia/nemotron-3.5-content-safety:free` | 0.2 / 0.2               |
+| `openrouter/nvidia/nemotron-3.5-lightning:free`    | 0.07 / 0.2               |
+| `openrouter/nvidia/nemotron-3-super-120b-a12b:free` | 0.08 / 0.45              |
+| `openrouter/poolside/laguna-s-2.1:free`             | 0.09 / 0.18              |
+| `openrouter/poolside/laguna-xs-2.1:free`            | 0.06 / 0.12              |
+| `openrouter/google/gemma-4-26b-a4b-it:free`         | 0.09 / 0.3               |
+| `openrouter/google/gemma-4-31b-it:free`             | 0.09 / 0.34              |
+| `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free` | 0.6 / 2.4                |
+| `openrouter/thinkingmachines/inkling:free`          | 1 / 4.05                 |
+| `openrouter/thinkingmachines/inkling-small:free`    | 0.45 / 1.2               |
 
-Эти модели OpenRouter сами подбирают upstream бесплатную модель; качество и характеристики зависят от роутинга.
+### Ушли из бесплатных / удалены (история)
 
-| ID                                       | Название                | Variants |
-|------------------------------------------|-------------------------|----------|
-| `openrouter/openrouter/free`             | Free Models Router      | —        |
-| `openrouter/openrouter/fusion`           | Fusion                  | —        |
-| `openrouter/openrouter/pareto-code`      | Pareto Code Router      | —        |
-| `openrouter/openrouter/auto`             | Auto Router             | —        |
-| `openrouter/openrouter/bodybuilder`      | Body Builder (beta)     | —        |
-
-### Специализированные бесплатные
-
-| ID                                          | Название                | Variants |
-|---------------------------------------------|-------------------------|----------|
-| `openrouter/google/lyria-3-clip-preview`    | Lyria 3 Clip Preview    | —        |
-
-> Lyria — модель Google для генерации клипов; может быть полезна для медиа-задач, не для кода.
-
-### Удалённые из каталога (история)
-
-- `openrouter/qwen/qwen3.8-27b:free` — заменена платной `Qwen3.8 Max 0902`.
-- `openrouter/poolside/laguna-xs-2.1:free` — больше не бесплатна (теперь `openrouter/poolside/laguna-xs-2.1` платная, 0.06/0.12).
-- `openrouter/z-ai/glm-5.2:free` — провайдер GLM ушёл с free-tier (5.3 уже платная).
-- `openrouter/google/gemma-4-31b-it:free` — заменена платной `Gemma 4 26B A4B IT`.
+- `openrouter/z-ai/glm-5.2:free` — провайдер GLM ушёл с free-tier.
+- `openrouter/qwen/qwen3.8-27b:free` — больше не в каталоге.
+- `openrouter/inclusionai/ling-3.0-flash-vl:free`, `openrouter/nex-agi/nex-n2.5-mini:free` — больше не в каталоге.
+- Роутеры `openrouter/openrouter/free|auto|fusion|pareto-code|bodybuilder` и `openrouter/google/lyria-3-clip-preview` — **больше не входят в бесплатный список** opencode-каталога (sync #2). Использовать, если пойдёт в конфиг, только после проверки цены.
 
 > Если решим переключить дефолт субагентов на OpenRouter или добавить конкретные модели как запасные, **оформить это как ADR** и обновить `opencode.jsonc` + эту таблицу. До тех пор — справочник, а не источник правды для конфига.
 
-### Сводная статистика каталога
+### Сводная статистика каталога (2026-10-12)
 
 ```
-Всего моделей в каталоге: 133 (18 opencode + 115 openrouter)
-Бесплатных: 17 (5 opencode + 12 openrouter)
-Платных: 116 (13 opencode + 103 openrouter)
+Всего моделей в каталоге opencode: 412 (31 opencode + 379 openrouter + 2 deepseek)
+Бесплатных у провайдера opencode: 7 (cost 0/0)
+Суффикс :free у openrouter: 14
 ```
 
-> Срез через `tools.opencode.models({ limit: 50, offset: 0|50|100 })`; total = 133, next = null (полный обход). При повторной сверке цифры могут сдвигаться — каталог живой.
+> Срез через `opencode models <provider>` (CLI 1.19.0) + `models.dev/api.json`. Каталог живой — перед важным запуском перепроверять.
+
 
 ## Как это настроено
 
@@ -106,7 +117,7 @@ opencode/muse-spark-1.3-contributor-free#medium
 
 ```jsonc
 {
-  "agents": {
+  "agent": {
     "explore": {
       "model": "opencode/muse-spark-1.3-contributor-free"
     },
@@ -116,6 +127,8 @@ opencode/muse-spark-1.3-contributor-free#medium
   }
 }
 ```
+
+> Ключ в конфиге — `"agent"` (не `"agents"`), это подтверждено схемой opencode.
 
 Это задаёт **дефолтную** модель для каждого субагента. Если субагент наследует модель от родителя, он тоже получит бесплатную модель.
 
@@ -151,6 +164,7 @@ subagent(agent="explore", prompt="Прочитай docs/architecture.md", model=
 ```
 subagent(agent="general", prompt="...", model="anthropic/claude-sonnet-4-5")  // платная модель
 subagent(agent="explore", prompt="...", model="gpt-4o")                       // платная модель
+subagent(agent="general", prompt="...", model="opencode/step-5-preview-free") // анонсирована, провайдер не отдаёт
 ```
 
 ## Опциональное ужесточение (глобально)
