@@ -1,8 +1,8 @@
 {
   "url": "https://ai-for-developers-project-387-pm97.onrender.com",
-  "at": "2026-10-14T12:01:54.119Z",
+  "at": "2026-10-16T11:32:41.528Z",
   "scores": {
-    "performance": 95,
+    "performance": 76,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
@@ -15,6 +15,20 @@
   },
   "belowThreshold": [],
   "failing": [
+    {
+      "id": "max-potential-fid",
+      "title": "Max Potential First Input Delay",
+      "score": 0,
+      "displayValue": "820 ms",
+      "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task. [Learn more about the Maximum Potential First Input Delay metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/)."
+    },
+    {
+      "id": "mainthread-work-breakdown",
+      "title": "Minimize main-thread work",
+      "score": 0,
+      "displayValue": "2.3 s",
+      "description": "Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this. [Learn how to minimize main-thread work](https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/)"
+    },
     {
       "id": "unused-javascript",
       "title": "Reduce unused JavaScript",
@@ -30,6 +44,13 @@
       "description": "[Avoid chaining critical requests](https://developer.chrome.com/docs/lighthouse/performance/critical-request-chains) by reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load."
     },
     {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.33,
+      "displayValue": "870 ms",
+      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more about the Total Blocking Time metric](https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/)."
+    },
+    {
       "id": "render-blocking-insight",
       "title": "Render blocking requests",
       "score": 0.5,
@@ -39,16 +60,9 @@
     {
       "id": "first-contentful-paint",
       "title": "First Contentful Paint",
-      "score": 0.74,
-      "displayValue": "2.3 s",
+      "score": 0.82,
+      "displayValue": "2.1 s",
       "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more about the First Contentful Paint metric](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint/)."
-    },
-    {
-      "id": "speed-index",
-      "title": "Speed Index",
-      "score": 0.89,
-      "displayValue": "3.4 s",
-      "description": "Speed Index shows how quickly the contents of a page are visibly populated. [Learn more about the Speed Index metric](https://developer.chrome.com/docs/lighthouse/performance/speed-index/)."
     }
   ]
 }
