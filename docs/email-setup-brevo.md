@@ -1,7 +1,9 @@
 # Настройка email-уведомлений: Brevo + Render + cron-job.org
 
-> **Для проекта 387** адреса/секреты относятся к стенду `calendar-slots-387.onrender.com` —
-> см. [`deploy-387.md`](deploy-387.md). Ниже — общая механика (в примерах остался URL 386).
+> **Для проекта 387** адреса/секреты относятся к стенду
+> `ai-for-developers-project-387-uvu8.onrender.com` (имя сервиса в Render — `calendar-slots-387`;
+> это **не** hostname) — см. [`deploy-387.md`](deploy-387.md). Ниже — общая механика; примеры в
+> файле уже переведены на 387.
 
 Пошаговая инструкция для продакшена ([ADR-0026](adr/0026-email-notifications.md), фича [#83](https://github.com/frostiks777/ai-for-developers-project-387/issues/83)).
 Провайдер — **Brevo HTTP API** (free: 300 писем/день, без карты, домен не обязателен). SMTP не
@@ -75,7 +77,7 @@
 | `ORGANIZER_EMAIL` | получатель писем организатору; пусто — не слать | `calendar.slots@gmail.com` |
 | `REMINDER_LEAD_MINUTES` | за сколько минут напоминать | `1440` (24 часа) |
 | `REMINDERS_SECRET` | случайный секрет для внешнего cron (см. ниже) | `a1b2…` |
-| `APP_ORIGIN` | адрес стенда для ссылок в письмах | `https://ai-for-developers-project-387-pm97.onrender.com` |
+| `APP_ORIGIN` | адрес стенда для ссылок в письмах | `https://ai-for-developers-project-387-uvu8.onrender.com` |
 
 3. **Save Changes** — Render перезапустит сервис (это и есть деплой новых настроек).
 
@@ -97,7 +99,7 @@ openssl rand -hex 32
 
 ## Шаг 5. Проверить на живом стенде
 
-**a) Письмо гостю.** Откройте `https://ai-for-developers-project-387-pm97.onrender.com/book/default`, запишитесь на
+**a) Письмо гостю.** Откройте `https://ai-for-developers-project-387-uvu8.onrender.com/book/default`, запишитесь на
 свободный слот, указав **свой реальный email**. Через несколько секунд проверьте почту (и папку
 «Спам»). Если `ORGANIZER_EMAIL` задан — второе письмо придёт организатору о новой брони.
 
@@ -105,10 +107,10 @@ openssl rand -hex 32
 
 ```bash
 # без секрета → 401
-curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders
+curl.exe -i -X POST https://ai-for-developers-project-387-uvu8.onrender.com/api/internal/reminders
 
 # с секретом → 200 {"sent":N}
-curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders \
+curl.exe -i -X POST https://ai-for-developers-project-387-uvu8.onrender.com/api/internal/reminders \
   -H "X-Reminders-Secret: ВАШ_REMINDERS_SECRET"
 ```
 
@@ -128,7 +130,7 @@ curl.exe -i -X POST https://ai-for-developers-project-387-pm97.onrender.com/api/
 1. Зарегистрируйтесь на https://console.cron-job.org/signup и подтвердите email.
 2. **Create cronjob** и заполните:
    - **Title**: `Calendar reminders`;
-   - **URL**: `https://ai-for-developers-project-387-pm97.onrender.com/api/internal/reminders`;
+   - **URL**: `https://ai-for-developers-project-387-uvu8.onrender.com/api/internal/reminders`;
    - **Schedule**: every **10 minutes** (предустановка «Every 10 minutes»);
    - **Request method**: `POST` (тело запроса можно оставить пустым — endpoint принимает любой `Content-Type`);
    - включите **Advanced** → **Custom headers** → добавьте заголовок
