@@ -1,7 +1,9 @@
 # Настройка email-уведомлений: Brevo + Render + cron-job.org
 
-> **Для проекта 387** адреса/секреты относятся к стенду `calendar-slots-387.onrender.com` —
-> см. [`deploy-387.md`](deploy-387.md). Ниже — общая механика (в примерах остался URL 386).
+> **Для проекта 387** адреса/секреты относятся к стенду
+> `ai-for-developers-project-387-uvu8.onrender.com` (имя сервиса в Render — `calendar-slots-387`;
+> это **не** hostname) — см. [`deploy-387.md`](deploy-387.md). Ниже — общая механика; примеры в
+> файле уже переведены на 387.
 
 Пошаговая инструкция для продакшена ([ADR-0026](adr/0026-email-notifications.md), фича [#83](https://github.com/frostiks777/ai-for-developers-project-387/issues/83)).
 Провайдер — **Brevo HTTP API** (free: 300 писем/день, без карты, домен не обязателен). SMTP не

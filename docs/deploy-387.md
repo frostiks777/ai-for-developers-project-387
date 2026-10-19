@@ -9,7 +9,7 @@
 > переиспользует его. Ниже — согласованный набор значений именно для 387.
 
 Механику деплоя и почты подробно описывают [`ci_cd_render.md`](ci_cd_render.md) и
-[`email-setup-brevo.md`](email-setup-brevo.md) — **но в них ещё указан старый URL 386**. Для 387
+[`email-setup-brevo.md`](email-setup-brevo.md) — в них примеры уже переведены на 387. Для 387
 источник истины — этот файл.
 
 ---
@@ -27,13 +27,16 @@
 | cron-job.org | `POST .../api/internal/reminders` каждые 10 минут |
 | Brevo | общий аккаунт с 386 (sender и API-ключ можно переиспользовать) |
 
-Итог: два изолированных стенда — 386 (`calendar-slots-app.onrender.com`) и 387
-(`ai-for-developers-project-387-uvu8.onrender.com`) — не мешают друг другу.
+Итог: два изолированных стенда в **разных аккаунтах Render** — 386 (`calendar-slots-app.onrender.com`)
+и 387 (`ai-for-developers-project-387-uvu8.onrender.com`) — не мешают друг другу.
 
 ### Что понадобится
 
 - доступ к GitHub-репозиторию 387;
-- аккаунт [Render](https://dashboard.render.com) (вход через GitHub);
+- аккаунт [Render](https://dashboard.render.com) (вход через GitHub) — **отдельный от аккаунта стенда
+  386**: квота 750 free-часов считается на workspace, второй workspace на free-тарифе недоступен, а
+  два не засыпающих free-сервиса в одном аккаунте выжигают её к середине месяца (подробно —
+  [`ci_cd_render.md`](ci_cd_render.md) §6.1);
 - аккаунт [Neon](https://console.neon.tech) — тот же, где живёт проект 386;
 - аккаунт [Cloudflare](https://dash.cloudflare.com/4181d1db54e1f7e0219de629f1d3a841/turnstile) —
   тот же, где виджет 386;
@@ -254,6 +257,11 @@ curl.exe -i -X POST https://ai-for-developers-project-387-uvu8.onrender.com/api/
 - Filesystem контейнера эфемерна: без `DATABASE_URL` сервер поднимет PGlite в памяти и **потеряет
   данные при рестарте**.
 - Секреты живут только в переменных Render и локальном `.env` (в `.gitignore`).
+- **Квота 750 free-часов на workspace.** Часы тратятся, пока сервис не спит, поэтому 387 держится в
+  **отдельном аккаунте Render** от 386, а keep-alive из шага 7 (cron-job.org каждые 10 минут)
+  допустим **не больше одного на аккаунт**: два не засыпающих free-сервиса в одном workspace дают
+  2 × 744 ч при квоте 750 ч, и Render suspend'ит все free-сервисы до 1-го числа. Расчёт и правило —
+  в [`ci_cd_render.md`](ci_cd_render.md) §6.1.
 
 ---
 
