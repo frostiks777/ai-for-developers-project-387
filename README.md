@@ -40,7 +40,13 @@ asciinema upload demo.cast
 
 `scripts/demo.sh` проигрывает сквозной путь гостя через API: health → настройки хоста → слоты → бронь → конфликт `409` → отмена → слот снова свободен.
 
-Живое демо (Render, free-план — сервис засыпает после простоя): https://ai-for-developers-project-387-uvu8.onrender.com
+Живое демо: https://ai-for-developers-project-387-uvu8.onrender.com
+
+Сервис на Render Free засыпает после простоя (~15 минут), холодный старт — до ~1 минуты.
+Актуальный стенд — `…-uvu8`; ответ `404` на старом удалённом адресе `…-pm97.onrender.com`
+(аккаунт закрыт, см. [#59](https://github.com/frostiks777/ai-for-developers-project-387/issues/59))
+**ожидаем** — сервис по этому URL удалён. Keep-alive (cron-job.org) держит стенд тёплым;
+подробности и проверка — в [`docs/deploy-387.md`](docs/deploy-387.md).
 
 ## Стек
 
