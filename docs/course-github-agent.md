@@ -1,7 +1,9 @@
 # Шаги курса: агент в GitHub-процессе
 
-> Сохранено 2026-10-06, обновлено 2026-10-08 ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)):
-> статусы приведены в соответствие с фактами — Шаги 3–6 закрыты.
+> Сохранено 2026-10-06, обновлено 2026-10-08 ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)),
+> 2026-10-24 ([#69](https://github.com/frostiks777/ai-for-developers-project-387/issues/69)):
+> статусы приведены в соответствие с фактами — Шаги 3–6 закрыты; в `opencode-audit.yml`
+> добавлен фильтр событий от ботов для `schedule`/`workflow_dispatch` (расхождение документации и кода снято).
 > Требования организаторов обучения Hexlet — по вставке от каждого урока.
 > Issue: [#18](https://github.com/frostiks777/ai-for-developers-project-387/issues/18).
 > Это продолжение проекта «Календарь звонков»: работа с агентом переносится из локальной разработки
@@ -24,7 +26,7 @@
 | 3. Issue и triage | Issue-жалоба; команда + разбор агента; воркфлоу автотриажа `issues` + `prompt`; итоговая постановка в issue | ✅ всё выполнено, issue [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3) закрыт: разбор на #4 (run `36917958351`), сравнение двух разборов и итоговая постановка — комментариями в #3 |
 | 4. Issue → PR → ревью | PR от агента связан с issue; оба вида замечаний; правки в той же ветке; воркфлоу авторевью `pull_request` + `prompt`; Conventional Commits + release-PR | ✅ цикл пройден на [issue #38](https://github.com/frostiks777/ai-for-developers-project-387/issues/38) → [PR #40](https://github.com/frostiks777/ai-for-developers-project-387/pull/40): общий комментарий и комментарий к строке diff с `/oc`, правки агента добавлены в ту же ветку, авторевью отработало на PR, открытом человеком |
 | 5. Регулярные задачи по расписанию | Воркфлоу `schedule` + `workflow_dispatch`, cron ≤ 1/сутки; `prompt`; права `contents/pull-requests/issues: write` + `id-token: write`; отчёт артефактом или в задаче; issue по находкам | ✅ [`opencode-audit.yml`](../.github/workflows/opencode-audit.yml): Lighthouse по `APP_URL` из Variables, cron `17 6 * * *`, ручной прогон [`37679021588`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37679021588) и плановый [`37785913750`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37785913750) — success; отчёт артефактом `lighthouse-report`; находки → [#30](https://github.com/frostiks777/ai-for-developers-project-387/issues/30) ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23) закрыт) |
-| 6. Финальная проверка интеграции | Фильтр ботов во всех воркфлоу; `mentions` задан или объяснён; права по воркфлоу; таблица воркфлоу в README; решение по `share`; самооценка | ✅ фильтр ботов во всех четырёх воркфлоу; `mentions` дефолтные, причина записана в `README.md`; лишнее `issues: write` убрано из `opencode-review.yml`, права на запись только там, где агент пишет; таблица воркфлоу, решение по `share: false` и самооценка — в `README.md` ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)) |
+| 6. Финальная проверка интеграции | Фильтр ботов во всех воркфлоу; `mentions` задан или объяснён; права по воркфлоу; таблица воркфлоу в README; решение по `share`; самооценка | ✅ фильтр ботов во всех четырёх воркфлоу — в `opencode-audit.yml` добавлен для `schedule`/`workflow_dispatch` ([#69](https://github.com/frostiks777/ai-for-developers-project-387/issues/69)); `mentions` дефолтные, причина записана в `README.md`; лишнее `issues: write` убрано из `opencode-review.yml`, права на запись только там, где агент пишет; таблица воркфлоу, решение по `share: false` и самооценка — в `README.md` ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)) |
 
 Связанные документы: [`course-steps.md`](course-steps.md) (шаги первого проекта), [`todo.md`](todo.md),
 [`../AGENTS.md`](../AGENTS.md), [`../MEMORY.md`](../MEMORY.md).
@@ -314,8 +316,16 @@ Issue прошёл разбор с участием агента, из нечё�
 
 ### Статус
 
-- ✅ Фильтр событий от ботов (`github.event.sender.type != 'Bot'`, `user.type != 'Bot'`) и ограничение
-  круга вызывающих через `author_association` — во всех четырёх воркфлоу агента.
+- ✅ Фильтр событий от ботов — во всех четырёх воркфлоу агента. В `opencode.yml`, `opencode-triage.yml`
+  и `opencode-review.yml` это `github.event.sender.type != 'Bot'` плюс `user.type != 'Bot'`
+  соответствующего объекта события (комментарий, issue, PR). В `opencode-audit.yml` события
+  `schedule`/`workflow_dispatch` приходят не от комментария, поэтому фильтр другой:
+  `sender.type != 'Bot'` плюс отсечение самого агента по `github.actor`/`github.triggering_actor`
+  `!= 'opencode-agent[bot]'`; у `schedule` в payload нет `sender` и условие плановый прогон
+  не блокирует ([#69](https://github.com/frostiks777/ai-for-developers-project-387/issues/69)).
+  Ограничение круга вызывающих через `author_association` (владелец/участник/контрибьютор) —
+  в `opencode.yml`: остальные воркфлоу запускаются автоматически по событию или вручную
+  из вкладки Actions, там этот параметр отсутствует.
 - ✅ `mentions` — дефолтный набор (`/opencode`, `/oc`), причина записана в `README.md`,
   раздел «Агент в GitHub: воркфлоу»: команды короткие и те же, что использовались с первого урока.
 - ✅ Права по воркфлоу разделены и лишнее убрано: `opencode-review.yml` больше не просит
@@ -336,7 +346,7 @@ Issue прошёл разбор с участием агента, из нечё�
 | Воркфлоу ручного вызова (`/oc`) | [`.github/workflows/opencode.yml`](../.github/workflows/opencode.yml) |
 | Воркфлоу автотриажа (`issues` + `prompt`) | [`.github/workflows/opencode-triage.yml`](../.github/workflows/opencode-triage.yml) |
 | Воркфлоу авторевью (`pull_request` + `prompt`) | [`.github/workflows/opencode-review.yml`](../.github/workflows/opencode-review.yml) |
-| Воркфлоу по расписанию (`schedule` + `workflow_dispatch`) | [`.github/workflows/opencode-audit.yml`](../.github/workflows/opencode-audit.yml) |
+| Воркфлоу по расписанию (`schedule` + `workflow_dispatch`, фильтр ботов — `#69`) | [`.github/workflows/opencode-audit.yml`](../.github/workflows/opencode-audit.yml) |
 | CI и release-please | [`.github/workflows/ci.yml`](../.github/workflows/ci.yml), [`.github/workflows/release-please.yml`](../.github/workflows/release-please.yml) |
 | Таблица воркфлоу, решение по `share`, самооценка | [`../README.md`](../README.md), раздел «Агент в GitHub: воркфлоу» |
 | Правила проекта для агента | [`../AGENTS.md`](../AGENTS.md) |

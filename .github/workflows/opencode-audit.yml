@@ -5,6 +5,13 @@
 #                       время не круглое, чтобы не совпадать с пиком GitHub Actions);
 #   * `workflow_dispatch` — ручной запуск из вкладки Actions.
 #
+# Фильтр ботов (Шаг 6 курса, #69): у `schedule` payload пустой — `github.event.sender`
+# там нет, условие `if` его не блокирует и плановый прогон идёт; у `workflow_dispatch`
+# отсекаются запуски от ботов (`sender.type == 'Bot'`) и от самого агента
+# (`github.actor` / `github.triggering_actor == 'opencode-agent[bot]'`), чтобы
+# исключить петлю самозапусков. Легитимный ручной запуск человеком проходит:
+# у пользователя `sender.type == 'User'`, actor — он же.
+#
 # Адрес приложения — в Variables репозитория (`APP_URL`), а не в этом файле:
 # переезд стенда не должен требовать правки воркфлоу и попадать в историю коммитов.
 #
@@ -37,6 +44,13 @@ concurrency:
 jobs:
   lighthouse:
     name: Lighthouse по стенду
+    # Фильтр событий от ботов и от самого приложения-агента (#69):
+    # у `schedule` в payload нет `sender` — условие плановый прогон не блокирует;
+    # у `workflow_dispatch` отсекаются боты и агент, чтобы исключить петлю.
+    if: |
+      github.event.sender.type != 'Bot' &&
+      github.actor != 'opencode-agent[bot]' &&
+      github.triggering_actor != 'opencode-agent[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -110,6 +124,13 @@ jobs:
     name: Разбор отчёта агентом
     # Отчёт собран — агент разбирает находки и заводит issue.
     needs: lighthouse
+    # Тот же фильтр ботов и агента, что у `lighthouse` (#69): `needs` и так
+    # пропустит job при пропущенном `lighthouse`, но условие дублируется,
+    # чтобы job не мог запуститься в обход.
+    if: |
+      github.event.sender.type != 'Bot' &&
+      github.actor != 'opencode-agent[bot]' &&
+      github.triggering_actor != 'opencode-agent[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
