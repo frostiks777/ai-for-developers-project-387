@@ -12,6 +12,15 @@
 # `issues: write` обязателен. `id-token: write` — обязателен: по нему экшен
 # обменивает OIDC-токен на токен GitHub App `opencode-agent` (на токене раннера
 # права агента были `permission: none`). Модель бесплатная (AGENTS.md, «Модели»).
+#
+# Фильтр событий (job-level `if` у `lighthouse`, `audit` наследует skip через `needs`):
+# форма условия отличается от остальных воркфлоу агента. У `schedule` событий от
+# ботов нет — cron запускается планово, поэтому плановые прогоны пропускаются
+# безусловно; наивное `github.event.sender.type != 'Bot'` на оба события может
+# молча убить расписание, если sender у schedule-payload окажется ботом.
+# Фильтр защищает только `workflow_dispatch`: ручной запуск должен прийти не от
+# бота и не от самого агента (`opencode-agent[bot]`), чтобы исключить петлю через
+# API-dispatch токеном приложения.
 
 name: opencode-audit
 
@@ -37,6 +46,10 @@ concurrency:
 jobs:
   lighthouse:
     name: Lighthouse по стенду
+    # Schedule пропускается безусловно; у `workflow_dispatch` отсекаем ботов и
+    # самого агента (см. комментарий в шапке файла). `audit` не трогаем:
+    # skip через `needs` наследуется.
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.sender.type != 'Bot' && github.actor != 'opencode-agent[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
