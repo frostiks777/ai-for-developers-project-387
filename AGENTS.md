@@ -212,11 +212,11 @@ OpenCode-скилы — повторно используемые workflow, ко
 |---|---|---|---|
 | `opencode.yml` | `issue_comment`, `pull_request_review_comment` (`types: [created]`) | `contents/pull-requests/issues: write`, `id-token: write` | Ручной вызов: комментарий `/oc explain` / `/oc fix`; условие — автор не бот, `author_association` из списка, в тексте есть команда |
 | `opencode-triage.yml` | `issues` (`types: [opened]`) | `contents: read`, `issues: write`, `id-token: write` | Автотриаж новой задачи: разбор комментарием в issue (причина → файлы → путь → что считается исправлением) |
-| `opencode-review.yml` | `pull_request` (`opened, synchronize, reopened, ready_for_review`) | `contents: read`, `pull-requests/issues: write`, `id-token: write` | Ревью PR; PR от ботов не запускают воркфлоу |
+| `opencode-review.yml` | `pull_request` (`opened, synchronize, reopened, ready_for_review`) | `contents: read`, `pull-requests: read`, `issues: read`, `id-token: write` (`use_github_token: true`, критерий курса #68) | Ревью PR; PR от ботов не запускают воркфлоу |
 | `ci.yml` | `push`, `pull_request` | по умолчанию | lint + typecheck + test + build (+ e2e отдельным job) |
 | `release-please.yml` | `push` в `main`, `pull_request` | стандартные | Версия и changelog из Conventional Commits |
 
-- Токен — GitHub App `opencode-agent` через обмен OIDC-токена: обязателен `id-token: write`, `use_github_token` не задаём (на токене раннера права агента были `permission: none`).
+- Токен — GitHub App `opencode-agent` через обмен OIDC-токена: обязателен `id-token: write`, `use_github_token` не задаём (на токене раннера права агента были `permission: none`). Исключение — `opencode-review.yml` (#68): критерий курса требует `use_github_token: true` и права только на чтение (`contents/pull-requests/issues: read`); публикация замечаний при read-only правах — под проверкой, при сбое зафиксировать в issue #68, без молчаливого отката.
 - `persist-credentials: false` — везде, кроме `opencode.yml`: без токена в `.git/config` `git push` агента падает. В `opencode.yml` перед запуском агента задаётся git-ident (`opencode-agent[bot]`) — иначе коммит падает с `Author identity unknown`.
 - `hexlet-check.yml` **не редактировать** (автопроверка Хекслета).
 - Ключ модели — только в Secrets (`OPENCODE_API_KEY`), модель бесплатная (`AGENTS.md` → «Модели»).

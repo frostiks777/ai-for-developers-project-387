@@ -3,14 +3,17 @@
 # Событие `pull_request` с типами opened/synchronize/reopened/ready_for_review —
 # агент разбирает каждый PR сам, по критериям из `prompt`.
 #
-# Права: комментарий в pull request и реакция создаются токеном приложения
-# opencode-agent, а не токеном раннера. На токене раннера (`use_github_token: true`)
-# экшен видел `permission: none` для `github-actions[bot]` и падал на удалении
-# реакции — проверено на run 37064227451 (2026-10-06). Права на запись всё равно
-# нужны: агент оставляет замечания, одобрять и мержить не может — таких прав нет.
+# Критерий курса (#68): `use_github_token: true` — агент работает токеном раннера,
+# OIDC-обмен на токен приложения GitHub App не выполняется. `id-token: write`
+# оставлен по требованию курса, хоть в этом режиме и не задействован.
+# Права — только чтение: `contents: read`, `pull-requests: read`, `issues: read`.
 #
-# `id-token: write` обязателен: по нему экшен обменивает OIDC-токен на токен
-# приложения.
+# Замечания публикуются токеном раннера: комментарий PR GitHub принимает через
+# issues API, и документация экшена для `use_github_token: true` требует для
+# этого `issues: write`. При read-only правах публикация может отклоняться (403) —
+# такой прогон фиксируется в issue #68, конфигурация не откатывается молча.
+# Ранний опыт (run 37064227451, 2026-10-06): на токене раннера экшен видел
+# `permission: none` и падал на удалении реакции.
 
 name: opencode-review
 
@@ -19,11 +22,13 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
-  # Только чтение репозитория: агент читает diff, код и связанную задачу.
+  # Критерий курса (#68): только чтение — агент читает diff, код и связанную
+  # задачу, коммитить нечего.
   contents: read
-  # Единственная запись воркфлоу — замечания в pull request.
-  pull-requests: write
-  # `issues: write` здесь не нужен: воркфлоу не пишет в задачи, только в PR.
+  # Воркфлоу не пишет в задачи и не резолвит PR — только читает контекст ревью.
+  pull-requests: read
+  issues: read
+  # По критерию курса; в режиме `use_github_token: true` OIDC-обмен не выполняется.
   id-token: write
 
 jobs:
@@ -54,6 +59,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
         with:
+          # Критерий курса (#68): токен раннера вместо OIDC-обмена на токен
+          # приложения opencode-agent.
+          use_github_token: true
           model: opencode/mimo-v2.6-flash-free
           # Решение по `share` (Шаг 6 урока): ревью не публикуется, хотя дефолт
           # opencode для публичного репозитория — `share: true`.
