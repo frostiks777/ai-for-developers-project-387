@@ -265,10 +265,62 @@ curl.exe -i -X POST https://ai-for-developers-project-387-uvu8.onrender.com/api/
 
 ---
 
+## Шаг 10. Доступность стенда: 404/503 на `/` и `/health`
+
+**Симптомы** (замечание проверяющего от 22.10.2026, issue [#66](https://github.com/frostiks777/ai-for-developers-project-387/issues/66)):
+на момент проверки `/` и `/health` отвечали `404`; плановые прогоны `opencode-audit`
+20–23.10.2026 получали `503` (`ERRORED_DOCUMENT_REQUEST`, issue
+[#62](https://github.com/frostiks777/ai-for-developers-project-387/issues/62)).
+На 24.10.2026 стенд жив: `/`, `/dashboard`, `/health` → `200`, `curl -f …/health`
+отвечает `200` в пяти проверках подряд с интервалом.
+
+**Причина** (сводка; подробности — [`ci_cd_render.md`](ci_cd_render.md) §6):
+
+1. **Сон free-плана:** Render Free засыпает после ~15 минут простоя → первый запрос —
+   `503` и холодный старт до ~1 минуты. Это самая частая причина «недоступности».
+2. **Окно деплоя** (`autoDeploy: true`): пока идёт рестарт после пуша в `main`,
+   возможны короткие `404`/`503`.
+3. **Квота 750 ч:** при исчерпании Render suspend'ит free-сервисы до 1-го числа —
+   полная недоступность ([#59](https://github.com/frostiks777/ai-for-developers-project-387/issues/59)).
+4. **Сбой внешнего keep-alive:** cron-job.org отключает job сам после 25 ошибок
+   подряд — сервис начинает засыпать, и проверки ловят `503` (как прогоны аудита
+   20–23.10.2026).
+
+**Меры (что сделано):**
+
+- **Keep-alive №1 (внешний):** cron-job.org — шаг 7, `POST /api/internal/reminders`
+  каждые 10 минут.
+- **Keep-alive №2 (в репозитории):**
+  [`.github/workflows/keep-alive.yml`](../.github/workflows/keep-alive.yml) — каждые
+  10 минут прогревает `APP_URL/health` с ретраями до `200` (до 2 минут на холодный
+  старт) и проверяет `/`; если стенд недоступен — прогон падает с `::error::`,
+  то есть `404`/`503` не проходят незамеченными (критерий п.3 задачи #66).
+  Оба keep-alive бьют в один и тот же единственный free-сервис 387 — правило
+  «один тёплый сервис на аккаунт» ([`ci_cd_render.md`](ci_cd_render.md) §6.1)
+  соблюдено, расход часов не меняется (~744 ч/мес при квоте 750).
+- **Лимит GitHub:** scheduled-воркфлоу отключается после 60 дней без активности
+  в репозитории — после долгого простоя открыть вкладку **Actions** и при
+  необходимости запустить `keep-alive` вручную (`workflow_dispatch`).
+
+**Проверка доступности (2–3 запроса с интервалом):**
+
+```bash
+curl -f https://ai-for-developers-project-387-uvu8.onrender.com/health && sleep 20 && \
+curl -f https://ai-for-developers-project-387-uvu8.onrender.com/health && sleep 20 && \
+curl -f https://ai-for-developers-project-387-uvu8.onrender.com/health
+```
+
+**Связь с #62:** keep-alive убирает большинство `503`, но прогрев стенда перед
+Lighthouse и падение прогона при `score === null` остаётся задачей #62 — это
+дополняет решение по #66, а не противоречит ему.
+
+---
+
 ## Частые ошибки
 
 | Симптом | Причина и что делать |
 |---|---|
+| `/` или `/health` → `404`/`503` | Сон free-плана, окно деплоя или suspend за квоту — см. «Шаг 10. Доступность стенда» |
 | Render при Blueprint предлагает занять `calendar-slots-app` | В `render.yaml` не обновлено имя. Для 387 должно быть `name: calendar-slots-387` |
 | 387 пишет в базу 386 | В `render.yaml`/сервисе подключена группа `DB` вместо `DB-387` |
 | Данные пропадают после рестарта | Не задан `DATABASE_URL` → работает PGlite в памяти |

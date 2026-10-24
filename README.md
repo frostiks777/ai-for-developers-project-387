@@ -40,7 +40,14 @@ asciinema upload demo.cast
 
 `scripts/demo.sh` проигрывает сквозной путь гостя через API: health → настройки хоста → слоты → бронь → конфликт `409` → отмена → слот снова свободен.
 
-Живое демо (Render, free-план — сервис засыпает после простоя): https://ai-for-developers-project-387-uvu8.onrender.com
+Живое демо: https://ai-for-developers-project-387-uvu8.onrender.com
+
+Сервис на Render Free засыпает после ~15 минут простоя, но keep-alive держит его тёплым:
+cron-job.org (`POST /api/internal/reminders` каждые 10 минут) плюс воркфлоу
+[`keep-alive`](.github/workflows/keep-alive.yml) (прогрев `/health` с ретраями каждые
+10 минут; красный прогон = стенд недоступен). Если первый запрос всё же получил `503` —
+это холодный старт (~1 минута), повторите его. Причины 404/503 и проверка — в
+[`docs/deploy-387.md`](docs/deploy-387.md) («Доступность стенда»).
 
 ## Стек
 
@@ -58,7 +65,7 @@ asciinema upload demo.cast
 | Сервис | Зачем | Тариф / условия |
 |---|---|---|
 | [Neon](https://neon.tech) | PostgreSQL в проде | Free: база спит после 5 минут простоя, холодный старт — до секунды; `DATABASE_URL` из Environment Group `DB-387` |
-| [Render](https://render.com) | Хостинг контейнера (Docker) | Free: засыпает через 15 минут простоя, холодный старт до ~1 минуты; `render.yaml`, healthcheck `/health` |
+| [Render](https://render.com) | Хостинг контейнера (Docker) | Free: засыпает через 15 минут простоя, холодный старт до ~1 минуты; keep-alive (cron-job.org + воркфлоу `keep-alive`), `render.yaml`, healthcheck `/health` |
 | [Brevo](https://brevo.com) | Транзакционные письма (HTTP API) | Free: 300 писем/день, нужен верифицированный sender; без `EMAIL_API_KEY` отправка — no-op |
 | [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) | CAPTCHA в публичной форме записи | Free: без лимитов на виджете; выключена, пока не задан `TURNSTILE_SECRET_KEY` |
 | [cron-job.org](https://cron-job.org) | Внешний запуск напоминаний | Free: `POST /api/internal/reminders` каждые 10 минут с секретом |
