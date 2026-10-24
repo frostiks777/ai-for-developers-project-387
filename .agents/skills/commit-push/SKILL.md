@@ -66,4 +66,5 @@ git push
 ## Важное для этого репозитория
 
 - Не трогать `.github/workflows/hexlet-check.yml` и имя репозитория.
-- Историю коммитов ведём по Conventional Commits — от этого зависит release-please.
+- Историю коммитов ведём по Conventional Commits — от этого зависит release-please. Требование распространяется и на коммиты агента из GitHub Actions (`/oc`, автотриаж, аудит): тип обязателен, свободный текст в заголовке — нет.
+- `audit-report/` в `.gitignore`: отчёт Lighthouse не коммитить и не добавлять в индекс — он сохраняется артефактом `lighthouse-report`; закоммиченные файлы накапливали PR планировщика с сообщениями не по Conventional Commits (#70).
