@@ -217,7 +217,7 @@ OpenCode-скилы — повторно используемые workflow, ко
 | `release-please.yml` | `push` в `main`, `pull_request` | стандартные | Версия и changelog из Conventional Commits |
 
 - Токен — GitHub App `opencode-agent` через обмен OIDC-токена: обязателен `id-token: write`, `use_github_token` не задаём (на токене раннера права агента были `permission: none`).
-- `persist-credentials: false` — везде, кроме `opencode.yml`: без токена в `.git/config` `git push` агента падает. В `opencode.yml` перед запуском агента задаётся git-ident (`opencode-agent[bot]`) — иначе коммит падает с `Author identity unknown`.
+- `persist-credentials: false` — во всех воркфлоу, включая `opencode.yml` (требование курса, Шаг 2): токен не остаётся в `.git/config` рабочей копии. В `opencode.yml` перед запуском агента два отдельных шага: аутентификация push (`git config --global url."https://x-access-token:…@github.com/".insteadOf "https://github.com/"` — токен берётся из `env` шага и живёт в `~/.gitconfig` эфемерного раннера, не в `.git/config`) и git-ident (`opencode-agent[bot]`) — иначе push падает с `could not read Username`, коммит — с `Author identity unknown`.
 - `hexlet-check.yml` **не редактировать** (автопроверка Хекслета).
 - Ключ модели — только в Secrets (`OPENCODE_API_KEY`), модель бесплатная (`AGENTS.md` → «Модели»).
 
