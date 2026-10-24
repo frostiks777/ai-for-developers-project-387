@@ -1,0 +1,71 @@
+# Keep-alive и проверка доступности стенда (issue #66).
+#
+# Зачем: Render Free засыпает после ~15 минут простоя — первый запрос отдаёт
+# 503 (холодный старт), а при suspend за квоту (#59) — полную недоступность.
+# Проверяющий 22.10.2026 получил 404 на `/` и `/health`, прогоны аудита
+# 20–23.10.2026 — 503 (`ERRORED_DOCUMENT_REQUEST`, #62). cron-job.org держит
+# сервис тёплым (`POST /api/internal/reminders` каждые 10 минут), но это
+# внешний сервис: job отключается сам после 25 ошибок подряд, и сон начинается
+# незаметно. Этот воркфлоу — keep-alive под контролем репозитория плюс явный
+# сигнал недоступности: красный прогон = стенд не отвечает.
+#
+# Квота (docs/ci_cd_render.md §6.1): keep-alive допустим для одного free-сервиса
+# на аккаунт. Здесь бьём в тот же единственный сервис 387, что и cron-job.org, —
+# расход часов не меняется (~744 ч/мес при квоте 750).
+#
+# Адрес стенда — в Variables репозитория (`APP_URL`), как в opencode-audit.yml:
+# переезд стенда не должен требовать правки воркфлоу. GitHub отключает
+# scheduled-воркфлоу после 60 дней без активности в репозитории — после долгого
+# простоя проверить вкладку Actions и при необходимости запустить вручную.
+
+name: keep-alive
+
+on:
+  schedule:
+    # Чаще 15 минут простоя Render Free; каждые 10 минут — та же кадентность,
+    # что у cron-job.org, чтобы два keep-alive не расходовались впустую.
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    name: Прогрев стенда
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Прогреть /health и проверить /
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+        run: |
+          if [ -z "$APP_URL" ]; then
+            echo "::error::Не задана переменная репозитория APP_URL (Settings → Secrets and variables → Actions → Variables)"
+            exit 1
+          fi
+          # Холодный старт Render Free — до ~1 минуты: ретраим до 2 минут.
+          ok=0
+          for i in $(seq 1 12); do
+            if out=$(curl -fsS --max-time 20 "$APP_URL/health"); then
+              echo "попытка $i: /health → 200 $out"
+              ok=1
+              break
+            fi
+            echo "попытка $i: /health недоступен, ждём 10 с"
+            sleep 10
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error::Стенд недоступен: $APP_URL/health не отвечает 200 после 2 минут ретраев"
+            exit 1
+          fi
+          # `/` — страница, которую открывает проверяющий (замечание от 22.10.2026).
+          if ! curl -fsS -o /dev/null --max-time 20 "$APP_URL/"; then
+            echo "::error::Стенд отвечает на /health, но / не отдаёт 200: $APP_URL"
+            exit 1
+          fi
+          echo "Стенд жив: $APP_URL (/health и / → 200)"
