@@ -5,6 +5,9 @@
 > Обновлено 2026-10-24 ([#67](https://github.com/frostiks777/ai-for-developers-project-387/issues/67)):
 > Шаг 2 приведён к требованию курса — `persist-credentials: false` включён и в `opencode.yml`,
 > аутентификация push вынесена в отдельный шаг воркфлоу.
+> Обновлено 2026-10-24 ([#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)):
+> авторевью (`opencode-review.yml`) приведено к критерию курса — `use_github_token: true`,
+> права `contents/pull-requests/issues: read` + `id-token: write`.
 > Требования организаторов обучения Hexlet — по вставке от каждого урока.
 > Issue: [#18](https://github.com/frostiks777/ai-for-developers-project-387/issues/18).
 > Это продолжение проекта «Календарь звонков»: работа с агентом переносится из локальной разработки
@@ -25,9 +28,9 @@
 | 1. Перенос кода и план развития | Код из прошлого проекта в новом репозитории, автопроверка зелёная; есть план (≥1 фича, ≥1 баг) | ✅ код перенесён, CI зелёный; план развития — [`docs/roadmap.md`](roadmap.md) ([#22](https://github.com/frostiks777/ai-for-developers-project-387/issues/22)) |
 | 2. Установка и настройка агента | GitHub App установлен; воркфлоу в main; `types: [created]` + условие по команде; `id-token: write`; `persist-credentials: false`; ключ в Secrets; issue с ответом агента | ✅ GitHub App `opencode-agent` установлен, все три воркфлоу переведены на его токен (`id-token: write`, `use_github_token` убран) — `668776b`; ✅ `persist-credentials: false` во всех воркфлоу, включая `opencode.yml`: аутентификация push — отдельный шаг воркфлоу ([#67](https://github.com/frostiks777/ai-for-developers-project-387/issues/67)) |
 | 3. Issue и triage | Issue-жалоба; команда + разбор агента; воркфлоу автотриажа `issues` + `prompt`; итоговая постановка в issue | ✅ всё выполнено, issue [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3) закрыт: разбор на #4 (run `36917958351`), сравнение двух разборов и итоговая постановка — комментариями в #3 |
-| 4. Issue → PR → ревью | PR от агента связан с issue; оба вида замечаний; правки в той же ветке; воркфлоу авторевью `pull_request` + `prompt`; Conventional Commits + release-PR | ✅ цикл пройден на [issue #38](https://github.com/frostiks777/ai-for-developers-project-387/issues/38) → [PR #40](https://github.com/frostiks777/ai-for-developers-project-387/pull/40): общий комментарий и комментарий к строке diff с `/oc`, правки агента добавлены в ту же ветку, авторевью отработало на PR, открытом человеком |
+| 4. Issue → PR → ревью | PR от агента связан с issue; оба вида замечаний; правки в той же ветке; воркфлоу авторевью `pull_request` + `prompt`; Conventional Commits + release-PR | ✅ цикл пройден на [issue #38](https://github.com/frostiks777/ai-for-developers-project-387/issues/38) → [PR #40](https://github.com/frostiks777/ai-for-developers-project-387/pull/40): общий комментарий и комментарий к строке diff с `/oc`, правки агента добавлены в ту же ветку, авторевью отработало на PR, открытом человеком; после [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68) авторевью настроено по критерию курса (`use_github_token: true`, права только на чтение), публикация замечаний проверяется на следующем PR от человека |
 | 5. Регулярные задачи по расписанию | Воркфлоу `schedule` + `workflow_dispatch`, cron ≤ 1/сутки; `prompt`; права `contents/pull-requests/issues: write` + `id-token: write`; отчёт артефактом или в задаче; issue по находкам | ✅ [`opencode-audit.yml`](../.github/workflows/opencode-audit.yml): Lighthouse по `APP_URL` из Variables, cron `17 6 * * *`, ручной прогон [`37679021588`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37679021588) и плановый [`37785913750`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37785913750) — success; отчёт артефактом `lighthouse-report`; находки → [#30](https://github.com/frostiks777/ai-for-developers-project-387/issues/30) ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23) закрыт) |
-| 6. Финальная проверка интеграции | Фильтр ботов во всех воркфлоу; `mentions` задан или объяснён; права по воркфлоу; таблица воркфлоу в README; решение по `share`; самооценка | ✅ фильтр ботов во всех четырёх воркфлоу; `mentions` дефолтные, причина записана в `README.md`; лишнее `issues: write` убрано из `opencode-review.yml`, права на запись только там, где агент пишет; таблица воркфлоу, решение по `share: false` и самооценка — в `README.md` ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)) |
+| 6. Финальная проверка интеграции | Фильтр ботов во всех воркфлоу; `mentions` задан или объяснён; права по воркфлоу; таблица воркфлоу в README; решение по `share`; самооценка | ✅ фильтр ботов во всех четырёх воркфлоу; `mentions` дефолтные, причина записана в `README.md`; права `opencode-review.yml` — только чтение по критерию курса (`contents/pull-requests/issues: read`, `use_github_token: true`, [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)), права на запись — только там, где агент пишет; таблица воркфлоу, решение по `share: false` и самооценка — в `README.md` ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)) |
 
 Связанные документы: [`course-steps.md`](course-steps.md) (шаги первого проекта), [`todo.md`](todo.md),
 [`../AGENTS.md`](../AGENTS.md), [`../MEMORY.md`](../MEMORY.md).
@@ -126,9 +129,11 @@ issue-комментария подтверждён ответом агента 
 
 ### Статус
 
-- ✅ GitHub App `opencode-agent` установлен на репозиторий: все три opencode-воркфлоу работают на его
-  токене, который экшен получает обменом OIDC-токена (`id-token: write`, `use_github_token` убран) —
-  коммит `668776b`. На токене раннера права агента были `permission: none`.
+- ✅ GitHub App `opencode-agent` установлен на репозиторий: `opencode.yml` и `opencode-triage.yml`
+  работают на его токене, который экшен получает обменом OIDC-токена (`id-token: write`,
+  `use_github_token` убран) — коммит `668776b`. На токене раннера права агента были
+  `permission: none`. Авторевью (`opencode-review.yml`) с [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)
+  работает на токене раннера (`use_github_token: true`) — по критерию курса.
 - ✅ `.github/workflows/opencode.yml` в основной ветке.
 - ✅ `types: [created]` на `issue_comment` и `pull_request_review_comment`; работа пропускается условием
   `if` по команде `/oc` или `/opencode`, по автору не из списка ботов и по `author_association`
@@ -234,6 +239,14 @@ Issue прошёл разбор с участием агента, из нечё�
 - ✅ Правки в той же ветке видны по коммитам.
 - ✅ `.github/workflows/opencode-review.yml` (`pull_request: [opened, synchronize, reopened, ready_for_review]` + `prompt`)
   отработал на PR, открытом человеком: замечания оставлены комментариями в PR #40.
+- ⚠️ После [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68) авторевью
+  переведено на критерий курса: `use_github_token: true`, права `contents: read`,
+  `pull-requests: read`, `issues: read`, `id-token: write`. Публикация замечаний на этих правках
+  не проверена: PR #68 открывается ботом и воркфлоу его отсекает, PR от человека в репозитории нет.
+  Проверить на первом PR от человека; если комментарии не уходят (GitHub принимает комментарии PR
+  через issues API и для записи требует `issues: write`), зафиксировать в
+  [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68), что именно упало
+  и на каком прогоне, — без молчаливого отката.
 - ⚠️ Важная деталь процесса: PR, открытый агентом в CI токеном приложения, имеет
   `pull_request.user.type == 'Bot'` и **отсекается** условием в `opencode-review.yml` (иначе агент
   ревьюил бы собственные изменения и платил бы за это минуты Actions). Поэтому цикл
@@ -329,8 +342,10 @@ Issue прошёл разбор с участием агента, из нечё�
   на оба события мог молча убить плановые прогоны.
 - ✅ `mentions` — дефолтный набор (`/opencode`, `/oc`), причина записана в `README.md`,
   раздел «Агент в GitHub: воркфлоу»: команды короткие и те же, что использовались с первого урока.
-- ✅ Права по воркфлоу разделены и лишнее убрано: `opencode-review.yml` больше не просит
-  `issues: write` (пишет только в PR), `opencode-triage.yml` работает с `contents: read`; права на
+- ✅ Права по воркфлоу минимальные и по критерию курса: `opencode-review.yml` — только чтение
+  (`contents: read`, `pull-requests: read`, `issues: read`, `id-token: write`) с
+  `use_github_token: true` ([#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68));
+  `opencode-triage.yml` работает с `contents: read` и записью только в задачи; права на
   запись остались там, где агент реально коммитит, заводит задачи или открывает PR.
 - ✅ Таблица воркфлоу в `README.md`: событие, способ запуска, права, модель, где смотреть прогоны.
 - ✅ Решение по `share`: `share: false` явно во всех четырёх воркфлоу (дефолт opencode для публичного
