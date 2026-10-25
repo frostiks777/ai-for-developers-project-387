@@ -48,7 +48,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Достаточно прочитать diff, коммитить нечего: права только на чтение.
+          # Токен раннера не остаётся в `.git/config`; код только читается.
+          # Для публикации замечаний используется GITHUB_TOKEN из env шага Run OpenCode.
           persist-credentials: false
 
       - name: Run OpenCode
