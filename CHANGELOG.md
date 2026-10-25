@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.11](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.10...v1.1.11) (2026-10-25)
+
+
+### Bug Fixes
+
+* **ci:** persist-credentials: false в opencode.yml и аутентификация push через credential.helper ([#67](https://github.com/frostiks777/ai-for-developers-project-387/issues/67)) ([9a6f770](https://github.com/frostiks777/ai-for-developers-project-387/commit/9a6f770a3e7a53db34510917ed327aea82094ffd))
+* **ci:** авторевью — issues/pull-requests: write для публикации замечаний ([#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)) ([67aabe7](https://github.com/frostiks777/ai-for-developers-project-387/commit/67aabe7e1da24f6f96d23d4e44e5bd35c886534c))
+* **ci:** авторевью — issues/pull-requests: write для публикации замечаний ([#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)) ([cc27e3a](https://github.com/frostiks777/ai-for-developers-project-387/commit/cc27e3a844273800d35bd0b58f6db12a42157223))
+* **ci:** авторевью на критерий курса — use_github_token и read-only права ([#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)) ([c9d3513](https://github.com/frostiks777/ai-for-developers-project-387/commit/c9d3513eaf3744c237e019e5f71a4feb436c9328))
+* **ci:** убрать авто-коммит audit-report и закрепить Conventional Commits для агента ([#70](https://github.com/frostiks777/ai-for-developers-project-387/issues/70)) ([d2d9f91](https://github.com/frostiks777/ai-for-developers-project-387/commit/d2d9f91c542a7c015dc0190ce74d4adf1052009f))
+* прогрев стенда в opencode-audit и фиксация 404 старого URL ([#66](https://github.com/frostiks777/ai-for-developers-project-387/issues/66)) ([6e28cac](https://github.com/frostiks777/ai-for-developers-project-387/commit/6e28cacc79b8575472b0fc5bf6a2e512bb256b64))
+* прогрев стенда перед Lighthouse и фиксация 404 старого URL ([#66](https://github.com/frostiks777/ai-for-developers-project-387/issues/66)) ([59ca7b8](https://github.com/frostiks777/ai-for-developers-project-387/commit/59ca7b8f7e9d224ebb8270cc8eb2db8fce8e9c75))
+
 ## [1.1.10](https://github.com/frostiks777/ai-for-developers-project-387/compare/v1.1.9...v1.1.10) (2026-10-12)
 
 
