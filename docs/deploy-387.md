@@ -262,6 +262,12 @@ curl.exe -i -X POST https://ai-for-developers-project-387-uvu8.onrender.com/api/
   допустим **не больше одного на аккаунт**: два не засыпающих free-сервиса в одном workspace дают
   2 × 744 ч при квоте 750 ч, и Render suspend'ит все free-сервисы до 1-го числа. Расчёт и правило —
   в [`ci_cd_render.md`](ci_cd_render.md) §6.1.
+- **404 на старом URL `…-pm97.onrender.com` — ожидаем.** Прежний сервис (старый аккаунт Render)
+  удалён при переезде на `…-uvu8` ([#59](https://github.com/frostiks777/ai-for-developers-project-387/issues/59)).
+  Актуальный стенд — `https://ai-for-developers-project-387-uvu8.onrender.com`; по нему `/`, `/health`
+  и `/dashboard` отвечают `200` после прогрева. Воркфлоу `opencode-audit` прогревает `/health`
+  ретраями до `200` перед Lighthouse ([#66](https://github.com/frostiks777/ai-for-developers-project-387/issues/66)),
+  чтобы холодный старт не рушил прогон.
 
 ---
 
@@ -269,6 +275,7 @@ curl.exe -i -X POST https://ai-for-developers-project-387-uvu8.onrender.com/api/
 
 | Симптом | Причина и что делать |
 |---|---|
+| `/` или `/health` → `404` на `…-pm97.onrender.com` | Старый сервис удалён — ожидаемо. Актуальный стенд: `…-uvu8.onrender.com` (см. шаг 9) |
 | Render при Blueprint предлагает занять `calendar-slots-app` | В `render.yaml` не обновлено имя. Для 387 должно быть `name: calendar-slots-387` |
 | 387 пишет в базу 386 | В `render.yaml`/сервисе подключена группа `DB` вместо `DB-387` |
 | Данные пропадают после рестарта | Не задан `DATABASE_URL` → работает PGlite в памяти |

@@ -12,6 +12,15 @@
 # `issues: write` обязателен. `id-token: write` — обязателен: по нему экшен
 # обменивает OIDC-токен на токен GitHub App `opencode-agent` (на токене раннера
 # права агента были `permission: none`). Модель бесплатная (AGENTS.md, «Модели»).
+#
+# Фильтр событий (job-level `if` у `lighthouse`, `audit` наследует skip через `needs`):
+# форма условия отличается от остальных воркфлоу агента. У `schedule` событий от
+# ботов нет — cron запускается планово, поэтому плановые прогоны пропускаются
+# безусловно; наивное `github.event.sender.type != 'Bot'` на оба события может
+# молча убить расписание, если sender у schedule-payload окажется ботом.
+# Фильтр защищает только `workflow_dispatch`: ручной запуск должен прийти не от
+# бота и не от самого агента (`opencode-agent[bot]`), чтобы исключить петлю через
+# API-dispatch токеном приложения.
 
 name: opencode-audit
 
@@ -40,6 +49,10 @@ concurrency:
 jobs:
   lighthouse:
     name: Lighthouse по стенду
+    # Schedule пропускается безусловно; у `workflow_dispatch` отсекаем ботов и
+    # самого агента (см. комментарий в шапке файла). `audit` не трогаем:
+    # skip через `needs` наследуется.
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.sender.type != 'Bot' && github.actor != 'opencode-agent[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -68,6 +81,35 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
           google-chrome --version
+
+      - name: Прогреть стенд
+        # Render Free засыпает после простоя: холодный старт до ~1 минуты, при
+        # сбое keep-alive — дольше. Lighthouse делает одну попытку без ретраев,
+        # поэтому первый «спящий» запрос рушил прогон (503, #62). Прогреваем
+        # `/health` до 200 перед аудитом (#66).
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+        run: |
+          max_attempts=6
+          delay=30
+          ok=0
+          for i in $(seq 1 $max_attempts); do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$APP_URL/health" || echo 000)
+            echo "попытка $i/$max_attempts: GET $APP_URL/health → HTTP $code"
+            if [ "$code" = "200" ]; then
+              ok=1
+              break
+            fi
+            if [ "$i" -lt "$max_attempts" ]; then
+              echo "ждём $delay с перед следующей попыткой (холодный старт)"
+              sleep $delay
+            fi
+          done
+          if [ "$ok" != "1" ]; then
+            echo "::error::Стенд не ответил 200 на /health после $max_attempts попыток ($APP_URL) — холодный старт или недоступность"
+            exit 1
+          fi
+          echo "Стенд прогрет: /health → 200"
 
       - name: Собрать отчёт Lighthouse
         env:
