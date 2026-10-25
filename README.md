@@ -32,8 +32,10 @@
 Запись каста (нужен [asciinema](https://asciinema.org)): сначала поднять сервер (`npm run start`), затем
 
 ```bash
+
 asciinema rec demo.cast -c "bash scripts/demo.sh"
 asciinema upload demo.cast
+
 ```
 
 На Windows asciinema официально не поддерживается — используйте [PowerSession](https://github.com/Watfaq/PowerSession-rs) и Git Bash: `PowerSession rec -c "bash scripts/demo.sh" demo.cast`. Готовый каст лежит в [`docs/demo.cast`](docs/demo.cast) (проигрывание — `asciinema play docs/demo.cast` или `PowerSession play`).
