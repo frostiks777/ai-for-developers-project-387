@@ -69,10 +69,26 @@ jobs:
           # иначе правки уйдут в ветку по умолчанию, а не в ту же.
           ref: >-
             ${{ github.event.pull_request.head.ref || github.sha }}
-          # `persist-credentials` не выключаем: без него в `.git/config` нет
-          # extraheader с токеном, и любой `git push` агента падает с
-          # "could not read Username for 'https://github.com'". Токен раннера
-          # живёт только в job и не попадает в коммиты или вывод команд.
+          # Требование курса (Шаг 2): токен раннера не должен оставаться в
+          # `.git/config` рабочей копии — extraheader наследуют все последующие
+          # шаги, и он может утечь в логи команд, артефакты или коммиты.
+          persist-credentials: false
+
+      # `persist-credentials: false` убирает extraheader из `.git/config`,
+      # поэтому без отдельной настройки `git push` агента падает с
+      # "could not read Username for 'https://github.com'". Аутентификация
+      # для push настраивается здесь: инлайн-credential.helper подставляет
+      # креды только в момент git-операций. Сам хелпер пишется в
+      # `~/.gitconfig` эфемерного раннера строчкой с литералом `$GITHUB_TOKEN`
+      # — значение токена на диск не попадает: shell раскрывает его из `env`
+      # шага только при вызове git. В лог токен не утекает: он берётся из
+      # `env` шага (не из интерполяции в скрипт), а `secrets.GITHUB_TOKEN`
+      # Actions маскирует выводом `***`.
+      - name: Configure git auth for push
+        run: |
+          git config --global credential.helper '!f() { echo username=x-access-token; echo password=$GITHUB_TOKEN; }; f'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Права `contents: write` позволяют агенту коммитить, но на раннере git
       # без ident: любой коммит падает с "Author identity unknown".

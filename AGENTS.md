@@ -217,13 +217,14 @@ OpenCode-скилы — повторно используемые workflow, ко
 | `release-please.yml` | `push` в `main`, `pull_request` | стандартные | Версия и changelog из Conventional Commits |
 
 - Токен — GitHub App `opencode-agent` через обмен OIDC-токена: обязателен `id-token: write`, `use_github_token` не задаём (на токене раннера права агента были `permission: none`). Исключение — `opencode-review.yml` (#68): критерий курса требует `use_github_token: true` и права только на чтение (`contents/pull-requests/issues: read`); публикация замечаний при read-only правах — под проверкой, при сбое зафиксировать в issue #68, без молчаливого отката.
-- `persist-credentials: false` — везде, кроме `opencode.yml`: без токена в `.git/config` `git push` агента падает. В `opencode.yml` перед запуском агента задаётся git-ident (`opencode-agent[bot]`) — иначе коммит падает с `Author identity unknown`.
+- `persist-credentials: false` — везде, включая `opencode.yml` (требование курса, Шаг 2): без токена в `.git/config` рабочей копии. В `opencode.yml` перед запуском агента два отдельных шага: аутентификация push (инлайн `credential.helper` `!f() { echo username=x-access-token; echo password=$GITHUB_TOKEN; }; f` — значение токена берётся из `env` шага только в момент git-операций и на диск не пишется, сам хелпер хранит литерал `$GITHUB_TOKEN`) и git-ident (`opencode-agent[bot]`) — иначе push падает с `could not read Username`, коммит — с `Author identity unknown`.
 - `hexlet-check.yml` **не редактировать** (автопроверка Хекслета).
 - Ключ модели — только в Secrets (`OPENCODE_API_KEY`), модель бесплатная (`AGENTS.md` → «Модели»).
 
 ## Agent behavior
 - **Задачи и баги — только через GitHub Issue (обязательно).** Любая новая задача, фича или баг до начала работы оформляется Issue (`gh issue create`, методология — [`docs/agents/issue-tracker.md`](docs/agents/issue-tracker.md)); в коммит-сообщении указывается номер (`(#NN)`), после пуша Issue закрывается. Баги — с меткой `bug`; chore-подобные задачи (документация, рефакторинг, зависимости без изменения поведения) создаются **без** метки типа — метки `chore` в репозитории нет, описание — в теле Issue. Единственное исключение — однострочные механические правки без изменения поведения.
-- **История коммитов — только Conventional Commits** (`feat:`, `fix:`, `chore:`, `docs:`, …) с номером Issue `(#NN)` в сообщении: от формата зависит `release-please` (версия + changelog). См. скилл `commit-push`.
+- **История коммитов — только Conventional Commits** (`feat:`, `fix:`, `chore:`, `docs:`, …) с номером Issue `(#NN)` в сообщении: от формата зависит `release-please` (версия + changelog). Требование распространяется на **все** коммиты, включая коммиты агента из GitHub Actions (`/oc`, автотриаж, ревью, аудит): свободный текст в заголовке коммита или PR недопустим. См. скилл `commit-push`.
+- `audit-report/` — в `.gitignore` и вне git: отчёт Lighthouse сохраняется только артефактом `lighthouse-report`, коммитить его нельзя — отслеживаемый каталог порождал ежедневные PR планировщика с сообщениями не по Conventional Commits (#70).
 - При изменении файлов — проверять типы (`npm run typecheck`) и линтер (`npm run lint`)
 - Не коммитить без проверки: `git status` → `git diff` → `git commit`
 - При работе с UI — сверяться с existing компонентами в `src/components/`

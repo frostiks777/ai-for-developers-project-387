@@ -2,6 +2,9 @@
 
 > Сохранено 2026-10-06, обновлено 2026-10-08 ([#39](https://github.com/frostiks777/ai-for-developers-project-387/issues/39)):
 > статусы приведены в соответствие с фактами — Шаги 3–6 закрыты.
+> Обновлено 2026-10-24 ([#67](https://github.com/frostiks777/ai-for-developers-project-387/issues/67)):
+> Шаг 2 приведён к требованию курса — `persist-credentials: false` включён и в `opencode.yml`,
+> аутентификация push вынесена в отдельный шаг воркфлоу.
 > Обновлено 2026-10-24 ([#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)):
 > авторевью (`opencode-review.yml`) приведено к критерию курса — `use_github_token: true`,
 > права `contents/pull-requests/issues: read` + `id-token: write`.
@@ -23,7 +26,7 @@
 | Шаг | Ключевое требование | Статус |
 |---|---|---|
 | 1. Перенос кода и план развития | Код из прошлого проекта в новом репозитории, автопроверка зелёная; есть план (≥1 фича, ≥1 баг) | ✅ код перенесён, CI зелёный; план развития — [`docs/roadmap.md`](roadmap.md) ([#22](https://github.com/frostiks777/ai-for-developers-project-387/issues/22)) |
-| 2. Установка и настройка агента | GitHub App установлен; воркфлоу в main; `types: [created]` + условие по команде; `id-token: write`; `persist-credentials: false`; ключ в Secrets; issue с ответом агента | ✅ GitHub App `opencode-agent` установлен, воркфлоу переведены на его токен (`id-token: write`, `use_github_token` убран) — `668776b`; авторевью позднее по критерию курса переведено на токен раннера (`use_github_token: true`, права только на чтение, [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68)); 🟡 `persist-credentials` в интерактивном воркфлоу намеренно оставлен (без него `git push` агента падает) — решение описано в воркфлоу и в `AGENTS.md` |
+| 2. Установка и настройка агента | GitHub App установлен; воркфлоу в main; `types: [created]` + условие по команде; `id-token: write`; `persist-credentials: false`; ключ в Secrets; issue с ответом агента | ✅ GitHub App `opencode-agent` установлен, все три воркфлоу переведены на его токен (`id-token: write`, `use_github_token` убран) — `668776b`; ✅ `persist-credentials: false` во всех воркфлоу, включая `opencode.yml`: аутентификация push — отдельный шаг воркфлоу ([#67](https://github.com/frostiks777/ai-for-developers-project-387/issues/67)) |
 | 3. Issue и triage | Issue-жалоба; команда + разбор агента; воркфлоу автотриажа `issues` + `prompt`; итоговая постановка в issue | ✅ всё выполнено, issue [#3](https://github.com/frostiks777/ai-for-developers-project-387/issues/3) закрыт: разбор на #4 (run `36917958351`), сравнение двух разборов и итоговая постановка — комментариями в #3 |
 | 4. Issue → PR → ревью | PR от агента связан с issue; оба вида замечаний; правки в той же ветке; воркфлоу авторевью `pull_request` + `prompt`; Conventional Commits + release-PR | ✅ цикл пройден на [issue #38](https://github.com/frostiks777/ai-for-developers-project-387/issues/38) → [PR #40](https://github.com/frostiks777/ai-for-developers-project-387/pull/40): общий комментарий и комментарий к строке diff с `/oc`, правки агента добавлены в ту же ветку, авторевью отработало на PR, открытом человеком; после [#68](https://github.com/frostiks777/ai-for-developers-project-387/issues/68) авторевью настроено по критерию курса (`use_github_token: true`, права только на чтение), публикация замечаний проверяется на следующем PR от человека |
 | 5. Регулярные задачи по расписанию | Воркфлоу `schedule` + `workflow_dispatch`, cron ≤ 1/сутки; `prompt`; права `contents/pull-requests/issues: write` + `id-token: write`; отчёт артефактом или в задаче; issue по находкам | ✅ [`opencode-audit.yml`](../.github/workflows/opencode-audit.yml): Lighthouse по `APP_URL` из Variables, cron `17 6 * * *`, ручной прогон [`37679021588`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37679021588) и плановый [`37785913750`](https://github.com/frostiks777/ai-for-developers-project-387/actions/runs/37785913750) — success; отчёт артефактом `lighthouse-report`; находки → [#30](https://github.com/frostiks777/ai-for-developers-project-387/issues/30) ([#23](https://github.com/frostiks777/ai-for-developers-project-387/issues/23) закрыт) |
@@ -135,11 +138,14 @@ issue-комментария подтверждён ответом агента 
 - ✅ `types: [created]` на `issue_comment` и `pull_request_review_comment`; работа пропускается условием
   `if` по команде `/oc` или `/opencode`, по автору не из списка ботов и по `author_association`
   (владелец/участник/контрибьютор — круг вызывающих ограничен).
-- 🟡 `persist-credentials: false` в интерактивном воркфлоу **не выключен намеренно**: без extraheader
-  с токеном в `.git/config` любой `git push` агента падает с «could not read Username». Взамен перед
-  запуском агента задаётся git-ident (`opencode-agent[bot]`) — иначе коммит падает с
-  «Author identity unknown» (run `37033862358`). В остальных воркфлоу `persist-credentials: false`
-  стоит — там коммитить нечего.
+- ✅ `persist-credentials: false` в интерактивном воркфлоу включён ([#67](https://github.com/frostiks777/ai-for-developers-project-387/issues/67)):
+  токен не остаётся в `.git/config` рабочей копии. Аутентификация для push настроена отдельным шагом
+  перед запуском агента: инлайн-`credential.helper` `!f() { echo username=x-access-token; echo password=$GITHUB_TOKEN; }; f`
+  с `GITHUB_TOKEN` в `env` шага — значение токена раскрывается shell'ом только в момент git-операций
+  и на диск не пишется (сам хелпер хранит литерал `$GITHUB_TOKEN`). Раньше без extraheader `git push`
+  падал с «could not read Username» (run `37033862358`); git-ident (`opencode-agent[bot]`) оставлен
+  отдельным шагом — без него коммит падает с «Author identity unknown». В остальных воркфлоу
+  `persist-credentials: false` тоже стоит — там коммитить нечего.
 - ✅ Ключ в GitHub Secrets (`OPENCODE_API_KEY`), в репозитории его нет.
 - ✅ Есть issue с ответом агента и прогон в Actions (см. `#3`, `#4`, run `36917958351`).
 
@@ -327,8 +333,13 @@ Issue прошёл разбор с участием агента, из нечё�
 
 ### Статус
 
-- ✅ Фильтр событий от ботов (`github.event.sender.type != 'Bot'`, `user.type != 'Bot'`) и ограничение
-  круга вызывающих через `author_association` — во всех четырёх воркфлоу агента.
+- ✅ Фильтр событий от ботов — во всех четырёх воркфлоу агента, с учётом природы событий: в
+  `opencode.yml`, `opencode-triage.yml`, `opencode-review.yml` (события комментариев/issue/PR) —
+  двойной фильтр `github.event.sender.type != 'Bot'` + `user.type != 'Bot'` и ограничение круга
+  вызывающих через `author_association`; в `opencode-audit.yml` (`schedule` + `workflow_dispatch`) —
+  условие только на `workflow_dispatch` (запуск не-бота и не от `opencode-agent[bot]`), а `schedule`
+  пропускается безусловно: у cron-событий нет отправителей-ботов, и наивный фильтр по `sender`
+  на оба события мог молча убить плановые прогоны.
 - ✅ `mentions` — дефолтный набор (`/opencode`, `/oc`), причина записана в `README.md`,
   раздел «Агент в GitHub: воркфлоу»: команды короткие и те же, что использовались с первого урока.
 - ✅ Права по воркфлоу минимальные и по критерию курса: `opencode-review.yml` — только чтение
@@ -402,7 +413,9 @@ issue и pull request. Всё это смотрит наставник по че
   и pull request.
 - Права выданы по воркфлоу отдельно: `id-token: write` везде, права на запись только там, где агент
   создаёт коммиты, задачи или pull request.
-- Во всех воркфлоу есть условие, отсекающее события от ботов и от самого приложения.
+- Во всех воркфлоу есть условие, отсекающее события от ботов и от самого приложения; у
+  `opencode-audit.yml` оно стоит только на `workflow_dispatch`, `schedule` пропускается безусловно
+  (у cron-событий нет отправителей-ботов).
 - Файл `AGENTS.md` из предыдущего проекта на месте и описывает актуальные команды проекта.
 
 ### Следы работы в GitHub
