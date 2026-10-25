@@ -36,6 +36,9 @@ permissions:
   issues: write
   # Обязателен: без `use_github_token` экшен обменивает OIDC-токен на токен
   # приложения opencode-agent, и права у агента настоящие, а не «none».
+  # `contents`/`pull-requests: write` — по требованию урока
+  # (`docs/course-github-agent.md`), но аудит PR не открывает: коммитить
+  # нечего (`audit-report/` в `.gitignore`), а находки уходят в issue (#70).
   id-token: write
 
 concurrency:
@@ -56,7 +59,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Нужен ради `scripts/lighthouse-summary.mjs`; коммитить тут нечего.
+          # Нужен ради `scripts/lighthouse-summary.mjs`. Коммитить здесь
+          # действительно нечего: `audit-report/` в `.gitignore`, отчёт уходит
+          # только артефактом `lighthouse-report` (#70).
           persist-credentials: false
 
       - name: Проверить адрес стенда
@@ -158,8 +163,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Достаточно прочитать код и завести issue: коммитов агент не делает,
-          # а `contents: write` нужен воркфлоу по требованию урока.
+          # Достаточно прочитать код и завести issue. Коммитов агент не делает:
+          # `audit-report/` в `.gitignore`, поэтому скачанный отчёт —
+          # untracked-файлы, дерево чистое, и у экшена нечего коммитить —
+          # PR планировщика не создаётся (раньше отслеживаемый `audit-report/`
+          # давал ежедневные PR #61, #63–#65 с сообщениями не по
+          # Conventional Commits, см. #70). Отчёт остаётся артефактом
+          # `lighthouse-report`, находки — в issue.
+          # `contents: write` нужен воркфлоу по требованию урока.
           persist-credentials: false
 
       - name: Скачать отчёт
@@ -199,6 +210,14 @@ jobs:
                кто-то такое — дубли не создавай, а допиши в существующий.
 
             Не правь код: это регулярная проверка, а не реализация.
+
+            **PR и коммиты запрещены.** Не создавай веток, не делай
+            `git commit`/`git push`, не открывай pull request. Курсу хватает
+            артефакта `lighthouse-report` и issue с находками, а `audit-report/`
+            в `.gitignore`: авто-коммит отчёта как раз порождал PR планировщика
+            с сообщениями не по Conventional Commits (#70). Если коммит по
+            какой-то причине неизбежен — он обязан следовать Conventional
+            Commits с номером задачи, например `chore(audit): ... (#70)`.
 
       - name: Опубликовать сводку в логе прогона
         run: |

@@ -1,5 +1,15 @@
 # MEMORY.md — Состояние проекта «Календарь звонков»
 
+## ▶ Продолжить: коммиты агента по Conventional Commits, `audit-report/` вне git (#70) — 2026-10-24
+
+> **Сессия 2026-10-24 — [#70](https://github.com/frostiks777/ai-for-developers-project-387/issues/70)** (баг, замечание проверяющего от 22.10.2026). Плановый аудит (`opencode-audit.yml`) коммитил отслеживаемый каталог `audit-report/` и открывал PR планировщика с заголовком = текст ответа агента → squash-merge клал в `main` сообщения не по Conventional Commits (`2aa8b1f`, `1946fd8`, `0c41db2`, `fc233da`, …), которые `release-please` не парсит.
+>
+> **Решения владельца (из issue):** commitlint-гейт в CI **не** добавляем — достаточно убрать источник; аудиту **запрещаем** открывать PR — курсу хватает артефакта `lighthouse-report` и issue.
+>
+> **Сделано:** `audit-report/` убран из индекса (`git rm -r --cached`) и добавлен в `.gitignore` (отчёт остаётся артефактом `lighthouse-report`, критерий Шага 5 «артефакт или задача»); исправлены вводящие в заблуждение комментарии в `opencode-audit.yml` («коммитить тут нечего» / «коммитов агент не делает») и в промпт добавлено явное запрет на ветки/коммиты/PR; `AGENTS.md` («Agent behavior») и скилл `commit-push` закрепляют Conventional Commits + `(#NN)` для **всех** коммитов, включая коммиты агента из GitHub Actions. Накопившиеся PR планировщика **#61, #63, #64, #65 закрыты без мержа** (diff — только `audit-report/*`). История `main` не переписывалась; разрыв changelog закрыт прекращением поступления таких коммитов.
+>
+> **Проверки:** `npm run lint` ✅, `npm run typecheck` ✅, `npm run build` ✅, `npm test` 367/367 ✅ (build перед тестами — как в CI); `git ls-files audit-report` пуст, `git check-ignore audit-report/summary.md` срабатывает.
+
 ## ▶ Продолжить: стенд 387 переехал в отдельный аккаунт Render (#59) — 2026-10-19
 
 > **Сессия 2026-10-19 — [#59](https://github.com/frostiks777/ai-for-developers-project-387/issues/59).** На аккаунте Render выбралась квота 750 free-часов: в нём работали **два** free-сервиса (386 и 387), и оба не засыпали — внешний cron-job.org дёргает `/api/internal/reminders` каждые 10 минут и не даёт сервису проснуться. Это 2 × 744 = 1488 ч при квоте 750 ч на workspace → Render suspend'ит все free-сервисы до 1-го числа. На бесплатном тарифе второй workspace недоступен (нужен Scale за $499/мес), поэтому «развести по workspace» = отдельный аккаунт Render.
